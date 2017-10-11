@@ -52,9 +52,6 @@
 		<div id="main_mid">
 			<div id="main_mid_left" >    <!-- 选菜区--> 	
 				<table id="food_show">   <!-- 菜品展示区  -->
-					<thead>
-						<tr></tr>
-					</thead>
 					<tbody id="table_body">
 								
 					</tbody>
