@@ -146,13 +146,12 @@ body {
 	
 } 
 #food_name {
-	font-family: "方正舒体";
+	font-family: "华文行楷";
+	font-size: 30px;
 }
 
 #ra  {
-	text-align: center;
-	
-	
+	text-align: center;	
 } 
 #foot_btn {
 	line-height:50px;
@@ -181,14 +180,14 @@ body {
 	background-color: #d07506;	
 }
 #foot_all {
-	font-family: "方正舒体";	
+	font-family: "华文行楷";	
 	font-size: 25px;
 	font-weight: bold;
 }
 #total {
 	width: 100px;
 	text-align: center;
-	font-family: "方正舒体";	
+	font-family: "华文行楷";	
 	font-size: 25px;
 	font-weight: bold;
 }

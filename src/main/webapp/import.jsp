@@ -12,8 +12,8 @@
 <style></style>
 <script type="text/javascript" src="js/jquery-1.8.3.min.js"></script>
 <script type="text/javascript" src="js/zzsc.js"></script>
-<script type="text/javascript" src="js/js-jmc.js"></script>
 <script type="text/javascript" src="js/jquery-1.11.1.js"></script>
+<script type="text/javascript" src="js/js-jmc.js"></script>
 <script type="text/javascript" src="js/ajax.js"></script>
 </head>
 <body>
@@ -33,8 +33,8 @@
 	<div id="main">
 		<div id="main_left">
 			<div id="search_box">
-				<input type="text" placeholder="搜索" id="search" />
-				<button id="search_btn"></button>
+				<input type="text" placeholder="搜索" id="search"/>
+				<a id="search_btn" href="#" onclick="searchn();"></a>
 			</div>
 			<ul id="main_left_ul">			
 				<li><a href="#">菜品排行类</a></li>

@@ -47,6 +47,12 @@ public class YdServlet extends HttpServlet{
 			String name = req.getParameter("name");
 			changed(req,res,name);			
 		}
+		if("search".equals(action)) {
+			System.out.println("search");
+			String sname = req.getParameter("sname");
+			System.out.println(sname);
+			search(req,res,sname);
+		}
 	}
 	
 /*	private static void fBTN(HttpServletRequest req, HttpServletResponse res,String tn,String ac) {
@@ -75,6 +81,15 @@ public class YdServlet extends HttpServlet{
 		List<YdEmp> list = new LinkedList<YdEmp>();
 		YdDAO yd = new YdDAO();
 		list = yd.findByTableName("yd_"+name); //数据库表名
+		ObjectMapper om = new ObjectMapper(); //获取mapper
+		String jsonNum = om.writeValueAsString(list);//绑定json对象		
+		res.getWriter().println(jsonNum);//发送json对象给web端
+	}
+	
+	private static void search(HttpServletRequest req, HttpServletResponse res,String sname) throws IOException {
+		List<YdEmp> list = new LinkedList<YdEmp>();
+		YdDAO yd = new YdDAO();
+		list = yd.findByName(sname);
 		ObjectMapper om = new ObjectMapper(); //获取mapper
 		String jsonNum = om.writeValueAsString(list);//绑定json对象		
 		res.getWriter().println(jsonNum);//发送json对象给web端
