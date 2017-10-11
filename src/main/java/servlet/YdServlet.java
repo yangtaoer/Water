@@ -1,7 +1,6 @@
 package servlet;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -11,7 +10,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import dao.YdDAO;
@@ -29,7 +27,6 @@ public class YdServlet extends HttpServlet{
 		res.setCharacterEncoding("utf-8");  //设置编码格式
 		res.setContentType("text/html");  //设置消息头
 		req.setCharacterEncoding("utf-8");
-		PrintWriter pw = res.getWriter();
 		
 		/**
 		 * 所有导航的前缀可能性:
@@ -43,22 +40,22 @@ public class YdServlet extends HttpServlet{
 		actions.add("ysjg");actions.add("xxsc");
 		actions.add("mjky");
 
-		if(actions.contains(action)) {
+/*		if(actions.contains(action)) {
 			fBTN(req, res, "yd_"+action, action);
-		}
+		}*/
 		if("change".equals(action)) {  //使用ajax技术
 			String name = req.getParameter("name");
 			changed(req,res,name);			
 		}
 	}
 	
-	private static void fBTN(HttpServletRequest req, HttpServletResponse res,String tn,String ac) {
+/*	private static void fBTN(HttpServletRequest req, HttpServletResponse res,String tn,String ac) {
 		//不同页面，之前分页面做法，不再使用
 		
-		/**
+		*//**
 		 * 参数说明:
 		 * tn:数据库表名 ac:页面名前缀
-		 */
+		 *//*
 		List<YdEmp> list = new LinkedList<YdEmp>();
 		YdDAO yd = new YdDAO();
 		list = yd.findByTableName(tn); //数据库表名
@@ -72,7 +69,7 @@ public class YdServlet extends HttpServlet{
 			e.printStackTrace();
 		}//转发
 		
-	}
+	}*/
 	
 	private static void changed(HttpServletRequest req, HttpServletResponse res,String name) throws IOException {
 		List<YdEmp> list = new LinkedList<YdEmp>();

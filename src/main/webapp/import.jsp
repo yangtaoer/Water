@@ -21,11 +21,11 @@
 	<!-- logo区 -->
 	<div id="logo">
 		<img alt="logo" src="images/newydlogo.png" id="ydlogo">
-		<span id="ydlogodh">
-			<img alt="logo" src="images/logodh.png" id="ydlogodhimg">
-			<img alt="logo" src="images/logodh.png" id="ydlogodhimg">
-			<img alt="logo" src="images/logodh.png" id="ydlogodhimg">
-			<img alt="logo" src="images/logodh.png" id="ydlogodhimg">
+		<span id="ydlogodh">					
+			<a><img alt="logo" src="images/logodh.png" id="ydlogodhimg"></a> 	 <!-- 链接待写 -->
+			<a><img alt="logo" src="images/logodh.png" id="ydlogodhimg"></a>
+			<a><img alt="logo" src="images/logodh.png" id="ydlogodhimg"></a>
+			<a><img alt="logo" src="images/logodh.png" id="ydlogodhimg"></a>
 		</span>
 		<div id="zzsc"></div>
 	</div>	
@@ -67,7 +67,7 @@
 					<img id="gwcdh" src="images/gwc.png">	
 				</div>	
 				<div id="gwc_head">		
-					<table id="table_head" >
+					<table id="table_head" >		<!-- 购物车表头 -->
 					<thead>
 						<tr>
          	 				<th id="table_head_1">商品</th>
@@ -78,15 +78,15 @@
         				</tr>
 					</thead>
 					</table>
-				<div id="gwc_div">
+				<div id="gwc_div">			<!-- 购物车表体 -->
 					<table id="foods">
 					<tbody id="foodsbody">
 											
 					</tbody>					
 					</table>								
 				</div>
-				<div id="gwc_buy">
-					<table id="foot">						
+				<div id="gwc_buy">				
+					<table id="foot">						<!-- 购物车表尾 -->			
 						<tr>
           					<td id="foot_all" align="right">总计(元):</td>
          	 				<td id="total">0.00</td>

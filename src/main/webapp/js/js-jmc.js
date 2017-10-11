@@ -3,7 +3,7 @@
  * 自动生成购物车
  */
 	function fonclick(btn){
-		btn.style.backgroundColor="#abcdef";
+		$(btn).css("background","url('images/tdbgn.png')");
 		//获取图片的父倍
 		var tds = $(btn).children();	
 		//获取商品的名字和价格
@@ -15,8 +15,7 @@
 		var trs = $("#foodsbody").children();//获取购物车中tr
 		for(var i=0;i<trs.length;i++){
 			var name = trs.eq(i).children().eq(0).html();
-			console.log(name);
-			if(foodname==name){
+			if(foodname==name){				//名字相同就直接数量加一。
 				jia(trs.eq(i).children().eq(2).children().eq(2));
 				return;
 			}
@@ -71,9 +70,27 @@
 	}
 	/*删除一行*/
 	function remove(btn) {
+		if(!confirm("是否确认删除?")) {
+			return;
+		}
+		//修改背景颜色
+		
+		var name = $(btn).parent().parent().children().eq(0).html();//获取菜品名称
+		var trs = $('#table_body').children();
+		for(i=0;i<trs.length;i++) {
+			var num =$(trs[i]).children().length;//获取每个tr中td的个数
+			for(j=0;j<num;j++) {
+				var tds = $(trs[i]).children().eq(j);//获取每个td
+				var arrname = tds.children().eq(1).html().split(" ",3);//获取名字价格字符串数组
+				var relname = arrname[0]; //获取菜品名
+				if(name == relname) {
+					$(tds).css("background","");//改变背景颜色
+				}
+			}
+		}
 		$(btn).parent().parent().remove();
 		sumAll();
-		//修改背景颜色
+		
 	}
 	//计算总价格
 	function sumAll() {
@@ -82,14 +99,10 @@
 		  var trs = $("#foodsbody").children();
 		  //遍历行
 		  var s = 0;
-		  console.log(trs);
-		  
 		  for(var i=0;i<trs.length;i++){
-			  //获取该行下所有的td
-			  
+			  //获取该行下所有的td			  
 	    			//获取本行内第4个td的内容
 	    			var mny = trs.eq(i).children().eq(3).html();
-	    			console.log(mny);
 	    			s += parseFloat(mny);
 		  }
 	    		
@@ -102,7 +115,9 @@
 	/* 删除整页所选项 */
 	function removeAll () {
 		var a = document.getElementById("foodsbody");
-		confirm("是否确定清空购物车?");
+		if(!confirm("是否确定清空购物车?")) {
+			return;
+		}
 		a.innerHTML = "";
 		sumAll();
 		

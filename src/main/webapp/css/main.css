@@ -267,12 +267,12 @@ body {
 }
 #search {	
 	height: 34px;
-	width: 130px;
+	width: 140px;
 	margin-left: 20px;
 	border: 2px solid #2894ef;
 	position: absolute;
 	text-indent: 1em;
-	left: -4px;
+	left: -14px;
 	top: 40px;	
 }
 #search_btn {		/*搜索框按钮*/
@@ -281,6 +281,7 @@ body {
 	width: 40px;
 	height: 40px;
 	float: right;
+	left: 6px;
 	cursor: pointer;
 }
 #search_btn:HOVER {		/*悬浮搜索框按钮*/
@@ -365,14 +366,18 @@ body {
 #body_td_name {
 	text-align:center;
 	vertical-align:middle;
-	display:inherit;
+	display: block;
 	width: 230px;
 	height: 50px;
-	background-color: #fff;
+	background: url("../images/namebg.png");
 	position: relative;
 	left:83px;
+	margin-bottom: 15px;
+	line-height: 50px;
 }
-
+#body_td_img {
+	margin-top: 25px;
+}
 
 /*动画*/
 @keyframes clockwise {
