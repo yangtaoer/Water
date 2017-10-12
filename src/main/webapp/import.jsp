@@ -1,7 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
-<%@ page import="emp.YdEmp,java.util.*" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core"  prefix="c"%>
 																			<!-- 美味锅底页面 -->
 <!DOCTYPE html>
 <html>
@@ -53,7 +51,7 @@
 			<div id="main_mid_left" >    <!-- 选菜区--> 	
 				<table id="food_show">   <!-- 菜品展示区  -->
 					<tbody id="table_body">
-								
+		
 					</tbody>
 				</table>
 							
@@ -78,7 +76,7 @@
 				<div id="gwc_div">			<!-- 购物车表体 -->
 					<table id="foods">
 					<tbody id="foodsbody">
-											
+										
 					</tbody>					
 					</table>								
 				</div>
