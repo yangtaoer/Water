@@ -47,7 +47,7 @@ public class YdServlet extends HttpServlet{
 			String name = req.getParameter("name");
 			changed(req,res,name);			
 		}
-		if("search".equals(action)) {
+		if("search".equals(action)) {  //搜索功能
 			System.out.println("search");
 			String sname = req.getParameter("sname");
 			System.out.println(sname);
@@ -77,6 +77,13 @@ public class YdServlet extends HttpServlet{
 		
 	}*/
 	
+	/**
+	 * 
+	 * @param req 
+	 * @param res
+	 * @param name
+	 * @throws IOException
+	 */
 	private static void changed(HttpServletRequest req, HttpServletResponse res,String name) throws IOException {
 		List<YdEmp> list = new LinkedList<YdEmp>();
 		YdDAO yd = new YdDAO();
@@ -86,6 +93,13 @@ public class YdServlet extends HttpServlet{
 		res.getWriter().println(jsonNum);//发送json对象给web端
 	}
 	
+	/**
+	 * 
+	 * @param req
+	 * @param res
+	 * @param sname
+	 * @throws IOException
+	 */
 	private static void search(HttpServletRequest req, HttpServletResponse res,String sname) throws IOException {
 		List<YdEmp> list = new LinkedList<YdEmp>();
 		YdDAO yd = new YdDAO();

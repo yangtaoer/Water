@@ -1,18 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
-																			<!-- 美味锅底页面 -->
+																			<!-- 点餐页面 -->
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>开始点餐</title>
-<link rel="stylesheet" href="css/main.css"/>
+<link rel="stylesheet" href="css/point.css"/>
 <style></style>
 <script type="text/javascript" src="js/jquery-1.8.3.min.js"></script>
 <script type="text/javascript" src="js/zzsc.js"></script>
 <script type="text/javascript" src="js/jquery-1.11.1.js"></script>
 <script type="text/javascript" src="js/js-jmc.js"></script>
-<script type="text/javascript" src="js/ajax.js"></script>
+<script type="text/javascript" src="js/point-ajax.js"></script>
 </head>
 <body>
 	<img alt="bg" src="images/dcxtbg.png" id="dcbg"/>
@@ -20,12 +20,16 @@
 	<div id="logo">
 		<img alt="logo" src="images/newydlogo.png" id="ydlogo">
 		<span id="ydlogodh">					
-			<a><img alt="logo" src="images/logodh.png" id="ydlogodhimg"></a> 	 <!-- 链接待写 -->
-			<a><img alt="logo" src="images/logodh.png" id="ydlogodhimg"></a>
-			<a><img alt="logo" src="images/logodh.png" id="ydlogodhimg"></a>
-			<a><img alt="logo" src="images/logodh.png" id="ydlogodhimg"></a>
+			<a id="ydlogodhimg"><img alt="logo" src="images/logodh.png"></a> 	 <!-- 链接待写 -->
+			<a id="ydlogodhimg"><img alt="logo" src="images/logodh.png"></a>
+			<a id="ydlogodhimg"><img alt="logo" src="images/logodh.png"></a>
+			<a id="ydlogodhimg"><img alt="logo" src="images/logodh.png"></a>
 		</span>
 		<div id="zzsc"></div>
+		<a id="logo_a" href="#">
+			<img src="images/login.png">
+			<span>登录</span>
+		</a>
 	</div>	
 	<!-- 主体 -->
 	<div id="main">

@@ -114,11 +114,19 @@
 		  
 	/* 删除整页所选项 */
 	function removeAll () {
-		var a = document.getElementById("foodsbody");
 		if(!confirm("是否确定清空购物车?")) {
 			return;
 		}
-		a.innerHTML = "";
+		$("#foodsbody").empty();
+		//改变背景颜色
+		var trs = $('#table_body').children();
+		for(i=0;i<trs.length;i++) {
+			var num =$(trs[i]).children().length;//获取每个tr中td的个数
+			for(j=0;j<num;j++) {
+				var tds = $(trs[i]).children().eq(j);//获取每个td						
+					$(tds).css("background","");//改变背景颜色			
+			}
+		}
 		sumAll();
 		
 	}

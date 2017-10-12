@@ -1,4 +1,8 @@
-function change(a) { //ajax实现局部刷新
+$(document).ready(function(){	
+	change($("#mwgd"));  //页面加载就执行
+});
+
+function change(a) { 			//左侧导航区使用ajax实现局部刷新
 	var name = $(a).attr('id'); //获取id
 	$('#table_body').empty();//清空
 	$.ajax({
@@ -43,7 +47,7 @@ function change(a) { //ajax实现局部刷新
 }
 
 
-function searchn(){
+function searchn(){       //搜索功能的实现
 	$('#table_body').empty();//清空
 	var sname = $('#search').val();
 	var url = "search.do";
