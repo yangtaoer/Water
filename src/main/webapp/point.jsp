@@ -20,10 +20,10 @@
 	<div id="logo">
 		<img alt="logo" src="images/newydlogo.png" id="ydlogo">
 		<span id="ydlogodh">					
-			<a id="ydlogodhimg"><img alt="logo" src="images/logodh.png"></a> 	 <!-- 链接待写 -->
-			<a id="ydlogodhimg"><img alt="logo" src="images/logodh.png"></a>
-			<a id="ydlogodhimg"><img alt="logo" src="images/logodh.png"></a>
-			<a id="ydlogodhimg"><img alt="logo" src="images/logodh.png"></a>
+			<a id="ydlogodhimg">回到首页</a> 	 <!-- 链接待写 -->
+			<a id="ydlogodhimg">前往点餐</a>
+			<a id="ydlogodhimg">注册会员</a>
+			<a id="ydlogodhimg">关于我们</a>
 		</span>
 		<div id="zzsc"></div>
 		<a id="logo_a" href="#">

@@ -90,15 +90,24 @@ body {
 	left: 360px;
 }
 #ydlogodhimg {
+	display:inline-block;
+	width: 140px;
+	height: 61px;
+	background-image: url("../images/logodh.png");
 	margin-left: 20px;
 	position: relative;
-	bottom: 23px;
+	bottom: 50px;
 	cursor: pointer;
+	text-align: center;
+	line-height: 61px;
+	font-size: 25px;
+	font-family: "华文新魏";
+	
 }
 
 #logo_a {
 	position: relative;
-	left: 680px;
+	left: 700px;
 	bottom: 37px; 
 	text-decoration: none;
 }
