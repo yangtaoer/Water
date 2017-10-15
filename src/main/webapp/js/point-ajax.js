@@ -50,8 +50,18 @@ function change(a) { 			//左侧导航区使用ajax实现局部刷新
 function searchn(){       //搜索功能的实现
 	$('#table_body').empty();//清空
 	var sname = $('#search').val();
+	if(sname == "") {
+		alert("请输入正确的值!");
+		return;
+	}
 	var url = "search.do";
 	$.getJSON(url,{sname:sname},function(data){   //要传输给服务器的数据,要以键值对的形式传输{key:value}
+		//检查返回数据data的长度,如果长度为0，表示没有查询到任何信息
+		if(data.length == 0) {
+			var tr = $('<tr><td id="body_td"><h1>没有查找到任何东西~</h1></td></tr>');
+			$("#table_body").append(tr);
+			return;
+		}
 		//检查购物车数据,获取所有名字,将存在于本页的数据背景更改
 		var trs = $('#foodsbody').children(); //获取所有tr
 		var names = []; //声明一个数组

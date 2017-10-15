@@ -1,7 +1,6 @@
 package servlet;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -33,25 +32,34 @@ public class YdServlet extends HttpServlet{
 		 * mwgd、shwz、jdcp、jpny、hxhy
 		 * dmzp、ysjg、xxsc、mjky
 		 */
-		List<String> actions = new ArrayList<String>();
+		/*		List<String> actions = new ArrayList<String>();
 		actions.add("mwgd");actions.add("shwz");
 		actions.add("jdcp");actions.add("jpny");
 		actions.add("hxhy");actions.add("dmzp");
 		actions.add("ysjg");actions.add("xxsc");
 		actions.add("mjky");
 
-/*		if(actions.contains(action)) {
+		if(actions.contains(action)) {
 			fBTN(req, res, "yd_"+action, action);
 		}*/
-		if("change".equals(action)) {  //使用ajax技术
+		if("change".equals(action)) {  			//使用ajax技术更新页面
 			String name = req.getParameter("name");
 			changed(req,res,name);			
 		}
-		if("search".equals(action)) {  //搜索功能
+		if("search".equals(action)) {  			//搜索功能
 			System.out.println("search");
 			String sname = req.getParameter("sname");
-			System.out.println(sname);
-			search(req,res,sname);
+			System.out.println(sname);		
+			String condition = "yname";			//默认是按照名字查找
+			if(sname.matches(".*[a-zA-z].*")) {
+				sname = sname.toLowerCase();	//转换为小写
+				condition = "search";			//根据缩写查找
+			}
+			System.out.println("condition:"+condition);
+			search(req,res,sname,condition);
+		}
+		if("buy".equals(action)) {
+			res.sendRedirect("buy.jsp");
 		}
 	}
 	
@@ -100,10 +108,10 @@ public class YdServlet extends HttpServlet{
 	 * @param sname
 	 * @throws IOException
 	 */
-	private static void search(HttpServletRequest req, HttpServletResponse res,String sname) throws IOException {
+	private static void search(HttpServletRequest req, HttpServletResponse res,String sname,String condition) throws IOException {
 		List<YdEmp> list = new LinkedList<YdEmp>();
 		YdDAO yd = new YdDAO();
-		list = yd.findByName(sname);
+		list = yd.findByName(sname,condition);
 		ObjectMapper om = new ObjectMapper(); //获取mapper
 		String jsonNum = om.writeValueAsString(list);//绑定json对象		
 		res.getWriter().println(jsonNum);//发送json对象给web端

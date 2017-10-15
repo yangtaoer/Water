@@ -44,12 +44,19 @@ public class YdDAO {
 		
 	}
 	
-	public List<YdEmp> findByName(String sname) {
+	/**
+	 * 
+	 * @param sname   查询条件like后面的东西
+	 * @param condition   根据输入的是中文还是英文判断是根据菜品名搜索还是根据拼音缩写
+	 * @return
+	 */
+	public List<YdEmp> findByName(String sname,String condition) {
+		
 		Connection conn = null;
 		List<YdEmp> list = new LinkedList<YdEmp>();
 		try {
 			conn = YdDBUtil.getConnection();
-			String sql = "SELECT * FROM yd_tables where search like ? ";
+			String sql = "SELECT * FROM yd_tables where "+condition+" like ? ";
 			PreparedStatement ps = conn.prepareStatement(sql);
 			ps.setString(1, "%"+sname+"%");
 			ResultSet rs = ps.executeQuery();
@@ -64,6 +71,7 @@ public class YdDAO {
 										);				
 				list.add(ye);				
 			}
+			System.out.println(list);
 			return list;
 		} catch (SQLException e) {
 			

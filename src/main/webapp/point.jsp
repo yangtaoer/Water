@@ -18,7 +18,7 @@
 	<img alt="bg" src="images/dcxtbg.png" id="dcbg"/>
 	<!-- logo区 -->
 	<div id="logo">
-		<img alt="logo" src="images/newydlogo.png" id="ydlogo">
+		<img alt="logo" src="images/ydlogo.png" id="ydlogo">
 		<span id="ydlogodh">					
 			<a id="ydlogodhimg">回到首页</a> 	 <!-- 链接待写 -->
 			<a id="ydlogodhimg">前往点餐</a>
@@ -93,7 +93,7 @@
           						<a href="#" onclick="removeAll();" id="foot_btn">清空购物车</a>
           					</td>
           					<td>
-          						<a id="foot_buy" href="#">去买单!>></a>
+          						<a id="foot_buy" href="buy.do">去买单!>></a>
           					</td>
        					</tr>
 					</table>
