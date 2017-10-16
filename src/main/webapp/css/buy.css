@@ -1,0 +1,123 @@
+body{
+	margin: 0px;
+}
+div {
+    display: block;
+}
+#dcbg {
+    position: fixed;
+    float: none;
+}
+#logo {
+    border: 0px solid red;
+    width: 1920px;
+    height: 150px;
+    position: fixed;
+    background: url(../images/logo_bg.png);
+    z-index: 999;
+}
+#ydlogo {
+    width: 300px;
+    height: 150px;
+    position: relative;
+    left: 350px;
+    cursor: pointer;
+}
+#ydlogodh {
+    position: relative;
+    left: 360px;
+}
+#zzsc {
+    text-align: center;
+    width: 300px;
+    height: 100px;
+    position: absolute;
+    float: right;
+    top: 50px;
+    left: 1300px;
+}
+#logo_a {
+    position: relative;
+    left: 700px;
+    bottom: 37px;
+    text-decoration: none;
+}
+#ydlogodhimg {
+    display: inline-block;
+    width: 140px;
+    height: 61px;
+    background-image: url(../images/logodh.png);
+    margin-left: 20px;
+    position: relative;
+    bottom: 50px;
+    cursor: pointer;
+    text-align: center;
+    line-height: 61px;
+    font-size: 25px;
+    font-family: "华文新魏";
+}
+#logo_a span {
+    color: #fff;
+    font-size: 20px;
+    position: relative;
+    bottom: 4px;
+}
+a:-webkit-any-link {
+    color: -webkit-link;
+    cursor: auto;
+    text-decoration: underline;
+}
+
+
+#main{
+	border: 1px red solid;
+	width: 1900px;
+	height: 810px;
+	position: relative;
+	top:150px;
+}
+#main_mid {
+	border: 1px solid red;
+	width: 860px;
+	height: 800px;
+	position: relative;
+	margin-left: 450px;
+	background-color: rgba(200,200,200,0.6);
+}
+#main_ul {
+	width:860px;
+	height: 650px;
+	overflow-y: scroll;
+}
+ul {
+	list-style-type:none;
+	font-size: 20px;
+}
+
+#li_head {
+	font-size: 30px;
+}
+
+#ul_btn {
+	border: 1px solid red;
+	width:860px;
+	height: 100px;
+	text-align: center;
+	line-height: 100px;
+	
+}
+
+#ul_a {
+	display:inline-block;
+	width: 215px;
+	height: 61px;
+	margin-left: 20px;
+	position: relative;
+	cursor: pointer;
+	text-align: center;
+	line-height: 61px;
+	font-size: 25px;
+	font-family: "华文新魏";
+	background-image: url("../images/buy_a.png");
+}
+

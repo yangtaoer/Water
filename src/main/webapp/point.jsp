@@ -13,6 +13,7 @@
 <script type="text/javascript" src="js/jquery-1.11.1.js"></script>
 <script type="text/javascript" src="js/js-jmc.js"></script>
 <script type="text/javascript" src="js/point-ajax.js"></script>
+<script type="text/javascript" src="js/point_buy.js"></script>
 </head>
 <body>
 	<img alt="bg" src="images/dcxtbg.png" id="dcbg"/>
@@ -93,7 +94,7 @@
           						<a href="#" onclick="removeAll();" id="foot_btn">清空购物车</a>
           					</td>
           					<td>
-          						<a id="foot_buy" href="buy.do">去买单!>></a>
+          						<a id="foot_buy" href="#" onclick="doPostData();">去买单!>></a>
           					</td>
        					</tr>
 					</table>

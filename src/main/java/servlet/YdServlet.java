@@ -59,7 +59,8 @@ public class YdServlet extends HttpServlet{
 			search(req,res,sname,condition);
 		}
 		if("buy".equals(action)) {
-			res.sendRedirect("buy.jsp");
+			String jsons = req.getParameter("json");
+			System.out.println(jsons);
 		}
 	}
 	
