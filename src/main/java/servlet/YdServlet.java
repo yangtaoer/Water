@@ -1,17 +1,22 @@
 package servlet;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import dao.YdDAO;
+import emp.BuyEmp;
 import emp.YdEmp;
 
 public class YdServlet extends HttpServlet{
@@ -26,7 +31,14 @@ public class YdServlet extends HttpServlet{
 		res.setCharacterEncoding("utf-8");  //设置编码格式
 		res.setContentType("text/html");  //设置消息头
 		req.setCharacterEncoding("utf-8");
-		
+		Map<String,String> clsMap = new HashMap<String,String>();
+		clsMap.put("1", "美味锅底");clsMap.put("2", "顺滑丸子");
+		clsMap.put("3", "经典菜品");clsMap.put("4", "精品牛羊");
+		clsMap.put("5", "海鲜河鱼");clsMap.put("6", "豆面制品");
+		clsMap.put("7", "野生菌菇");clsMap.put("8", "新鲜蔬菜");
+		clsMap.put("9", "美酒酷饮");		
+		String readJson = null;
+		List<BuyEmp> lst = null;
 		/**
 		 * 所有导航的前缀可能性:
 		 * mwgd、shwz、jdcp、jpny、hxhy
@@ -60,7 +72,34 @@ public class YdServlet extends HttpServlet{
 		}
 		if("buy".equals(action)) {
 			String jsons = req.getParameter("json");
-			System.out.println(jsons);
+			
+			ObjectMapper om = new ObjectMapper(); //获取mapper
+			lst = om.readValue(jsons, new TypeReference<List<BuyEmp>>() {});
+			
+			System.out.println("lst"+lst);
+			for(BuyEmp b : lst) {
+				String no = String.valueOf(String.valueOf(b.getNo()).charAt(0));
+				System.out.println(no);
+				b.setCls(clsMap.get(no));
+			}
+			System.out.println(lst);
+			readJson = om.writeValueAsString(lst);//绑定json对象并转换为String	
+			System.out.println(readJson);
+			res.getWriter().println(readJson);//发送json对象给web端
+			HttpSession session = req.getSession();
+			session.setAttribute("msg", readJson);
+			//res.getWriter().println(readJson);
+			//res.sendRedirect("buy.jsp");
+			/*String jsonNum = om.writeValueAsString(jsons);//绑定json对象		
+			res.getWriter().println(jsonNum);//发送json对象给web端
+			System.out.println(jsonNum);*/
+		}
+		if("readJson".equals(action)) {
+			HttpSession session = req.getSession();
+			String readJs = (String)session.getAttribute("msg");					
+			System.out.println(readJs);
+			res.getWriter().println(readJs);//发送json对象给web端
+
 		}
 	}
 	

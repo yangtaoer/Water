@@ -35,6 +35,7 @@
 					'<button id="delete" onclick = "remove(this);">X</button>'+
 					'</td>'+
 			'</tr>');
+		$(new_trs).data("no",$(btn).data("no"));//转移no
 		$("#foodsbody").append(new_trs);
 		sumAll();
 	}

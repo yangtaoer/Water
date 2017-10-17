@@ -13,12 +13,18 @@ function doPostData() {
 		var name = $(tds[0]).html();
 		var price = parseInt($(tds[1]).html(), 0);
 		var prices = parseInt($(tds[3]).html(), 0);
-		var data = {"name":name,"price":price,"prices":prices};
+		var no = $(trs[i]).data("no");
+		var data = {"name":name,"price":price,"prices":prices,"no":no};
 		console.log(data);
 		jsons.push(data);
 	}
-	var jsonArr = $.toJSON(jsons);
+	var jsonArr = JSON.stringify(jsons);/*将json数组转换为json*/
+	console.log(jsonArr);
 	var url = "buy.do";
-	$.post(url,{"json":jsonArr});
+	$.getJSON(url,{"json":jsonArr},function(result){
+		console.log(result);
+		if(result!=null)
+			window.location.href="buy.jsp";					
+	});
 }
 
