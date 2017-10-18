@@ -11,6 +11,7 @@
 <script type="text/javascript" src="js/zzsc.js"></script>
 <script type="text/javascript" src="js/jquery-1.11.1.js"></script>
 <script type="text/javascript" src="js/buy_readjson.js"></script>
+<script type="text/javascript" src="js/buy-back.js"></script>
 
 </head>
 <body>
@@ -66,7 +67,7 @@
 			<div id="ul_btn">
 				<a id="ul_a" onclick="back();">返回点餐</a> 	 <!-- 链接待写 -->
 				<a id="ul_a" href="pay.do">前往买单</a>
-				<a id="ul_a" onclick="readJson();">呼叫服务</a>
+				<a id="ul_a" onclick="call();">呼叫服务</a>
 			
 			</div>	
 		</div>

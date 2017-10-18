@@ -39,6 +39,7 @@ public class YdServlet extends HttpServlet{
 		clsMap.put("9", "美酒酷饮");		
 		String readJson = null;
 		List<BuyEmp> lst = null;
+		HttpSession session = req.getSession();
 		/**
 		 * 所有导航的前缀可能性:
 		 * mwgd、shwz、jdcp、jpny、hxhy
@@ -70,36 +71,51 @@ public class YdServlet extends HttpServlet{
 			System.out.println("condition:"+condition);
 			search(req,res,sname,condition);
 		}
-		if("buy".equals(action)) {
+		if("buy".equals(action)) {	//点餐页面点击提交订单保存数据的请求
 			String jsons = req.getParameter("json");
 			
 			ObjectMapper om = new ObjectMapper(); //获取mapper
-			lst = om.readValue(jsons, new TypeReference<List<BuyEmp>>() {});
-			
+			lst = om.readValue(jsons, new TypeReference<List<BuyEmp>>() {});//将json数组字符串转换为list 			
 			System.out.println("lst"+lst);
-			for(BuyEmp b : lst) {
+			for(BuyEmp b : lst) {								//将数据进行加工
 				String no = String.valueOf(String.valueOf(b.getNo()).charAt(0));
 				System.out.println(no);
 				b.setCls(clsMap.get(no));
-			}
-			System.out.println(lst);
-			readJson = om.writeValueAsString(lst);//绑定json对象并转换为String	
-			System.out.println(readJson);
-			res.getWriter().println(readJson);//发送json对象给web端
-			HttpSession session = req.getSession();
-			session.setAttribute("msg", readJson);
-			//res.getWriter().println(readJson);
-			//res.sendRedirect("buy.jsp");
-			/*String jsonNum = om.writeValueAsString(jsons);//绑定json对象		
-			res.getWriter().println(jsonNum);//发送json对象给web端
-			System.out.println(jsonNum);*/
+			}			
+			readJson = om.writeValueAsString(lst);
+			res.getWriter().println(readJson);
+			session.setAttribute("msg", readJson);//绑定json数据再session上			
 		}
-		if("readJson".equals(action)) {
-			HttpSession session = req.getSession();
+		if("readJson".equals(action)) {//订单提交页面加载数据请求			
 			String readJs = (String)session.getAttribute("msg");					
 			System.out.println(readJs);
 			res.getWriter().println(readJs);//发送json对象给web端
 
+		}
+		if("back".equals(action)) {  //订单提交页面点击返回点餐请求,需要绑定一个状态值在session表示返回
+			String state = "back";
+			session.setAttribute("back", state);
+			String value = "list";
+			ObjectMapper om = new ObjectMapper(); //获取mapper
+			String message = om.writeValueAsString(value);
+			System.out.println(message);
+			res.getWriter().println(message);
+			
+		}
+		if("load".equals(action)) {  //点餐页面加载请求购物车信息,先验证是否是订单提交页面back回来			
+				String readJs = (String)session.getAttribute("msg");					
+				System.out.println("load---"+readJs);
+				res.getWriter().println(readJs);//发送json对象给web端	
+		}
+		
+		if("data".equals(action)) {
+			if("back".equals(session.getAttribute("back"))){
+				String value = "list";
+				ObjectMapper om = new ObjectMapper(); //获取mapper
+				String message = om.writeValueAsString(value);
+				System.out.println(message);
+				res.getWriter().println(message);
+			}
 		}
 	}
 	

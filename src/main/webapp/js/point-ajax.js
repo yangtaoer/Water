@@ -1,5 +1,5 @@
 $(document).ready(function(){	
-	change($("#mwgd"));  //页面加载就执行
+	$("#mwgd").trigger("click");  //页面加载就执行
 });
 
 function change(a) { 			//左侧导航区使用ajax实现局部刷新

@@ -21,10 +21,10 @@
 	<div id="logo">
 		<img alt="logo" src="images/ydlogo.png" id="ydlogo">
 		<span id="ydlogodh">					
-			<a id="ydlogodhimg">回到首页</a> 	 <!-- 链接待写 -->
-			<a id="ydlogodhimg">前往点餐</a>
-			<a id="ydlogodhimg">注册会员</a>
-			<a id="ydlogodhimg">关于我们</a>
+			<a id="ydlogodhimg" onclick="goHead();">回到首页</a> 	 <!-- 链接待写 -->
+			<a id="ydlogodhimg" onclick="goPoint();">前往点餐</a>
+			<a id="ydlogodhimg" onclick="goVip();">注册会员</a>
+			<a id="ydlogodhimg" onclick="goWe();">关于我们</a>
 		</span>
 		<div id="zzsc"></div>
 		<a id="logo_a" href="#">

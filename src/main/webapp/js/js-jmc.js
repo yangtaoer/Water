@@ -1,4 +1,38 @@
-
+$(document).ready(function(){	//点餐页面加载执行数据的读取工作
+	var url = "data.do";
+	$.getJSON(url,function(result){
+		console.log('data------'+result);
+		if(result!=null)
+			load();				
+	});	
+});
+function load(){
+	var url = "load.do";
+	$.getJSON(url,function(data){
+		for(var i=0;i<data.length;i++){
+			var f = data[i];
+			console.log("f-----"+f);
+			var num = (f.prices)/(f.price);
+			var tr = $('<tr id="foods_tr">'+
+					'<td id="food_name">'+f.name+'</td>'+
+					' <td>'+f.price+'</td>'+
+					'<td id="addsub">'+
+						'<button id="sub" onclick = "jian(this)">-</button>'+
+						'<input  id="num"  type="number" readonly value="'+num+'" />'+
+						'<button id="add" onclick = "jia(this)">+</button>'+
+					'</td>'+
+					'<td>'+f.prices+'</td>'+
+					'<td>'+
+					'<button id="delete" onclick = "remove(this);">X</button>'+
+					'</td>'+
+					'</tr>');
+			$(tr).data("no",f.no);//转移no
+			$("#foodsbody").append(tr);
+			sumAll();			
+		}
+	});
+	//$("#mwgd").trigger("click");//模拟点击事件
+}
 /**
  * 自动生成购物车
  */

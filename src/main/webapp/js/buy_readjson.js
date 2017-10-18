@@ -1,16 +1,12 @@
-$(document).ready(function(){
-	console.log("readreadJson");
+$(document).ready(function(){	
 	readJson();
 });
 function readJson(){
-	console.log("readJson");
 	var url = "readJson.do";
-	$.getJSON(url,function(data){ 
-		
+	$.getJSON(url,function(data){ 	
 		var names = [];
 		var name = $("#li_head").html();
 		names.push(name);
-		console.log(names);
 		var money = 0;
 		for(var i=0;i<data.length;i++){
 			var f = data[i];

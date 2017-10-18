@@ -1,7 +1,3 @@
-/*$(document).ready(function(){
-	$("#foot_buy").on("click",doPostData());
-	console.log("ready");
-});*/
 
 function doPostData() {
 	var jsons = [];
@@ -27,4 +23,5 @@ function doPostData() {
 			window.location.href="buy.jsp";					
 	});
 }
+
 
