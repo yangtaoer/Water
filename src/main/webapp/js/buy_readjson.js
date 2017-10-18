@@ -19,7 +19,8 @@ function readJson(){
 			if(ul!="1" & ul!="9") {
 				ul = "2";
 			}
-			var li = $("<li>"+"         "+f.name+"         "+f.price+"         "+f.prices+"</li>");
+			var num = f.prices/f.price;
+			var li = $("<li>"+f.name+"----"+f.price+"----"+num+"----"+f.prices+"</li>");
 			$("#"+ul).append(li);
 			money += f.prices;
 		}

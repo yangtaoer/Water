@@ -198,6 +198,7 @@ body {
 	text-decoration: none;
 	text-align: center;
 	line-height: 50px;
+	cursor: pointer;
 } 
 
 #foot_buy:HOVER {  /*买单悬浮样式*/

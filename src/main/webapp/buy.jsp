@@ -35,8 +35,8 @@
 		<div id="main_mid">
 			<div id="main_ul">
 			<ul>
-				<li id="li_head">已选锅底:    商品名-----单价-----总计</li>
-				<li>
+				<li id="li_head">已选锅底:    商品名--单价--数量--总价</li>
+				<li id="li_body">
 					<ul id="1">
 						
 					</ul>
@@ -44,8 +44,8 @@
 			</ul>
 			
 			<ul>	
-				<li id="li_head">已选菜品:    商品名-----单价-----总计</li>
-				<li>
+				<li id="li_head">已选菜品:    商品名--单价--数量--总价</li>
+				<li id="li_body">
 					<ul id="2">
 						
 					</ul>
@@ -54,18 +54,18 @@
 			
 			
 			<ul>
-				<li id="li_head">已选酒水:    商品名-----单价-----总计</li>
-				<li>
+				<li id="li_head">已选酒水:    商品名--单价--数量--总价</li>
+				<li id="li_body">
 					<ul id="9">
 						
 					</ul>
 				</li>				
 			</ul>
-			<ul><li>共计:<span id="sum"></span>元</li></ul>
+			<ul><li><h1>共计:<span id="sum"></span>元</h1></li></ul>
 			</div>
 			<div id="ul_btn">
-				<a id="ul_a">返回点餐</a> 	 <!-- 链接待写 -->
-				<a id="ul_a">前往买单</a>
+				<a id="ul_a" onclick="back();">返回点餐</a> 	 <!-- 链接待写 -->
+				<a id="ul_a" href="pay.do">前往买单</a>
 				<a id="ul_a" onclick="readJson();">呼叫服务</a>
 			
 			</div>	

@@ -97,6 +97,12 @@ ul {
 #li_head {
 	font-size: 30px;
 }
+#li_body {
+	display: block;
+	position: relative;
+	left: 100px;
+	width: 500px;
+}
 
 #ul_btn {
 	border: 1px solid red;
@@ -118,6 +124,6 @@ ul {
 	line-height: 61px;
 	font-size: 25px;
 	font-family: "»ªÎÄÐÂÎº";
-	background-image: url("../images/buy_a.png");
+	background-image: url("../images/buy_a.png");	
 }
 
