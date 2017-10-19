@@ -14,7 +14,7 @@
 <script type="text/javascript" src="js/js-jmc.js"></script>
 <script type="text/javascript" src="js/point-ajax.js"></script>
 <script type="text/javascript" src="js/point_buy.js"></script>
-<script type="text/javascript" src="js/point_go.js"></script>
+<script type="text/javascript" src="js/point-go.js"></script>
 </head>
 <body>
 	<img alt="bg" src="images/dcxtbg.png" id="dcbg"/>

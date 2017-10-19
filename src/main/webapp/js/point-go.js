@@ -1,6 +1,6 @@
 //点餐页面跳转链接待写------
 function goHead(){
-	window.location.replace("http://www.baidu.com");
+	window.location.href="index.jsp";
 }
 function goPoint(){
 	window.location.href="point.jsp";

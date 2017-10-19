@@ -112,7 +112,7 @@ public class YdServlet extends HttpServlet{
 				res.getWriter().println(readJs);//发送json对象给web端	
 		}
 		
-		if("data".equals(action)) {
+		if("data".equals(action)) {  //确认点餐页面是返回,而不是跳转
 			if("back".equals(session.getAttribute("back"))){
 				String value = "list";
 				ObjectMapper om = new ObjectMapper(); //获取mapper
@@ -122,7 +122,7 @@ public class YdServlet extends HttpServlet{
 			}
 		}
 		
-		if("login".equals(action)){
+		if("login".equals(action)){//登录请求,用来存储和验证用户信息
 			String name = req.getParameter("username");
 			String pwd = req.getParameter("password");
 			System.out.println(name+" "+pwd);
@@ -167,9 +167,21 @@ public class YdServlet extends HttpServlet{
 				String json = om.writeValueAsString("用户登陆成功");
 				out.println(json);
 				return;
-			}
-			
+			}			
 		}
+		if("getLoginMsg".equals(action)) {//每个页面的用户session验证
+				if(session.getAttribute("userId")!=null) {
+					System.out.println("getLoginMsg");
+					int id = (Integer)session.getAttribute("userId");
+					ObjectMapper om = new ObjectMapper(); //获取mapper
+					String message = om.writeValueAsString(id);				
+					res.getWriter().println(message);
+				}else {
+					System.out.println("getLoginMsg.....");
+				}
+		}
+		
+		
 	}
 	
 /*	private static void fBTN(HttpServletRequest req, HttpServletResponse res,String tn,String ac) {
