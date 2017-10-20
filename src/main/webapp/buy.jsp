@@ -12,25 +12,28 @@
 <script type="text/javascript" src="js/jquery-1.11.1.js"></script>
 <script type="text/javascript" src="js/buy_readjson.js"></script>
 <script type="text/javascript" src="js/buy-back.js"></script>
+<script type="text/javascript" src="js/point-index.js"></script>
+<script type="text/javascript" src="js/point-go.js"></script>
 
 </head>
 <body>
 	<img alt="bg" src="images/dcxtbg.png" id="dcbg"/>
 	<!-- logo区 -->
-	<div id="logo">
-		<img alt="logo" src="images/ydlogo.png" id="ydlogo">
+	<div id="logo">	
+	<img alt="logo" src="images/ydlogo.png" id="ydlogo">	
 		<span id="ydlogodh">					
-			<a id="ydlogodhimg">回到首页</a> 	 <!-- 链接待写 -->
-			<a id="ydlogodhimg">前往点餐</a>
-			<a id="ydlogodhimg">注册会员</a>
-			<a id="ydlogodhimg">关于我们</a>
+			<a id="ydlogodhimg" onclick="goHead();">回到首页</a> 	 <!-- 链接待写 -->
+			<a id="ydlogodhimg" onclick="goPoint();">前往点餐</a>
+			<a id="ydlogodhimg" onclick="goVip();">注册会员</a>
+			<a id="ydlogodhimg" onclick="goWe();">关于我们</a>
 		</span>
 		<div id="zzsc"></div>
-		<a id="logo_a" href="#">
+		<a id="logo_a" href="login.jsp">
 			<img src="images/login.png">
-			<span>登录</span>
+			<span id="userName">登录</span>
 		</a>
-	</div>	
+		<a id="exit" onclick="exit()"></a>
+	</div>		
 	<!-- 主体 -->
 	<div id="main">
 		<div id="main_mid">

@@ -5,7 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>EPOS首页</title>
-<link rel="stylesheet" href="css/buy.css"/>
+<link rel="stylesheet" href="css/index.css"/>
 <style></style>
 <script type="text/javascript" src="js/jquery-1.8.3.min.js"></script>
 <script type="text/javascript" src="js/zzsc.js"></script>
@@ -27,10 +27,11 @@
 			<a id="ydlogodhimg" onclick="goWe();">关于我们</a>
 		</span>
 		<div id="zzsc"></div>
-		<a id="logo_a" href="#">
+		<a id="logo_a" href="login.jsp">
 			<img src="images/login.png">
 			<span id="userName">登录</span>
 		</a>
+		<a id="exit" onclick="exit()"></a>
 	</div>	
 	<!-- 主体 -->
 	<div class="slideshow">

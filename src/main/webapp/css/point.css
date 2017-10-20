@@ -111,11 +111,22 @@ body {
 	bottom: 37px; 
 	text-decoration: none;
 }
+
 #logo_a span {
 	color:#fff; 
 	font-size: 20px; 
 	position: relative; 
 	bottom: 4px;
+}
+
+#exit {
+	position: relative;
+    left: 720px;
+    bottom: 41px;
+    text-decoration: none;
+    cursor: pointer;
+    font-size: 20px;
+    color: #fff;
 }
 /*购物车样式*/
 #gwcdh {

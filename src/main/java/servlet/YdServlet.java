@@ -7,6 +7,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -24,8 +25,7 @@ import emp.YdManager;
 import emp.YdUse;
 
 public class YdServlet extends HttpServlet{
-	
-	
+		
 	private static final long serialVersionUID = 1L;
 
 	public void service(HttpServletRequest req, HttpServletResponse res)
@@ -43,7 +43,7 @@ public class YdServlet extends HttpServlet{
 		clsMap.put("9", "美酒酷饮");		
 		String readJson = null;
 		List<BuyEmp> lst = null;
-		HttpSession session = req.getSession();
+		HttpSession session = req.getSession();		
 		/**
 		 * 所有导航的前缀可能性:
 		 * mwgd、shwz、jdcp、jpny、hxhy
@@ -61,71 +61,69 @@ public class YdServlet extends HttpServlet{
 		}*/
 		if("change".equals(action)) {  			//使用ajax技术更新页面
 			String name = req.getParameter("name");
-			changed(req,res,name);			
+			changed(req,res,name);
+			return;
 		}
 		if("search".equals(action)) {  			//搜索功能
-			System.out.println("search");
+			
 			String sname = req.getParameter("sname");
-			System.out.println(sname);		
+				
 			String condition = "yname";			//默认是按照名字查找
 			if(sname.matches(".*[a-zA-z].*")) {
 				sname = sname.toLowerCase();	//转换为小写
 				condition = "search";			//根据缩写查找
-			}
-			System.out.println("condition:"+condition);
+			}			
 			search(req,res,sname,condition);
+			return;
 		}
 		if("buy".equals(action)) {	//点餐页面点击提交订单保存数据的请求
-			String jsons = req.getParameter("json");
-			
+			String jsons = req.getParameter("json");			
 			ObjectMapper om = new ObjectMapper(); //获取mapper
-			lst = om.readValue(jsons, new TypeReference<List<BuyEmp>>() {});//将json数组字符串转换为list 			
-			System.out.println("lst"+lst);
+			lst = om.readValue(jsons, new TypeReference<List<BuyEmp>>() {});//将json数组字符串转换为list 						
 			for(BuyEmp b : lst) {								//将数据进行加工
 				String no = String.valueOf(String.valueOf(b.getNo()).charAt(0));
-				System.out.println(no);
+				
 				b.setCls(clsMap.get(no));
 			}			
 			readJson = om.writeValueAsString(lst);
 			res.getWriter().println(readJson);
-			session.setAttribute("msg", readJson);//绑定json数据再session上			
+			session.setAttribute("msg", readJson);//绑定json数据再session上	
+			return;
 		}
 		if("readJson".equals(action)) {//订单提交页面加载数据请求			
-			String readJs = (String)session.getAttribute("msg");					
-			System.out.println(readJs);
+			String readJs = (String)session.getAttribute("msg");								
 			res.getWriter().println(readJs);//发送json对象给web端
-
+			return;
 		}
 		if("back".equals(action)) {  //订单提交页面点击返回点餐请求,需要绑定一个状态值在session表示返回
 			String state = "back";
 			session.setAttribute("back", state);
 			String value = "list";
 			ObjectMapper om = new ObjectMapper(); //获取mapper
-			String message = om.writeValueAsString(value);
-			System.out.println(message);
+			String message = om.writeValueAsString(value);			
 			res.getWriter().println(message);
-			
+			return;
 		}
+		
 		if("load".equals(action)) {  //点餐页面加载请求购物车信息,先验证是否是订单提交页面back回来			
-				String readJs = (String)session.getAttribute("msg");					
-				System.out.println("load---"+readJs);
+				String readJs = (String)session.getAttribute("msg");									
 				res.getWriter().println(readJs);//发送json对象给web端	
+				return;
 		}
 		
 		if("data".equals(action)) {  //确认点餐页面是返回,而不是跳转
 			if("back".equals(session.getAttribute("back"))){
 				String value = "list";
 				ObjectMapper om = new ObjectMapper(); //获取mapper
-				String message = om.writeValueAsString(value);
-				System.out.println(message);
+				String message = om.writeValueAsString(value);				
 				res.getWriter().println(message);
 			}
+			return;
 		}
 		
 		if("login".equals(action)){//登录请求,用来存储和验证用户信息
 			String name = req.getParameter("username");
-			String pwd = req.getParameter("password");
-			System.out.println(name+" "+pwd);
+			String pwd = req.getParameter("password");			
 			Dao dao = new Dao();
 			YdUse user = dao.FindUser(name);
 			YdManager manager = dao.FindManager(name);
@@ -133,16 +131,13 @@ public class YdServlet extends HttpServlet{
 			PrintWriter out = res.getWriter();
 			if(name==""||pwd==""){
 				return;
-			}
-			
+			}			
 			if(user==null&&manager==null){
            		String json = om.writeValueAsString("没有个用户名或桌号");
-           		out.println(json);
-           		
-           		return;
-           			
+           		out.println(json);          		
+           		return;           			
 			}else if(user==null&&manager!=null&&!manager.getPsd().equals(pwd)){
-				System.out.println("用户名密码错误");
+				
 				String json = om.writeValueAsString("用户名密码错误");
 				out.println(json);
 				return;
@@ -151,14 +146,12 @@ public class YdServlet extends HttpServlet{
 				String json = om.writeValueAsString("桌号密码错误");
 				out.println(json);
 				return;
-			}else if(manager==null&&user!=null&&user.getPsd().equals(pwd)){
-				System.out.println("桌号登陆成功");
+			}else if(manager==null&&user!=null&&user.getPsd().equals(pwd)){				
 				session = req.getSession();
 				session.setAttribute("user",user);
 				session.setAttribute("userId",user.getId());
 				String json = om.writeValueAsString("桌号登陆成功");
-				out.println(json);
-				System.out.println("桌号登陆成功结束");
+				out.println(json);				
 				return;
 			}
 			else if(user==null&&manager!=null&&manager.getPsd().equals(pwd)){
@@ -167,21 +160,23 @@ public class YdServlet extends HttpServlet{
 				String json = om.writeValueAsString("用户登陆成功");
 				out.println(json);
 				return;
-			}			
+			}
+			return;
 		}
 		if("getLoginMsg".equals(action)) {//每个页面的用户session验证
-				if(session.getAttribute("userId")!=null) {
-					System.out.println("getLoginMsg");
-					int id = (Integer)session.getAttribute("userId");
+				if(session.getAttribute("userId")!=null) {					
+					YdUse user = (YdUse)session.getAttribute("user");
+					int id = user.getD_num();
 					ObjectMapper om = new ObjectMapper(); //获取mapper
 					String message = om.writeValueAsString(id);				
 					res.getWriter().println(message);
-				}else {
-					System.out.println("getLoginMsg.....");
 				}
+				return;
 		}
-		
-		
+		if("exit".equals(action)) {//移除session上的userId信息
+			session.removeAttribute("userId");
+		}
+			
 	}
 	
 /*	private static void fBTN(HttpServletRequest req, HttpServletResponse res,String tn,String ac) {

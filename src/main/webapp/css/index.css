@@ -54,7 +54,7 @@ div {
     text-align: center;
     line-height: 61px;
     font-size: 25px;
-    font-family: "»ªÎÄĞÂÎº";
+    font-family: "åæ–‡æ–°é­";
 }
 #logo_a span {
     color: #fff;
@@ -67,7 +67,15 @@ a:-webkit-any-link {
     cursor: auto;
     text-decoration: underline;
 }
-
+#exit {
+	position: relative;
+    left: 720px;
+    bottom: 41px;
+    text-decoration: none;
+    cursor: pointer;
+    font-size: 20px;
+    color: #fff;
+}
 
 
 

@@ -28,7 +28,7 @@ function check(result){
 		return false;
 	}
 	else if(1==result.indexOf("桌号登陆成功")){
-		window.location.href ="point.jsp";
+		window.location.href ="index.jsp";
 	}else if(1==result.indexOf("用户登陆成功")){
 		window.location.href ="#";
 	}
