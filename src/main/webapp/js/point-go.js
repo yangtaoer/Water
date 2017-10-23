@@ -6,7 +6,9 @@ function goPoint(){
 	window.location.href="point.jsp";
 }
 function goVip(){
-	window.location.replace("http://www.4399.com");
+	if(confirm("请先登录管理员账号!")){
+		window.location.href="login.jsp";
+	}
 }
 function goWe(){
 	window.location.replace("http://www.7k7k.com");

@@ -69,7 +69,7 @@
 			</div>
 			<div id="ul_btn">
 				<a id="ul_a" onclick="back();">返回点餐</a> 	 <!-- 链接待写 -->
-				<a id="ul_a" href="pay.do">前往买单</a>
+				<a id="ul_a" href="maidan.jsp">前往买单</a>
 				<a id="ul_a" onclick="call();">呼叫服务</a>
 			
 			</div>	

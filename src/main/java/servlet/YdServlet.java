@@ -7,7 +7,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -18,8 +17,10 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import dao.Dao;
+import dao.UserDAO;
 import dao.YdDAO;
 import emp.BuyEmp;
+import emp.User;
 import emp.YdEmp;
 import emp.YdManager;
 import emp.YdUse;
@@ -44,6 +45,9 @@ public class YdServlet extends HttpServlet{
 		String readJson = null;
 		List<BuyEmp> lst = null;
 		HttpSession session = req.getSession();		
+		ObjectMapper om = new ObjectMapper();
+		PrintWriter out = res.getWriter();
+		UserDAO userdao = new UserDAO();
 		/**
 		 * 所有导航的前缀可能性:
 		 * mwgd、shwz、jdcp、jpny、hxhy
@@ -77,46 +81,48 @@ public class YdServlet extends HttpServlet{
 			return;
 		}
 		if("buy".equals(action)) {	//点餐页面点击提交订单保存数据的请求
+			int moneys = 0;
 			String jsons = req.getParameter("json");			
-			ObjectMapper om = new ObjectMapper(); //获取mapper
+			
 			lst = om.readValue(jsons, new TypeReference<List<BuyEmp>>() {});//将json数组字符串转换为list 						
 			for(BuyEmp b : lst) {								//将数据进行加工
 				String no = String.valueOf(String.valueOf(b.getNo()).charAt(0));
-				
+				moneys += b.getPrices();
 				b.setCls(clsMap.get(no));
 			}			
 			readJson = om.writeValueAsString(lst);
-			res.getWriter().println(readJson);
+			out.println(readJson);
 			session.setAttribute("msg", readJson);//绑定json数据再session上	
+			session.setAttribute("moneys",moneys);//绑定总金额在session上
 			return;
 		}
 		if("readJson".equals(action)) {//订单提交页面加载数据请求			
 			String readJs = (String)session.getAttribute("msg");								
-			res.getWriter().println(readJs);//发送json对象给web端
+			out.println(readJs);//发送json对象给web端
 			return;
 		}
 		if("back".equals(action)) {  //订单提交页面点击返回点餐请求,需要绑定一个状态值在session表示返回
 			String state = "back";
 			session.setAttribute("back", state);
 			String value = "list";
-			ObjectMapper om = new ObjectMapper(); //获取mapper
+			
 			String message = om.writeValueAsString(value);			
-			res.getWriter().println(message);
+			out.println(message);
 			return;
 		}
 		
 		if("load".equals(action)) {  //点餐页面加载请求购物车信息,先验证是否是订单提交页面back回来			
 				String readJs = (String)session.getAttribute("msg");									
-				res.getWriter().println(readJs);//发送json对象给web端	
+				out.println(readJs);//发送json对象给web端	
 				return;
 		}
 		
 		if("data".equals(action)) {  //确认点餐页面是返回,而不是跳转
 			if("back".equals(session.getAttribute("back"))){
 				String value = "list";
-				ObjectMapper om = new ObjectMapper(); //获取mapper
+				
 				String message = om.writeValueAsString(value);				
-				res.getWriter().println(message);
+				out.println(message);
 			}
 			return;
 		}
@@ -126,9 +132,7 @@ public class YdServlet extends HttpServlet{
 			String pwd = req.getParameter("password");			
 			Dao dao = new Dao();
 			YdUse user = dao.FindUser(name);
-			YdManager manager = dao.FindManager(name);
-			ObjectMapper om = new ObjectMapper(); 
-			PrintWriter out = res.getWriter();
+			YdManager manager = dao.FindManager(name);						
 			if(name==""||pwd==""){
 				return;
 			}			
@@ -164,17 +168,71 @@ public class YdServlet extends HttpServlet{
 			return;
 		}
 		if("getLoginMsg".equals(action)) {//每个页面的用户session验证
-				if(session.getAttribute("userId")!=null) {					
+				if(session.getAttribute("user")!=null) {				
 					YdUse user = (YdUse)session.getAttribute("user");
-					int id = user.getD_num();
-					ObjectMapper om = new ObjectMapper(); //获取mapper
+					System.out.println("user"+user);
+					int id = user.getD_num();					
 					String message = om.writeValueAsString(id);				
-					res.getWriter().println(message);
+					out.println(message);
 				}
 				return;
 		}
 		if("exit".equals(action)) {//移除session上的userId信息
 			session.removeAttribute("userId");
+		}
+		if("getMoney".equals(action)) {//买单页面获取总金额
+			int moneys = (Integer)session.getAttribute("moneys");
+			String json = om.writeValueAsString(moneys);
+			out.println(json);
+			return;
+		}
+		if("checkvip".equals(action)) {//检查vip卡号
+			String username = req.getParameter("user");						
+			System.out.println("username:"+username);
+			try{
+				User user = userdao.findByUsername(username);
+				if(user==null){
+					String json = om.writeValueAsString("卡号不存在!");
+					out.println(json);
+					return;
+				}
+				session.setAttribute("username",username);
+			}catch(Exception e){
+				e.printStackTrace();
+				out.println("系统繁忙，稍后重试");
+			}
+		}
+		if("checkpwd".equals(action)) {//检查密码
+			String username = req.getParameter("user");	
+			String pwd = req.getParameter("pwd");						
+			System.out.println("pwd:"+pwd);
+			try{
+				String password = userdao.findPasswordByUsername(username);
+				if(!pwd.equals(password)) {
+					String json = om.writeValueAsString("密码错误!");
+					out.println(json);
+					session.removeAttribute("username");
+					return;
+				}
+				
+			}catch(Exception e){
+				e.printStackTrace();
+				out.println("系统繁忙，稍后重试");
+			}
+		}
+		if("checkmoney".equals(action)) {//检查余额
+			String monet = req.getParameter("money");
+			String money = monet.substring(0, monet.length());
+			int prices = Integer.parseInt(money);	
+			String username = (String)session.getAttribute("username");
+			System.out.println("prices:"+prices);
+			try{
+				Double balance = userdao.findMoneyByOrder(username);
+				
+			}catch(Exception e){
+				e.printStackTrace();
+				out.println("系统繁忙，稍后重试");
+			}
 		}
 			
 	}

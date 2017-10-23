@@ -68,6 +68,28 @@ a:-webkit-any-link {
     text-decoration: underline;
 }
 
+#d1 {	
+	width: 480px;
+	height: 580px;
+	position: fixed;	
+	margin-top: 15px;
+	margin-left:720px;
+}
+
+#d2 {
+	border-radius: 10px;
+	text-align: center;
+	width: 480px;
+	height: 380px;	
+	position: fixed;	
+	margin-top: 100px;
+	background:#fff;
+	opacity:0.6;
+	z-index:10;
+}
+#pspan {
+	font-size: 30px;
+}
 
 #main{
 	border: 0px red solid;
@@ -137,60 +159,47 @@ ul {
     font-size: 20px;
     color: #fff;
 }
-<!--表单样式>
-form {
-		padding: 0;
-		margin-left:70px;
-		margin-top: 85px;
-		text-align:center;
-	}
-	
-	/* .form_table style for table used in forms
----------------------------------------------*/
-	.form_table {
-		margin-bottom: 15px;
-		font-size: 1.1em;
-	}
-	.form_table p {
-		margin: 0;
-		padding: 0;
-	}
-	.form_table td {
-		padding: 5px 10px;
-	}
-	
-/* .button some buttons style - inspired from wordpress
-------------------------------*/
-	input.button {
-		margin-left: 380px;
-		padding: 2px;
-		border: 3px double #999999;
-		border-left-color: #ccc;
-		border-top-color: #ccc;
-		background: url(../img/button.gif) repeat-x left top;
-		font-size: 11px;
-		font-family: Verdana, Arial, Helvetica, sans-serif;
-		
-	}
-	
-	/* input.inputgri - some style for inputs
---------------------------------------------*/
-	input.inputgri, select.inputgri, textarea.inputgri {
-		background: #eeeeee;
-		font-size: 14px;
-		border: 1px solid #cccccc;
-		padding: 3px;
-	}
-	input.inputgri:focus, select.inputgri:focus , textarea.inputgri:focus {
-		background: #ffffff;
-		border: 1px solid #686868;
-	}
-	
-	/* #content p paragraphs
------------------------------*/
-	#content p {
-		font-size: 1.2em;
-		margin: 0;
-		padding: 0 0 15px 0;
-	}
-			
+
+<!--��¼�����ʽ>
+
+#login{
+	margin:100px 0px 50px 785px;
+	border:3px solid #F5F5F5;
+	background-color:#FFFFFF;
+	width:308px;
+	height:420px;
+}
+
+#p1{
+	font-size:19px;
+	color:	#696969;
+	text-align:center;
+}
+
+input{
+	position: relative;
+	left: 100px;
+	top: 50px;
+    border-radius: 6px;
+    border:1px solid	#808080;
+	width:275px;
+	height:30px;
+	margin:10px 10px;
+}
+
+
+#sub{
+	color:#FFFFFF;
+	border:1px solid #808080;
+	font-size:19px;
+}
+#sub2{
+	color:#FFFFFF;
+	border:1px solid #808080;
+	font-size:19px;
+}
+#p2{
+	font-size:11px;
+	color:	#696969;
+	text-align:center;
+}

@@ -1,6 +1,15 @@
 $(function(){
 	$("#sub").click(function(){
-		
+		var name = $("#username").val();
+		var pwd = $("#username").val();
+		if(name==null || name==""){
+			alert("请输入用户名!");
+			return;
+		}
+		if(pwd==null || pwd==""){
+			alert("请输入密码!");
+			return;
+		}
 		url = "login.do";
 		params = {"username":$("#username").val(),
 				  "password":$("#password").val()};
