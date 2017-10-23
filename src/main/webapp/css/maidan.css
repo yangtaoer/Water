@@ -186,7 +186,17 @@ input{
 	height:30px;
 	margin:10px 10px;
 }
-
+#user {
+	position: relative;
+	left: 100px;
+	top: 50px;
+    border-radius: 6px;
+    border:1px solid	#808080;
+	width:275px;
+	height:30px;
+	margin:10px 10px;
+	color: black;
+}
 
 #sub{
 	background-color: #A9A9A9;

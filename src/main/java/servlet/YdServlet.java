@@ -285,6 +285,40 @@ public class YdServlet extends HttpServlet{
 				out.println("œµÕ≥∑±√¶£¨…‘∫Û÷ÿ ‘");
 			}
 		}
+		if("registcheck".equals(action)){//◊¢≤·ºÏ≤Èid
+			int id = Integer.parseInt(req.getParameter("id"));
+			User user = userdao.findByUsername(id);
+			if(user!=null){
+				String json = om.writeValueAsString("no");
+				out.println(json);
+				return;
+			}else{
+				String json = om.writeValueAsString("yes");
+				out.println(json);
+				return;
+			}
+		}
+		if("registUser".equals(action)) {//◊¢≤·VIP
+			int id = Integer.parseInt(req.getParameter("id"));
+			String name = req.getParameter("name");
+			String pwd = req.getParameter("pwd");
+			Double money = Double.parseDouble(req.getParameter("money"));
+			User user = new User(id, name, pwd, money);
+			System.out.println(user);
+			int row = userdao.insertUser(user);
+			if(row==1){
+				String json = om.writeValueAsString("yes");
+				out.println(json);
+				return;
+			}else{
+				String json = om.writeValueAsString("no");
+				out.println(json);
+				return;
+			}
+		}
+		
+		
+		
 			
 	}
 	

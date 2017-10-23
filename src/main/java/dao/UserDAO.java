@@ -130,6 +130,30 @@ public class UserDAO {
 			YdDBUtil.close(conn);
 		}
 	}
+	
+	public int insertUser(User user){
+		Connection conn = null;
+		try {
+			conn = YdDBUtil.getConnection();
+			String sql = "insert into t_vip_ymj values(?,?,?,?)";
+			PreparedStatement ps = 
+				conn.prepareStatement(sql);
+			ps.setInt(1, user.getId());
+			ps.setString(2, user.getUsername());
+			ps.setString(3, user.getPassword());
+			ps.setDouble(4, user.getMoney());
+			int row = ps.executeUpdate();
+			return row;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new RuntimeException(e);
+		}finally{
+			YdDBUtil.close(conn);
+		}
+	}
+	
+
+	
 }
 
 
