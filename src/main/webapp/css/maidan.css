@@ -189,11 +189,17 @@ input{
 
 
 #sub{
+	background-color: #A9A9A9;
+	cursor: pointer;
+	text-align: center;
 	color:#FFFFFF;
 	border:1px solid #808080;
 	font-size:19px;
 }
 #sub2{
+	background-color: #A9A9A9;
+	cursor: pointer;
+	text-align: center;
 	color:#FFFFFF;
 	border:1px solid #808080;
 	font-size:19px;

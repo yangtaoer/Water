@@ -68,7 +68,7 @@
 			<ul><li><h1>共计:<span id="sum"></span>元</h1></li></ul>
 			</div>
 			<div id="ul_btn">
-				<a id="ul_a" onclick="back();">返回点餐</a> 	 <!-- 链接待写 -->
+				<a id="ul_a" href="point.jsp">返回点餐</a> 	 <!-- 链接待写 -->
 				<a id="ul_a" href="maidan.jsp">前往买单</a>
 				<a id="ul_a" onclick="call();">呼叫服务</a>
 			

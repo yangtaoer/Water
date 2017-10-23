@@ -1,24 +1,15 @@
 $(document).ready(function(){	//点餐页面加载执行数据的读取工作
-	var url = "data.do";
-	$.getJSON(url,function(result){
-		console.log('data------'+result);
-		if(result!=null)
-			load();				
-	});
-	var url2 = "getLoginMsg.do";
-	$.getJSON(url2,function(result){
-		console.log("login----------"+result);
-		if(result!=null)
-			setLoginMsg();	
-	});
-		
+	load();	
 });
-function setLoginMsg() {//用于登录页面跳转点餐页面,获取
-	
-}
+
 function load(){//页面加载执行,用于订单页面返回点餐页面
 	var url = "load.do";
 	$.getJSON(url,function(data){
+		console.log("load---"+data);
+		if(data=="first"){
+			console.log("---first---");
+			return;
+		}
 		for(var i=0;i<data.length;i++){
 			var f = data[i];
 			console.log("f-----"+f);

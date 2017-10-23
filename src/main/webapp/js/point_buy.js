@@ -1,8 +1,10 @@
-
 function doPostData() {
 	var jsons = [];
 	var trs = $("#foodsbody").children();
-	console.log(111);
+	if(trs.length==0){
+		alert("您还没有选择任何东西!");
+		return;
+	}
 	for(var i=0;i<trs.length;i++) {
 		
 		var tds = $(trs[i]).children();

@@ -45,12 +45,12 @@ contentType="text/html; charset=utf-8" %>
 						<td><input type="password" placeholder="密码（6位数字）"  id="pwd"  style="color:#707070;"/></td>
 					</tr>
 					<tr>
-						<td><input id="sub" type="submit" value="会&nbsp;&nbsp;员&nbsp;&nbsp;买&nbsp;&nbsp;单" 
+						<td><input id="sub"  value="会&nbsp;&nbsp;员&nbsp;&nbsp;买&nbsp;&nbsp;单" 
 						onmouseover="mouseover()" onmouseout="mouseout()" onclick="gobuy();"/>
 						</td>
 					</tr>	
 					<tr>
-						<td><input id="sub2" type="submit" value="普&nbsp;&nbsp;通&nbsp;&nbsp;买&nbsp;&nbsp;单" 
+						<td><input id="sub2" value="普&nbsp;&nbsp;通&nbsp;&nbsp;买&nbsp;&nbsp;单" 
 						onmouseover="mouseover2()" onmouseout="mouseout2()" onclick="gobuy2();"/>
 						</td>
 					</tr>				

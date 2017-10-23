@@ -82,8 +82,7 @@ public class YdServlet extends HttpServlet{
 		}
 		if("buy".equals(action)) {	//点餐页面点击提交订单保存数据的请求
 			int moneys = 0;
-			String jsons = req.getParameter("json");			
-			
+			String jsons = req.getParameter("json");					
 			lst = om.readValue(jsons, new TypeReference<List<BuyEmp>>() {});//将json数组字符串转换为list 						
 			for(BuyEmp b : lst) {								//将数据进行加工
 				String no = String.valueOf(String.valueOf(b.getNo()).charAt(0));
@@ -93,6 +92,7 @@ public class YdServlet extends HttpServlet{
 			readJson = om.writeValueAsString(lst);
 			out.println(readJson);
 			session.setAttribute("msg", readJson);//绑定json数据再session上	
+			System.out.println("msg:-----"+readJson);
 			session.setAttribute("moneys",moneys);//绑定总金额在session上
 			return;
 		}
@@ -101,22 +101,27 @@ public class YdServlet extends HttpServlet{
 			out.println(readJs);//发送json对象给web端
 			return;
 		}
-		if("back".equals(action)) {  //订单提交页面点击返回点餐请求,需要绑定一个状态值在session表示返回
+/*		if("back".equals(action)) {  //订单提交页面点击返回点餐请求,需要绑定一个状态值在session表示返回
 			String state = "back";
 			session.setAttribute("back", state);
-			String value = "list";
-			
+			String value = "list";		
 			String message = om.writeValueAsString(value);			
 			out.println(message);
 			return;
-		}
+		}*/
 		
-		if("load".equals(action)) {  //点餐页面加载请求购物车信息,先验证是否是订单提交页面back回来			
+		if("load".equals(action)) {  //点餐页面加载请求购物车信息,先验证是否是订单提交页面back回来	
+			if(session.getAttribute("msg")==null){
+				System.out.println("-----first----");
+				readJson = om.writeValueAsString("first");
+				out.println(readJson);
+				return;
+			}
 				String readJs = (String)session.getAttribute("msg");									
 				out.println(readJs);//发送json对象给web端	
 				return;
 		}
-		
+	/*	
 		if("data".equals(action)) {  //确认点餐页面是返回,而不是跳转
 			if("back".equals(session.getAttribute("back"))){
 				String value = "list";
@@ -125,7 +130,7 @@ public class YdServlet extends HttpServlet{
 				out.println(message);
 			}
 			return;
-		}
+		}*/
 		
 		if("login".equals(action)){//登录请求,用来存储和验证用户信息
 			String name = req.getParameter("username");
@@ -187,31 +192,35 @@ public class YdServlet extends HttpServlet{
 			return;
 		}
 		if("checkvip".equals(action)) {//检查vip卡号
-			String username = req.getParameter("user");						
-			System.out.println("username:"+username);
+			System.out.println("开始检查卡号----");
+			String username = req.getParameter("user");	
+			int card = Integer.parseInt(username);
+			System.out.println("card--------:"+card);
+			session.setAttribute("card",card);
 			try{
-				User user = userdao.findByUsername(username);
+				User user = userdao.findByUsername(card);
+				System.out.println("user:"+user);
 				if(user==null){
 					String json = om.writeValueAsString("卡号不存在!");
 					out.println(json);
 					return;
 				}
-				session.setAttribute("username",username);
+				
 			}catch(Exception e){
 				e.printStackTrace();
 				out.println("系统繁忙，稍后重试");
 			}
 		}
 		if("checkpwd".equals(action)) {//检查密码
-			String username = req.getParameter("user");	
+			System.out.println("开始检查密码----");
+			int card = (Integer) session.getAttribute("card");
 			String pwd = req.getParameter("pwd");						
 			System.out.println("pwd:"+pwd);
 			try{
-				String password = userdao.findPasswordByUsername(username);
+				String password = userdao.findPasswordByUsername(card);
 				if(!pwd.equals(password)) {
 					String json = om.writeValueAsString("密码错误!");
 					out.println(json);
-					session.removeAttribute("username");
 					return;
 				}
 				
@@ -221,14 +230,44 @@ public class YdServlet extends HttpServlet{
 			}
 		}
 		if("checkmoney".equals(action)) {//检查余额
+			System.out.println("开始检查余额----");
+			String desk = req.getParameter("deskId");
+			System.out.println("deskno:"+desk);
+			int deskNo = Integer.parseInt(desk.substring(0,1));
 			String monet = req.getParameter("money");
-			String money = monet.substring(0, monet.length());
-			int prices = Integer.parseInt(money);	
-			String username = (String)session.getAttribute("username");
+			if(monet==null){
+				String json = om.writeValueAsString("您还没有买任何东西!");
+				out.println(json);
+				return;
+			}
+			String money = monet.substring(0, monet.length()-1);
+			Double prices = Double.parseDouble(money);	
+			int card = Integer.parseInt(req.getParameter("card"));
+			System.out.println("cardmongey:---"+card);
 			System.out.println("prices:"+prices);
 			try{
-				Double balance = userdao.findMoneyByOrder(username);
-				
+				Double balance = userdao.findMoneyByOrder(card);
+				if(balance>=prices){ 		//支付,并改变余额
+					int row = userdao.updateMoney(balance-prices, card);
+					if(row>0){
+						int rows = userdao.insertIndent(deskNo, prices);//保存订单信息
+						if(rows>0){
+							String json = om.writeValueAsString("支付成功!");
+							out.println(json);
+							System.out.println("json-----"+json);
+							session.removeAttribute("msg");
+							return;
+						} else {
+							String json = om.writeValueAsString("支付失败!");
+							out.println(json);
+							return;
+						}
+					}
+				} else {
+					String json = om.writeValueAsString("余额不足!当前余额为:"+balance);
+					out.println(json);
+					return;
+				}
 			}catch(Exception e){
 				e.printStackTrace();
 				out.println("系统繁忙，稍后重试");

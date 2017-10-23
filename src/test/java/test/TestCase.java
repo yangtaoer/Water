@@ -24,7 +24,7 @@ import emp.YdEmp;
 public class TestCase {
 
 	
-	@Test
+	/*@Test
 	public void test1() {//测试依据表名查找
 		YdDAO yd = new YdDAO();
 		List<YdEmp> list = yd.findByTableName("yd_jd");
@@ -41,12 +41,17 @@ public class TestCase {
 		ObjectMapper mapper = new ObjectMapper();
 		//JavaType javaType = mapper.getTypeFactory().constructParametricType(List.class, BuyEmp.class);  
 		//Map类型    
-		/*mapper.getTypeFactory().constructParametricType(HashMap.class,String.class, BuyEmp.class);  
-		List<BuyEmp> lst =  (List<BuyEmp>)mapper.readValue(jsr, javaType); */ 
+		mapper.getTypeFactory().constructParametricType(HashMap.class,String.class, BuyEmp.class);  
+		List<BuyEmp> lst =  (List<BuyEmp>)mapper.readValue(jsr, javaType);  
 	
 		List<BuyEmp> lst = mapper.readValue(jsr, new TypeReference<List<BuyEmp>>() {});
 		System.out.println(lst);
 		String []js = jsr.split("\\*");
 		System.out.println(Arrays.toString(js));
+	}*/
+	@Test
+	public void test(){
+		String str = "abcd";
+		System.out.println(str.substring(0,str.length()-1));
 	}
 }

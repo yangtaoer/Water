@@ -97,7 +97,7 @@
           						<a href="#" onclick="removeAll();" id="foot_btn">清空购物车</a>
           					</td>
           					<td>
-          						<a id="foot_buy" onclick="doPostData();">去买单!>></a>
+          						<a id="foot_buy" onclick="doPostData();">提交订单</a>
           					</td>
        					</tr>
 					</table>

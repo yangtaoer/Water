@@ -4,6 +4,14 @@ public class User {
 	private int id;
 	private String username;
 	private String password;
+	private Double money;
+	
+	public Double getMoney() {
+		return money;
+	}
+	public void setMoney(Double money) {
+		this.money = money;
+	}
 	public int getId() {
 		return id;
 	}
@@ -22,5 +30,10 @@ public class User {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+	@Override
+	public String toString() {
+		return "User [id=" + id + ", username=" + username + ", password=" + password + ", money=" + money + "]";
+	}
+	
 	
 }
