@@ -1,3 +1,4 @@
+
 package servlet;
 
 import java.io.IOException;
@@ -32,16 +33,16 @@ public class YdServlet extends HttpServlet{
 	public void service(HttpServletRequest req, HttpServletResponse res)
 			throws ServletException,IOException{
 		String uri = req.getRequestURI();
-		String action = uri.substring(uri.lastIndexOf("/")+1,uri.lastIndexOf("."));//½âÎöuri½áÎ²
-		res.setCharacterEncoding("utf-8");  //ÉèÖÃ±àÂë¸ñÊ½
-		res.setContentType("text/html");  //ÉèÖÃÏûÏ¢Í·
+		String action = uri.substring(uri.lastIndexOf("/")+1,uri.lastIndexOf("."));//è§£æuriç»“å°¾
+		res.setCharacterEncoding("utf-8");  //è®¾ç½®ç¼–ç æ ¼å¼
+		res.setContentType("text/html");  //è®¾ç½®æ¶ˆæ¯å¤´
 		req.setCharacterEncoding("utf-8");
 		Map<String,String> clsMap = new HashMap<String,String>();
-		clsMap.put("1", "ÃÀÎ¶¹øµ×");clsMap.put("2", "Ë³»¬Íè×Ó");
-		clsMap.put("3", "¾­µä²ËÆ·");clsMap.put("4", "¾«Æ·Å£Ñò");
-		clsMap.put("5", "º£ÏÊºÓÓã");clsMap.put("6", "¶¹ÃæÖÆÆ·");
-		clsMap.put("7", "Ò°Éú¾ú¹½");clsMap.put("8", "ĞÂÏÊÊß²Ë");
-		clsMap.put("9", "ÃÀ¾Æ¿áÒû");		
+		clsMap.put("1", "ç¾å‘³é”…åº•");clsMap.put("2", "é¡ºæ»‘ä¸¸å­");
+		clsMap.put("3", "ç»å…¸èœå“");clsMap.put("4", "ç²¾å“ç‰›ç¾Š");
+		clsMap.put("5", "æµ·é²œæ²³é±¼");clsMap.put("6", "è±†é¢åˆ¶å“");
+		clsMap.put("7", "é‡ç”ŸèŒè‡");clsMap.put("8", "æ–°é²œè”¬èœ");
+		clsMap.put("9", "ç¾é…’é…·é¥®");		
 		String readJson = null;
 		List<BuyEmp> lst = null;
 		HttpSession session = req.getSession();		
@@ -49,9 +50,9 @@ public class YdServlet extends HttpServlet{
 		PrintWriter out = res.getWriter();
 		UserDAO userdao = new UserDAO();
 		/**
-		 * ËùÓĞµ¼º½µÄÇ°×º¿ÉÄÜĞÔ:
-		 * mwgd¡¢shwz¡¢jdcp¡¢jpny¡¢hxhy
-		 * dmzp¡¢ysjg¡¢xxsc¡¢mjky
+		 * æ‰€æœ‰å¯¼èˆªçš„å‰ç¼€å¯èƒ½æ€§:
+		 * mwgdã€shwzã€jdcpã€jpnyã€hxhy
+		 * dmzpã€ysjgã€xxscã€mjky
 		 */
 		/*		List<String> actions = new ArrayList<String>();
 		actions.add("mwgd");actions.add("shwz");
@@ -63,45 +64,45 @@ public class YdServlet extends HttpServlet{
 		if(actions.contains(action)) {
 			fBTN(req, res, "yd_"+action, action);
 		}*/
-		if("change".equals(action)) {  			//Ê¹ÓÃajax¼¼Êõ¸üĞÂÒ³Ãæ
+		if("change".equals(action)) {  			//ä½¿ç”¨ajaxæŠ€æœ¯æ›´æ–°é¡µé¢
 			String name = req.getParameter("name");
 			changed(req,res,name);
 			return;
 		}
-		if("search".equals(action)) {  			//ËÑË÷¹¦ÄÜ
+		if("search".equals(action)) {  			//æœç´¢åŠŸèƒ½
 			
 			String sname = req.getParameter("sname");
 				
-			String condition = "yname";			//Ä¬ÈÏÊÇ°´ÕÕÃû×Ö²éÕÒ
+			String condition = "yname";			//é»˜è®¤æ˜¯æŒ‰ç…§åå­—æŸ¥æ‰¾
 			if(sname.matches(".*[a-zA-z].*")) {
-				sname = sname.toLowerCase();	//×ª»»ÎªĞ¡Ğ´
-				condition = "search";			//¸ù¾İËõĞ´²éÕÒ
+				sname = sname.toLowerCase();	//è½¬æ¢ä¸ºå°å†™
+				condition = "search";			//æ ¹æ®ç¼©å†™æŸ¥æ‰¾
 			}			
 			search(req,res,sname,condition);
 			return;
 		}
-		if("buy".equals(action)) {	//µã²ÍÒ³Ãæµã»÷Ìá½»¶©µ¥±£´æÊı¾İµÄÇëÇó
+		if("buy".equals(action)) {	//ç‚¹é¤é¡µé¢ç‚¹å‡»æäº¤è®¢å•ä¿å­˜æ•°æ®çš„è¯·æ±‚
 			int moneys = 0;
 			String jsons = req.getParameter("json");					
-			lst = om.readValue(jsons, new TypeReference<List<BuyEmp>>() {});//½«jsonÊı×é×Ö·û´®×ª»»Îªlist 						
-			for(BuyEmp b : lst) {								//½«Êı¾İ½øĞĞ¼Ó¹¤
+			lst = om.readValue(jsons, new TypeReference<List<BuyEmp>>() {});//å°†jsonæ•°ç»„å­—ç¬¦ä¸²è½¬æ¢ä¸ºlist 						
+			for(BuyEmp b : lst) {								//å°†æ•°æ®è¿›è¡ŒåŠ å·¥
 				String no = String.valueOf(String.valueOf(b.getNo()).charAt(0));
 				moneys += b.getPrices();
 				b.setCls(clsMap.get(no));
 			}			
 			readJson = om.writeValueAsString(lst);
 			out.println(readJson);
-			session.setAttribute("msg", readJson);//°ó¶¨jsonÊı¾İÔÙsessionÉÏ	
+			session.setAttribute("msg", readJson);//ç»‘å®šjsonæ•°æ®å†sessionä¸Š	
 			System.out.println("msg:-----"+readJson);
-			session.setAttribute("moneys",moneys);//°ó¶¨×Ü½ğ¶îÔÚsessionÉÏ
+			session.setAttribute("moneys",moneys);//ç»‘å®šæ€»é‡‘é¢åœ¨sessionä¸Š
 			return;
 		}
-		if("readJson".equals(action)) {//¶©µ¥Ìá½»Ò³Ãæ¼ÓÔØÊı¾İÇëÇó			
+		if("readJson".equals(action)) {//è®¢å•æäº¤é¡µé¢åŠ è½½æ•°æ®è¯·æ±‚			
 			String readJs = (String)session.getAttribute("msg");								
-			out.println(readJs);//·¢ËÍjson¶ÔÏó¸øweb¶Ë
+			out.println(readJs);//å‘é€jsonå¯¹è±¡ç»™webç«¯
 			return;
 		}
-        /*if("back".equals(action)) {  //¶©µ¥Ìá½»Ò³Ãæµã»÷·µ»Øµã²ÍÇëÇó,ĞèÒª°ó¶¨Ò»¸ö×´Ì¬ÖµÔÚsession±íÊ¾·µ»Ø
+        /*if("back".equals(action)) {  //è®¢å•æäº¤é¡µé¢ç‚¹å‡»è¿”å›ç‚¹é¤è¯·æ±‚,éœ€è¦ç»‘å®šä¸€ä¸ªçŠ¶æ€å€¼åœ¨sessionè¡¨ç¤ºè¿”å›
 			String state = "back";
 			session.setAttribute("back", state);
 			String value = "list";		
@@ -110,7 +111,7 @@ public class YdServlet extends HttpServlet{
 			return;
 		}*/
 		
-		if("load".equals(action)) {  //µã²ÍÒ³Ãæ¼ÓÔØÇëÇó¹ºÎï³µĞÅÏ¢,ÏÈÑéÖ¤ÊÇ·ñÊÇ¶©µ¥Ìá½»Ò³Ãæback»ØÀ´	
+		if("load".equals(action)) {  //ç‚¹é¤é¡µé¢åŠ è½½è¯·æ±‚è´­ç‰©è½¦ä¿¡æ¯,å…ˆéªŒè¯æ˜¯å¦æ˜¯è®¢å•æäº¤é¡µé¢backå›æ¥	
 			if(session.getAttribute("msg")==null){
 				System.out.println("-----first----");
 				readJson = om.writeValueAsString("first");
@@ -118,11 +119,11 @@ public class YdServlet extends HttpServlet{
 				return;
 			}
 				String readJs = (String)session.getAttribute("msg");									
-				out.println(readJs);//·¢ËÍjson¶ÔÏó¸øweb¶Ë	
+				out.println(readJs);//å‘é€jsonå¯¹è±¡ç»™webç«¯	
 				return;
 		}
 	   /*	
-		if("data".equals(action)) {  //È·ÈÏµã²ÍÒ³ÃæÊÇ·µ»Ø,¶ø²»ÊÇÌø×ª
+		if("data".equals(action)) {  //ç¡®è®¤ç‚¹é¤é¡µé¢æ˜¯è¿”å›,è€Œä¸æ˜¯è·³è½¬
 			if("back".equals(session.getAttribute("back"))){
 				String value = "list";
 				
@@ -132,7 +133,7 @@ public class YdServlet extends HttpServlet{
 			return;
 		}*/
 		
-		if("login".equals(action)){//µÇÂ¼ÇëÇó,ÓÃÀ´´æ´¢ºÍÑéÖ¤ÓÃ»§ĞÅÏ¢
+		if("login".equals(action)){//ç™»å½•è¯·æ±‚,ç”¨æ¥å­˜å‚¨å’ŒéªŒè¯ç”¨æˆ·ä¿¡æ¯
 			String name = req.getParameter("username");
 			String pwd = req.getParameter("password");			
 			Dao dao = new Dao();
@@ -142,37 +143,37 @@ public class YdServlet extends HttpServlet{
 				return;
 			}			
 			if(user==null&&manager==null){
-           		String json = om.writeValueAsString("Ã»ÓĞ¸öÓÃ»§Ãû»ò×ÀºÅ");
+           		String json = om.writeValueAsString("æ²¡æœ‰ä¸ªç”¨æˆ·åæˆ–æ¡Œå·");
            		out.println(json);          		
            		return;           			
 			}else if(user==null&&manager!=null&&!manager.getPsd().equals(pwd)){
 				
-				String json = om.writeValueAsString("ÓÃ»§ÃûÃÜÂë´íÎó");
+				String json = om.writeValueAsString("ç”¨æˆ·åå¯†ç é”™è¯¯");
 				out.println(json);
 				return;
 			}
 			else if(manager==null&&user!=null&&!user.getPsd().equals(pwd)){
-				String json = om.writeValueAsString("×ÀºÅÃÜÂë´íÎó");
+				String json = om.writeValueAsString("æ¡Œå·å¯†ç é”™è¯¯");
 				out.println(json);
 				return;
 			}else if(manager==null&&user!=null&&user.getPsd().equals(pwd)){				
 				session = req.getSession();
 				session.setAttribute("user",user);
 				session.setAttribute("userId",user.getId());
-				String json = om.writeValueAsString("×ÀºÅµÇÂ½³É¹¦");
+				String json = om.writeValueAsString("æ¡Œå·ç™»é™†æˆåŠŸ");
 				out.println(json);				
 				return;
 			}
 			else if(user==null&&manager!=null&&manager.getPsd().equals(pwd)){
 				session = req.getSession();
 				session.setAttribute("manager",manager);
-				String json = om.writeValueAsString("ÓÃ»§µÇÂ½³É¹¦");
+				String json = om.writeValueAsString("ç”¨æˆ·ç™»é™†æˆåŠŸ");
 				out.println(json);
 				return;
 			}
 			return;
 		}
-		if("getLoginMsg".equals(action)) {//Ã¿¸öÒ³ÃæµÄÓÃ»§sessionÑéÖ¤
+		if("getLoginMsg".equals(action)) {//æ¯ä¸ªé¡µé¢çš„ç”¨æˆ·sessionéªŒè¯
 				if(session.getAttribute("user")!=null) {				
 					YdUse user = (YdUse)session.getAttribute("user");
 					System.out.println("user"+user);
@@ -182,17 +183,17 @@ public class YdServlet extends HttpServlet{
 				}
 				return;
 		}
-		if("exit".equals(action)) {             //ÒÆ³ısessionÉÏµÄuserIdĞÅÏ¢
+		if("exit".equals(action)) {             //ç§»é™¤sessionä¸Šçš„userIdä¿¡æ¯
 			session.removeAttribute("userId");
 		}
-		if("getMoney".equals(action)) {        //Âòµ¥Ò³Ãæ»ñÈ¡×Ü½ğ¶î
+		if("getMoney".equals(action)) {        //ä¹°å•é¡µé¢è·å–æ€»é‡‘é¢
 			int moneys = (Integer)session.getAttribute("moneys");
 			String json = om.writeValueAsString(moneys);
 			out.println(json);
 			return;
 		}
-		if("checkvip".equals(action)) {        //¼ì²évip¿¨ºÅ
-			System.out.println("¿ªÊ¼¼ì²é¿¨ºÅ----");
+		if("checkvip".equals(action)) {        //æ£€æŸ¥vipå¡å·
+			System.out.println("å¼€å§‹æ£€æŸ¥å¡å·----");
 			String username = req.getParameter("user");	
 			int card = Integer.parseInt(username);
 			System.out.println("card--------:"+card);
@@ -212,17 +213,17 @@ public class YdServlet extends HttpServlet{
 				
 			}catch(Exception e){
 				e.printStackTrace();
-				out.println("ÏµÍ³·±Ã¦£¬ÉÔºóÖØÊÔ");
+				out.println("ç³»ç»Ÿç¹å¿™ï¼Œç¨åé‡è¯•");
 			}
 		}
-		if("checkpwd".equals(action)) {        //¼ì²éÃÜÂë
-			System.out.println("¿ªÊ¼¼ì²éÃÜÂë----");
+		if("checkpwd".equals(action)) {        //æ£€æŸ¥å¯†ç 
+			System.out.println("å¼€å§‹æ£€æŸ¥å¯†ç ----");
 			int card = (Integer) session.getAttribute("card");
 			String pwd = req.getParameter("pwd");						
 			System.out.println("pwd:"+pwd);
 			try{
 				String password = userdao.findPasswordByUsername(card);
-				System.out.println("²éÑ¯µÄÃÜÂë:"+password);
+				System.out.println("æŸ¥è¯¢çš„å¯†ç :"+password);
 				if(!pwd.equals(password)) {
 					String json = om.writeValueAsString("pwderror");
 					out.println(json);
@@ -235,17 +236,17 @@ public class YdServlet extends HttpServlet{
 				
 			}catch(Exception e){
 				e.printStackTrace();
-				out.println("ÏµÍ³·±Ã¦£¬ÉÔºóÖØÊÔ");
+				out.println("ç³»ç»Ÿç¹å¿™ï¼Œç¨åé‡è¯•");
 			}
 		}
-		if("checkmoney".equals(action)) {       //¼ì²éÓà¶î
-			System.out.println("¿ªÊ¼¼ì²éÓà¶î----");
+		if("checkmoney".equals(action)) {       //æ£€æŸ¥ä½™é¢
+			System.out.println("å¼€å§‹æ£€æŸ¥ä½™é¢----");
 			String desk = req.getParameter("deskId");
 			System.out.println("deskno:"+desk);
 			int deskNo = Integer.parseInt(desk.substring(0,1));
 			String monet = req.getParameter("money");
 			if(monet==null){
-				String json = om.writeValueAsString("Äú»¹Ã»ÓĞÂòÈÎºÎ¶«Î÷!");
+				String json = om.writeValueAsString("æ‚¨è¿˜æ²¡æœ‰ä¹°ä»»ä½•ä¸œè¥¿!");
 				out.println(json);
 				return;
 			}
@@ -259,18 +260,18 @@ public class YdServlet extends HttpServlet{
 				if(balance==null){
 					return;
 				}
-				if(balance>=prices){ 		//Ö§¸¶,²¢¸Ä±äÓà¶î
+				if(balance>=prices){ 		//æ”¯ä»˜,å¹¶æ”¹å˜ä½™é¢
 					int row = userdao.updateMoney(balance-prices, card);
 					if(row>0){
-						int rows = userdao.insertIndent(deskNo, prices);//±£´æ¶©µ¥ĞÅÏ¢
+						int rows = userdao.insertIndent(deskNo, prices);//ä¿å­˜è®¢å•ä¿¡æ¯
 						if(rows>0){
-							String json = om.writeValueAsString("Ö§¸¶³É¹¦!µ±Ç°Óà¶î:"+(balance-prices));
+							String json = om.writeValueAsString("æ”¯ä»˜æˆåŠŸ!å½“å‰ä½™é¢:"+(balance-prices));
 							out.println(json);
 							System.out.println("json-----"+json);
 							session.removeAttribute("msg");
 							return;
 						} else {
-							String json = om.writeValueAsString("Ö§¸¶Ê§°Ü!");
+							String json = om.writeValueAsString("æ”¯ä»˜å¤±è´¥!");
 							out.println(json);
 							return;
 						}
@@ -282,10 +283,10 @@ public class YdServlet extends HttpServlet{
 				}
 			}catch(Exception e){
 				e.printStackTrace();
-				out.println("ÏµÍ³·±Ã¦£¬ÉÔºóÖØÊÔ");
+				out.println("ç³»ç»Ÿç¹å¿™ï¼Œç¨åé‡è¯•");
 			}
 		}
-		if("registcheck".equals(action)){//×¢²á¼ì²éid
+		if("registcheck".equals(action)){//æ³¨å†Œæ£€æŸ¥id
 			int id = Integer.parseInt(req.getParameter("id"));
 			User user = userdao.findByUsername(id);
 			if(user!=null){
@@ -298,7 +299,7 @@ public class YdServlet extends HttpServlet{
 				return;
 			}
 		}
-		if("registUser".equals(action)) {//×¢²áVIP
+		if("registUser".equals(action)) {//æ³¨å†ŒVIP
 			int id = Integer.parseInt(req.getParameter("id"));
 			String name = req.getParameter("name");
 			String pwd = req.getParameter("pwd");
@@ -323,24 +324,24 @@ public class YdServlet extends HttpServlet{
 	}
 	
 /*	private static void fBTN(HttpServletRequest req, HttpServletResponse res,String tn,String ac) {
-		//²»Í¬Ò³Ãæ£¬Ö®Ç°·ÖÒ³Ãæ×ö·¨£¬²»ÔÙÊ¹ÓÃ
+		//ä¸åŒé¡µé¢ï¼Œä¹‹å‰åˆ†é¡µé¢åšæ³•ï¼Œä¸å†ä½¿ç”¨
 		
 		*//**
-		 * ²ÎÊıËµÃ÷:
-		 * tn:Êı¾İ¿â±íÃû ac:Ò³ÃæÃûÇ°×º
+		 * å‚æ•°è¯´æ˜:
+		 * tn:æ•°æ®åº“è¡¨å ac:é¡µé¢åå‰ç¼€
 		 *//*
 		List<YdEmp> list = new LinkedList<YdEmp>();
 		YdDAO yd = new YdDAO();
-		list = yd.findByTableName(tn); //Êı¾İ¿â±íÃû
+		list = yd.findByTableName(tn); //æ•°æ®åº“è¡¨å
 		req.setAttribute(ac+"_list",list);
-		req.setAttribute("size", list.size());//°ó¶¨Êı¾İÌõÊı
+		req.setAttribute("size", list.size());//ç»‘å®šæ•°æ®æ¡æ•°
 		try {
 			req.getRequestDispatcher(ac+".jsp").forward(req, res);
 		} catch (ServletException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
-		}//×ª·¢
+		}//è½¬å‘
 		
 	}*/
 	
@@ -354,10 +355,10 @@ public class YdServlet extends HttpServlet{
 	private static void changed(HttpServletRequest req, HttpServletResponse res,String name) throws IOException {
 		List<YdEmp> list = new LinkedList<YdEmp>();
 		YdDAO yd = new YdDAO();
-		list = yd.findByTableName("yd_"+name); //Êı¾İ¿â±íÃû
-		ObjectMapper om = new ObjectMapper(); //»ñÈ¡mapper
-		String jsonNum = om.writeValueAsString(list);//°ó¶¨json¶ÔÏó		
-		res.getWriter().println(jsonNum);//·¢ËÍjson¶ÔÏó¸øweb¶Ë
+		list = yd.findByTableName("yd_"+name); //æ•°æ®åº“è¡¨å
+		ObjectMapper om = new ObjectMapper(); //è·å–mapper
+		String jsonNum = om.writeValueAsString(list);//ç»‘å®šjsonå¯¹è±¡		
+		res.getWriter().println(jsonNum);//å‘é€jsonå¯¹è±¡ç»™webç«¯
 	}
 	
 	/**
@@ -371,9 +372,9 @@ public class YdServlet extends HttpServlet{
 		List<YdEmp> list = new LinkedList<YdEmp>();
 		YdDAO yd = new YdDAO();
 		list = yd.findByName(sname,condition);
-		ObjectMapper om = new ObjectMapper(); //»ñÈ¡mapper
-		String jsonNum = om.writeValueAsString(list);//°ó¶¨json¶ÔÏó		
-		res.getWriter().println(jsonNum);//·¢ËÍjson¶ÔÏó¸øweb¶Ë
+		ObjectMapper om = new ObjectMapper(); //è·å–mapper
+		String jsonNum = om.writeValueAsString(list);//ç»‘å®šjsonå¯¹è±¡		
+		res.getWriter().println(jsonNum);//å‘é€jsonå¯¹è±¡ç»™webç«¯
 	}
 	
 	

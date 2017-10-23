@@ -1,0 +1,144 @@
+#mid{
+/* 	border:1px solid blue;
+ */	position: fixed;
+	top:150px;
+	width:1920px;
+	height:600px;
+	
+/* 	margin:100px auto; */
+}
+#t_head {
+	width: 100%;
+	height: 40px;
+	background-color: #3db4e0;
+}
+
+#t_head1 {
+	width: 100%;
+	height: 8px;
+}
+
+#t_head2 {
+	width: 100%;
+	height: 40px;
+	background-color: #3db4e0;
+}
+#content{
+	background-color: #fff; 
+	width:1260px;
+	height:540px;
+	margin:10px auto;
+}
+#search{
+/* 	border:1px solid red; */
+	height:40px;
+}
+#t1{
+/* 	border-collapse:collapse; */
+	border:1px solid #A8A890; 
+	width:100%;
+	height:420px;
+}
+#tb{
+	height:360px;
+}
+#tb tr{
+	line-height: 50px;
+}
+#data{
+/* 	border:1px solid red; */
+	width:1260px;
+	height:430px;
+	text-align:center;
+	position:relative;
+}
+#mune{
+	/*border:1px solid red;*/
+	height:60px;
+	line-height: 60px;
+	font-size: 25px;
+}
+.fm{
+	width:60px;
+	font-size: 25px;
+}
+input{
+	width:60px;
+	font-size: 25px;
+}
+select{
+	font-size: 25px;
+}
+
+#t1 thead{
+	line-height: 40px;
+	text-align: center;
+
+}
+#t1 th{
+	font-size: 20px;
+/* 	border:1px solid #aaa; */
+}
+#hd{
+	position: absolute;
+	width:700px;
+	top:0;
+	left:0;
+	border:1px solid red;
+	background-color: rgb(167,204,235);
+}
+
+#hd table{
+	border-collapse:collapse;
+/* 	border:1px solid red; ------------------------------------------ */
+	width:100%;
+}
+#hd table th{
+	line-height: 30px;
+	text-align: center;
+/* 	border:1px solid #aaa; */
+}
+#hd table tbody tr{
+	height:30px;
+}
+#hd table tbody td{
+	font-size: 20px;
+}
+
+.p2>input{
+	width:32px;
+	font-size: 16px; 
+	color: -webkit-link;
+}
+
+input{
+	background-color: #A8A890;
+}
+select{
+	background-color: #A8A890;
+}
+#newValue{
+	background-color: #888880;
+}
+
+
+
+
+
+
+
+.new{
+	display: inline;
+}
+.old{
+	display: none;
+}
+
+
+
+
+
+
+
+
+

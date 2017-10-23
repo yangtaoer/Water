@@ -53,7 +53,7 @@ public class Dao {
 			}
        } catch (SQLException e) {
 			e.printStackTrace();
-			throw new RuntimeException("绯荤粺寮傚父,璇风◢鍚庡啀璇�");
+			throw new RuntimeException("查询失败!");
 		}finally{
 			YdDBUtil.close(conn);
 		}

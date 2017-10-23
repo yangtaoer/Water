@@ -8,4 +8,13 @@
     <servlet-name>actionServlet</servlet-name>
     <url-pattern>*.do</url-pattern>
   </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>actionsServlet</servlet-name>
+    <servlet-class>service.YdServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>actionsServlet</servlet-name>
+    <url-pattern>*.go</url-pattern>
+  </servlet-mapping>
 </web-app>

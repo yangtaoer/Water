@@ -12,7 +12,7 @@ import util.YdDBUtil;
 
 public class YdDAO {
 	/**
-	 * 1.Í¨¹ı±íÃû²éÕÒËùÓĞ²ËÆ·
+	 * 1.é€šè¿‡è¡¨åæŸ¥æ‰¾æ‰€æœ‰èœå“
 	 */
 	public List<YdEmp> findByTableName(String tName) {
 		Connection conn = null;
@@ -46,8 +46,8 @@ public class YdDAO {
 	
 	/**
 	 * 
-	 * @param sname   ²éÑ¯Ìõ¼şlikeºóÃæµÄ¶«Î÷
-	 * @param condition   ¸ù¾İÊäÈëµÄÊÇÖĞÎÄ»¹ÊÇÓ¢ÎÄÅĞ¶ÏÊÇ¸ù¾İ²ËÆ·ÃûËÑË÷»¹ÊÇ¸ù¾İÆ´ÒôËõĞ´
+	 * @param sname   æŸ¥è¯¢æ¡ä»¶likeåé¢çš„ä¸œè¥¿
+	 * @param condition   æ ¹æ®è¾“å…¥çš„æ˜¯ä¸­æ–‡è¿˜æ˜¯è‹±æ–‡åˆ¤æ–­æ˜¯æ ¹æ®èœå“åæœç´¢è¿˜æ˜¯æ ¹æ®æ‹¼éŸ³ç¼©å†™
 	 * @return
 	 */
 	public List<YdEmp> findByName(String sname,String condition) {

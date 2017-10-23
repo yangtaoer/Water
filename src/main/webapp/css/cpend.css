@@ -1,0 +1,111 @@
+#mid{
+	border:1px solid blue;
+	width:100%;
+	height:600px;
+	margin:100px auto;
+}
+#content{
+	border:1px solid blue;
+	width:960px;
+	height:90%;
+	margin:10px auto;
+}
+#search{
+	border:1px solid red;
+	height:40px;
+}
+#data{
+	border:1px solid red;
+	width:100%;
+	height:430px;
+	text-align:center;
+	position:relative;
+}
+#mune{
+	border:1px solid red;
+	height:60px;
+	line-height: 60px;
+	font-size: 25px;
+}
+.fm{
+	width:60px;
+	font-size: 25px;
+}
+input{
+	width:60px;
+	font-size: 25px;
+}
+select{
+	font-size: 25px;
+}
+.t1{
+	border-collapse:collapse;
+	border:1px solid red; 
+	width:100%;
+	height:420px;
+}
+.t1 thead{
+	line-height: 40px;
+	text-align: center;
+
+}
+.t1 th{
+	font-size: 20px;
+	border:1px solid #aaa;
+}
+#hd{
+	position: absolute;
+	width:700px;
+	top:0;
+	left:0;
+	border:1px solid red;
+	background-color: rgb(167,204,235);
+}
+
+#hd table{
+	border-collapse:collapse;
+	border:1px solid red; 
+	width:100%;
+}
+#hd table th{
+	line-height: 30px;
+	text-align: center;
+	border:1px solid #aaa;
+}
+#hd table tbody tr{
+	height:30px;
+}
+#hd table tbody td{
+	font-size: 20px;
+}
+
+.p2>input{
+	width:32px;
+	font-size: 16px; 
+	color: red;
+}
+
+
+
+
+
+
+
+
+
+
+.new{
+	display: inline;
+}
+.old{
+	display: none;
+}
+
+
+
+
+
+
+
+
+

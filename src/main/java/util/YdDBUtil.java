@@ -29,7 +29,7 @@ public class YdDBUtil {
 			
 		} catch (IOException e) {
 			e.printStackTrace();
-			throw new RuntimeException("读取db文件失败!",e);
+			throw new RuntimeException("璇诲彇db鏂囦欢澶辫触!",e);
 		}
 	}
 	
@@ -45,7 +45,7 @@ public class YdDBUtil {
 			} catch (SQLException e) {
 			
 				e.printStackTrace();
-				throw new RuntimeException("关闭连接失败!",e);
+				throw new RuntimeException("鍏抽棴杩炴帴澶辫触!",e);
 			}
 		}
 	}
@@ -56,7 +56,7 @@ public class YdDBUtil {
 			} catch (SQLException e) {
 				
 				e.printStackTrace();
-				throw new RuntimeException("回滚事务失败!",e);
+				throw new RuntimeException("鍥炴粴浜嬪姟澶辫触!",e);
 			}
 		}
 		

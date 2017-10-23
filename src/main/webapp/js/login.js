@@ -39,7 +39,7 @@ function check(result){
 	else if(1==result.indexOf("桌号登陆成功")){
 		window.location.href ="index.jsp";
 	}else if(1==result.indexOf("用户登陆成功")){
-		window.location.href ="#";
+		window.location.href ="sell.jsp";
 	}
 	
 }

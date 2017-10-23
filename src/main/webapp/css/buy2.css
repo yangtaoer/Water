@@ -1,0 +1,69 @@
+body{
+	margin: 0px;
+}
+div {
+    display: block;
+}
+#dcbg {
+    position: fixed;
+    float: none;
+}
+#logo {
+    border: 0px solid red;
+    width: 1920px;
+    height: 150px;
+    position: fixed;
+    background: url(../images/logo_bg.png);
+    z-index: 999;
+}
+#ydlogo {
+    width: 300px;
+    height: 150px;
+    position: relative;
+    left: 350px;
+    cursor: pointer;
+}
+#ydlogodh {
+    position: relative;
+    left: 360px;
+}
+#zzsc {
+    text-align: center;
+    width: 20px;
+    height: 100px;
+    position: absolute;
+    float: right;
+    top: 50px;
+    left:1000px;
+}
+#logo_a {
+    position: relative;
+    left: 400px;
+    bottom: 37px;
+    text-decoration: none;
+}
+#ydlogodhimg {
+    display: inline-block;
+    width: 140px;
+    height: 61px;
+    background-image: url(../images/logodh.png);
+    margin-left: 20px;
+    position: relative;
+    bottom: 50px;
+    cursor: pointer;
+    text-align: center;
+    line-height: 61px;
+    font-size: 25px;
+/*     font-family: "������κ"; */
+}
+#logo_a span {
+    color: #fff;
+    font-size: 20px;
+    position: relative;
+    bottom: 4px;
+}
+a:-webkit-any-link {
+    color: -webkit-link;
+    cursor: auto;
+    text-decoration: underline;
+}

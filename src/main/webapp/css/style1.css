@@ -1,0 +1,234 @@
+body {
+	
+	
+	background-image:url(../images/dcxtbg.png);
+	background-size:100% 100%;
+	
+	/*
+	background-color: #00718c;
+	*/
+	width: 100%;
+	height: 1199px;
+	margin: 0 auto;
+}
+#content {
+	/*border: 1px solid red;*/
+	width: 100%;
+}
+
+#all {
+	
+	/*border: 1px solid red;*/
+	width: 100%;
+	background-image:url(../images/logo_bg.png);
+	height: 150px;
+	/*position:fixed;
+	top:0;*/
+	
+}
+
+#logo {
+	float: left;
+	/*border: 1px solid red;*/
+	background-image:url(../images/ydlogo.png);
+	background-size:100% 100%;
+	font-size: 32px;
+	color: #fff;
+	width: 300px;
+	height: 150px;
+	line-height: 100px;
+	text-align: center;
+	position: relative ;
+	left:300px;
+}
+.s {
+	float: left;
+	/*width: 8%;
+	height: 60px;
+	*/
+	width:140px;
+	height:61px;
+	background-image:url(../images/logodh.png);
+	margin-top:80px;
+	margin-left:4%;
+	border-radius: 12px;
+	text-align: center; /* 文字水平居中 */
+	line-height: 60px; /* 行高 */
+	position: relative ;
+	left:300px;
+	
+}
+.user {
+	float: right;
+	right:50px;
+	width: 380px;
+	height: 150px;
+	color: #fff;
+	text-align: center; /* 文字水平居中 */
+	line-height: 80px; /* 行高 */
+}
+#userimg {
+	border:1px solid #d5d1ce;
+	width:50px;
+	height:50px;
+	background:url(../images/user.png) no-repeat;
+	background-size:50px 50px;
+	position: absolute;
+	top:90px;
+	right:300px;
+}
+
+#content {
+	background-image:url(../images/dcxtbg.png);
+}
+#content>div {
+	float: left;
+}
+
+#find {
+	/*border: 1px solid red;*/
+	width: 17%;
+	height: 670px;
+	margin-top:50px;
+	border-radius: 12px;
+	position: relative;
+	left: 50px;
+	background-color: #004455;
+}
+
+#find>div {
+	background-color: #00a2ca;
+	margin: 20px 18%;
+	/*border: 1px solid red;*/
+	width: 200px;
+	height: 50px;
+	border-radius: 10px 50px;
+	text-align: center; /* 文字水平居中 */
+	line-height: 50px; /* 行高 */
+}
+
+a {
+	color: #fff;
+	text-decoration: none; /* 文字下划线 */
+}
+
+.table {
+	/*border: 1px solid red;*/
+	margin: 80px 120px;
+	background-color: #fff;
+	width: 70%;
+	height: 600px;
+	position: relative;
+}
+.table>a{
+	color: #000;
+}
+#t_head {
+	width: 100%;
+	height: 40px;
+	background-color: #3db4e0;
+}
+
+#t_head1 {
+	width: 100%;
+	height: 8px;
+}
+
+#t_head2 {
+	width: 100%;
+	height: 40px;
+	background-color: #3db4e0;
+}
+
+#table_head {
+	/*border: 1px solid red;*/
+	position: relative;
+	withd: 60%;
+	height: 40px;
+}
+
+#seek {
+	position: absolute;
+	top: 10px;
+	left: 40px;
+}
+
+.table a{
+	color:#000;
+}
+
+#page {
+	position: absolute;
+	width: 8%;
+	height: 40px;
+	font-size: 12px;
+	text-align: center;
+	line-height: 40px;
+	right:100px;
+}
+#pageId {
+	position: absolute;
+	background-color: #fff;
+	width: 100%;
+	height: 20px;
+	font-size: 11px;
+	text-align: center;
+	bottom:30px;
+}
+
+.table>table {
+	border: 1px solid #ccc;
+	/* 边框合并，必须写在table上 */
+	border-collapse: collapse;
+	width: 100%;
+}
+
+.table td {
+	border: 1px solid #ccc;
+	text-align: center;
+}
+
+.table thead tr {
+	height: 40px;
+	background-color: #d5d1ce;
+	font-weight: bold;
+}
+
+.table tbody tr {
+	height: 32px;
+	background-color: #fff;
+}
+
+.table tbody tr:hover {
+	background-color: #f7f9fd;
+}
+/*
+.update {
+	设置鼠标形状
+	cursor:pointer;
+}
+.delete {
+	cursor:pointer;
+}
+*/
+.oper {
+	background-color: pink;
+	margin: 15px auto;
+	border: 1px solid red;
+	width: 150px;
+	height: 50px;
+	text-align: center;
+	line-height: 50px;
+}
+
+.oper>a {
+	text-decoration: none;
+}
+
+.operate {
+	border: 1px solid red;
+	width: 15%;
+	position: fixed;
+	right: 5px;
+	bottom: 20px;
+}

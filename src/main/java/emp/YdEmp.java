@@ -3,19 +3,19 @@ package emp;
 import java.util.Date;
 
 /**
- * ´æ·ÅÊı¾İµÄÀà
+ * å­˜æ”¾æ•°æ®çš„ç±»
  * @author admin
  *
  */
 public class YdEmp {
 	
-	private String name;	//²ËÆ·Ãû
-	private int price;		//²ËÆ·¼Û¸ñ
-	private int num;		//²ËÆ·¿â´æ
-	private Date update;	//¸üĞÂÈÕÆÚ
-	private String path;	//Í¼Æ¬Â·¾¶
-	private int no;			//²ËÆ·±àºÅ
-	private String search;  //Ê××ÖÄ¸ËõĞ´
+	private String name;	//èœå“å
+	private int price;		//èœå“ä»·æ ¼
+	private int num;		//èœå“åº“å­˜
+	private Date update;	//æ›´æ–°æ—¥æœŸ
+	private String path;	//å›¾ç‰‡è·¯å¾„
+	private int no;			//èœå“ç¼–å·
+	private String search;  //é¦–å­—æ¯ç¼©å†™
 	
 	public YdEmp() {
 		

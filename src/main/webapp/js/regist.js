@@ -4,7 +4,7 @@ function checkId(){
 		alert("请输入正确的数字!");
 		return;
 	}
-	var url = "registcheck.do";
+	var url = "registcheck.go";
 	$.getJSON(url,{"id":id},function(data){
 		if(data=="no"){
 			$("#user").css("border","1px solid red");
@@ -26,7 +26,7 @@ function registUser() {
 	var money = $("#money").val();
 	var params = {"id":id,"name":name,"pwd":pwd,"money":money};
 	console.log(params);
-	var url = "registUser.do";
+	var url = "registUser.go";
 	$.getJSON(url,params,function(data){
 		if(data=="yes"){
 			alert("注册成功!");
