@@ -30,10 +30,23 @@ function load(){//页面加载执行,用于订单页面返回点餐页面
 			$(tr).data("no",f.no);//转移no
 			$(tr).data("path",f.path);//转移path
 			$("#foodsbody").append(tr);
-			sumAll();			
+			sumAll();
+			readtr();
 		}
 	});
 	//$("#mwgd").trigger("click");//模拟点击事件
+}
+/*读取购物车商品数量,显示在购物车导航上*/
+function readtr(){
+	console.log("readtr");
+	var trs = $("#foodsbody").children();
+	var count=0;
+	for(var i=0;i<trs.length;i++){
+		var num = $(trs[i]).children().eq(2).children().eq(1).val();
+		console.log(num);
+		count += parseInt(num, 0);
+	}
+	$("#gwc_span").html(count);
 }
 /**
  * 自动生成购物车
@@ -75,6 +88,7 @@ function load(){//页面加载执行,用于订单页面返回点餐页面
 		$(new_trs).data("path",$(btn).data("path"));//转移path
 		$("#foodsbody").append(new_trs);
 		sumAll();
+		readtr();
 	}
 	
 	
@@ -93,6 +107,7 @@ function load(){//页面加载执行,用于订单页面返回点餐页面
 		//计算金额
 		$(btn).parent().next().html(n*price);
 		sumAll();
+		readtr();
 	}
 	/* 商品的加法 */
 	function jia(btn) {
@@ -105,6 +120,7 @@ function load(){//页面加载执行,用于订单页面返回点餐页面
 		//计算金额
 		$(btn).parent().next().html(u*price);
 		sumAll();
+		readtr();
 	}
 	/*删除一行*/
 	function remove(btn) {
@@ -128,7 +144,7 @@ function load(){//页面加载执行,用于订单页面返回点餐页面
 		}
 		$(btn).parent().parent().remove();
 		sumAll();
-		
+		readtr();
 	}
 	//计算总价格
 	function sumAll() {
@@ -166,7 +182,7 @@ function load(){//页面加载执行,用于订单页面返回点餐页面
 			}
 		}
 		sumAll();
-		
+		readtr();
 	}
 	
 	
