@@ -10,7 +10,7 @@ function load(){//页面加载执行,用于订单页面返回点餐页面
 			console.log("---first---");
 			return;
 		}
-		for(var i=0;i<data.length;i++){
+		for(var i=0;i<data.length;i++){//恢复购物车
 			var f = data[i];
 			console.log("f-----"+f);
 			var num = (f.prices)/(f.price);
@@ -28,6 +28,7 @@ function load(){//页面加载执行,用于订单页面返回点餐页面
 					'</td>'+
 					'</tr>');
 			$(tr).data("no",f.no);//转移no
+			$(tr).data("path",f.path);//转移path
 			$("#foodsbody").append(tr);
 			sumAll();			
 		}
@@ -71,6 +72,7 @@ function load(){//页面加载执行,用于订单页面返回点餐页面
 					'</td>'+
 			'</tr>');
 		$(new_trs).data("no",$(btn).data("no"));//转移no
+		$(new_trs).data("path",$(btn).data("path"));//转移path
 		$("#foodsbody").append(new_trs);
 		sumAll();
 	}

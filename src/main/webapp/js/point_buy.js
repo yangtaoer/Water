@@ -1,4 +1,4 @@
-function doPostData() {
+function doPostData() {//订单提交时发生,将数据发送到后台加工并且保存到session
 	var jsons = [];
 	var trs = $("#foodsbody").children();
 	if(trs.length==0){
@@ -12,7 +12,8 @@ function doPostData() {
 		var price = parseInt($(tds[1]).html(), 0);
 		var prices = parseInt($(tds[3]).html(), 0);
 		var no = $(trs[i]).data("no");
-		var data = {"name":name,"price":price,"prices":prices,"no":no};
+		var path = $(trs[i]).data("path");
+		var data = {"name":name,"price":price,"prices":prices,"no":no,"path":path};
 		console.log(data);
 		jsons.push(data);
 	}

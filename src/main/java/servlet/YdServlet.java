@@ -3,6 +3,8 @@ package servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -21,6 +23,7 @@ import dao.Dao;
 import dao.UserDAO;
 import dao.YdDAO;
 import emp.BuyEmp;
+import emp.SellObject;
 import emp.User;
 import emp.YdEmp;
 import emp.YdManager;
@@ -44,11 +47,12 @@ public class YdServlet extends HttpServlet{
 		clsMap.put("7", "野生菌菇");clsMap.put("8", "新鲜蔬菜");
 		clsMap.put("9", "美酒酷饮");		
 		String readJson = null;
-		List<BuyEmp> lst = null;
+		List<BuyEmp> list = null;
 		HttpSession session = req.getSession();		
 		ObjectMapper om = new ObjectMapper();
 		PrintWriter out = res.getWriter();
 		UserDAO userdao = new UserDAO();
+		YdDAO yd = new YdDAO();
 		/**
 		 * 所有导航的前缀可能性:
 		 * mwgd、shwz、jdcp、jpny、hxhy
@@ -84,15 +88,16 @@ public class YdServlet extends HttpServlet{
 		if("buy".equals(action)) {	//点餐页面点击提交订单保存数据的请求
 			int moneys = 0;
 			String jsons = req.getParameter("json");					
-			lst = om.readValue(jsons, new TypeReference<List<BuyEmp>>() {});//将json数组字符串转换为list 						
-			for(BuyEmp b : lst) {								//将数据进行加工
+			list = om.readValue(jsons, new TypeReference<List<BuyEmp>>() {});//将json数组字符串转换为list 						
+			for(BuyEmp b : list) {								//将数据进行加工
 				String no = String.valueOf(String.valueOf(b.getNo()).charAt(0));
 				moneys += b.getPrices();
 				b.setCls(clsMap.get(no));
-			}			
-			readJson = om.writeValueAsString(lst);
+			}
+			session.setAttribute("list", list);//保存list对象
+			readJson = om.writeValueAsString(list);
 			out.println(readJson);
-			session.setAttribute("msg", readJson);//绑定json数据再session上	
+			session.setAttribute("msg", readJson);//绑定json数据再保存session上	
 			System.out.println("msg:-----"+readJson);
 			session.setAttribute("moneys",moneys);//绑定总金额在session上
 			return;
@@ -260,23 +265,44 @@ public class YdServlet extends HttpServlet{
 				if(balance==null){
 					return;
 				}
-				if(balance>=prices){ 		//支付,并改变余额
-					int row = userdao.updateMoney(balance-prices, card);
-					if(row>0){
+				if(balance>=prices){ 		//支付,并改变余额	
+						int count = 0;
 						int rows = userdao.insertIndent(deskNo, prices);//保存订单信息
-						if(rows>0){
-							String json = om.writeValueAsString("支付成功!当前余额:"+(balance-prices));
-							out.println(json);
-							System.out.println("json-----"+json);
-							session.removeAttribute("msg");
-							return;
+						List<BuyEmp> lis = (List<BuyEmp>)session.getAttribute("list");
+						System.out.println("lis----"+lis);
+						for(BuyEmp b : lis){							//保存菜品信息
+							String yname = b.getName();
+							double price = b.getPrice();
+							int sums = b.getPrices()/b.getPrice();
+							double moneys = b.getPrices();
+							Date day = new Date(System.currentTimeMillis());
+							Calendar ca = Calendar.getInstance();
+							int month = ca.get(Calendar.MONTH)+1;
+							int no = b.getNo();
+							String path = b.getPath();
+							SellObject so = new SellObject(1, yname, price, sums, moneys, day, month, no, path);
+							count += yd.saveObjects(so);
+							System.out.println("sooooo----"+so);
+						}
+						if(rows>0 && count==lis.size()){//保存结束后结算金额
+							int row = userdao.updateMoney(balance-prices, card);//改变余额
+							if(row>0){						
+								String json = om.writeValueAsString("支付成功!当前余额:"+(balance-prices));
+								out.println(json);
+								System.out.println("json-----"+json);
+								session.removeAttribute("msg");//移除信息
+								return;
+							}else{
+								String json = om.writeValueAsString("支付失败!");
+								out.println(json);
+								return;	
+							}
 						} else {
 							String json = om.writeValueAsString("支付失败!");
 							out.println(json);
 							return;
 						}
-					}
-				} else {
+					}else {
 					String json = om.writeValueAsString(balance);
 					out.println(json);
 					return;

@@ -6,22 +6,32 @@ public class BuyEmp {
 	private int prices;
 	private int no;
 	private String cls;
+	private String path;
 	
 
-	public BuyEmp(String name, int price, int prices, int no, String cls) {
+	public BuyEmp(String name, int price, int prices, int no, String cls, String path) {
 		super();
 		this.name = name;
 		this.price = price;
 		this.prices = prices;
 		this.no = no;
 		this.cls = cls;
+		this.path = path;
 	}
+	
+	
 	public BuyEmp() {
 		
 	}
 
 	public String getCls() {
 		return cls;
+	}
+	public String getPath() {
+		return path;
+	}
+	public void setPath(String path) {
+		this.path = path;
 	}
 
 	public void setCls(String cls) {
@@ -55,7 +65,8 @@ public class BuyEmp {
 	
 	@Override
 	public String toString() {
-		return "BuyEmp [name=" + name + ", price=" + price + ", prices=" + prices + ", no=" + no + ", cls=" + cls + "]";
+		return "BuyEmp [name=" + name + ", price=" + price + ", prices=" + prices + ", no=" + no + ", cls=" + cls
+				+ ", path=" + path + "]";
 	}
 	
 }

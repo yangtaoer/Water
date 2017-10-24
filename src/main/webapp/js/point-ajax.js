@@ -34,6 +34,7 @@ function change(a) { 			//左侧导航区使用ajax实现局部刷新
 								'<span id="body_td_name">'+food.name+' '+food.price+' 元/份</span>	'+										
 								'</td>');
 					$(td).data("no",food.no);//绑定no数据到td上
+					$(td).data("path",food.path);//绑定地址
 					$('#table_body').children().eq(i).append(td);  //添加td
 					if($.inArray(food.name,names) !== -1) {  //判断元素是否存在于数组中,如果不存在就返回-1,存在就返回元素坐标
 						//如果存在就改变背景

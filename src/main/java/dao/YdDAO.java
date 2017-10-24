@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
 
+import emp.SellObject;
 import emp.YdEmp;
 import util.YdDBUtil;
 
@@ -81,6 +82,31 @@ public class YdDAO {
 			YdDBUtil.close(conn);
 		}
 
+	}
+	
+	public int saveObjects(SellObject so) {
+		Connection conn = null;
+		try {
+			conn = YdDBUtil.getConnection();
+			String sql = "insert into yd_sell values(seq_yd_sell.nextval,?,?,?,?,sysdate,?,?,?)";
+							//insert into yd_sell values(seq_yd_sell.nextval,'精品肥牛',25,10,250,sysdate,10,405,'sss');
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setString(1, so.getYname());
+			ps.setInt(2, (int)so.getPrice());
+			ps.setInt(3, so.getSums());
+			ps.setInt(4, (int)so.getMoney());
+			ps.setInt(5,so.getMoth());
+			ps.setInt(6,so.getNo());
+			ps.setString(7, so.getPath());
+			int rows = ps.executeUpdate();
+			return rows;
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		} finally {
+			YdDBUtil.close(conn);
+		}	
+		return 0;
 	}
 	
 	
