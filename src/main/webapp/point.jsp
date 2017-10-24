@@ -43,7 +43,7 @@
 				<a id="search_btn" href="#" onclick="searchn();"></a>
 			</div>
 			<ul id="main_left_ul">			
-				<li><a href="#">菜品排行类</a></li>
+				<li><a id="yd_sell" href="#" onclick="rank()">菜品排行类</a></li>
 				<li><a id="mwgd" href="#" onclick="change(this);">美味锅底类</a></li>
 				<li><a id="shwz" href="#" onclick="change(this);">顺滑丸子类</a></li>			
 				<li><a id="jdcp" href="#" onclick="change(this);">经典菜品类</a></li>

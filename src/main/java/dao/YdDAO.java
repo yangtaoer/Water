@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -84,7 +86,7 @@ public class YdDAO {
 
 	}
 	
-	public int saveObjects(SellObject so) {
+	public int saveObjects(SellObject so) {//保存销售记录
 		Connection conn = null;
 		try {
 			conn = YdDBUtil.getConnection();
@@ -109,6 +111,37 @@ public class YdDAO {
 		return 0;
 	}
 	
-	
+	public List<SellObject> rank() {
+		Connection conn = null;
+		List<SellObject> list = new LinkedList<SellObject>();
+		try {
+			conn = YdDBUtil.getConnection();
+			String sql =" select distinct YD_SELL.NO,YD_SELL.YNAME,YD_SELL.PRICE,YD_SELL.MONEY,yd_sell.path,a.count sums from"+
+					" (SELECT YNAME,COUNT(YNAME) count FROM YD_SELL GROUP BY YNAME) a left join yd_sell "+ 
+					" on a.yname=yd_sell.yname where TO_CHAR(yd_sell.day,'dd')=TO_CHAR(SYSDATE,'dd') order by a.count desc ";//查询前一天的数据			
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ResultSet rs = ps.executeQuery();			
+			while(rs.next()) {
+				SellObject so = new SellObject(0,
+												rs.getString("yname"),
+												rs.getDouble("price"),
+												rs.getInt("sums"),
+												rs.getDouble("money"),
+												new Date(System.currentTimeMillis()),
+												Calendar.getInstance().get(Calendar.MONTH),
+												rs.getInt("no"),
+												rs.getString("path"));				
+				list.add(so);				
+			}
+			System.out.println(list);
+			return list;
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+			return null;
+		} finally {
+			YdDBUtil.close(conn);
+		}
+	}
 	
 }

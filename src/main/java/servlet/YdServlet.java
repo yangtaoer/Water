@@ -3,7 +3,11 @@ package servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Connection;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -244,7 +248,7 @@ public class YdServlet extends HttpServlet{
 				out.println("系统繁忙，稍后重试");
 			}
 		}
-		if("checkmoney".equals(action)) {       //检查余额
+		if("checkmoney".equals(action)) {       //检查余额,支付,保存订单信息,保存销量信息
 			System.out.println("开始检查余额----");
 			String desk = req.getParameter("deskId");
 			System.out.println("deskno:"+desk);
@@ -343,6 +347,37 @@ public class YdServlet extends HttpServlet{
 				return;
 			}
 		}
+		if("rank".equals(action)) {//排行榜			
+			List<SellObject> ranklist = yd.rank();
+			System.out.println(ranklist);
+			String jsonlist = om.writeValueAsString(ranklist);//绑定json对象		
+			res.getWriter().println(jsonlist);//发送json对象给web端
+		}
+			
+			/*List<SellObject> ranklist = yd.rank();//查询到的菜品销售信息
+			List<SellObject> rankjson = new ArrayList<SellObject>();//保存发送的数据
+			HashMap<String,Integer> map = new HashMap<String, Integer>();//存放菜品名称,保证重复
+			for(int i=0;i<ranklist.size();i++){
+				SellObject so = ranklist.get(i);
+				if(map.containsKey(so.getYname())){//查看是否已存在于rankjson中
+					SellObject soj = rankjson.get(map.get(so.getYname()));//元素拿出来
+					soj.setSums(soj.getSums()+so.getSums());//把元素的数量相加
+					rankjson.remove(i-1);//移除元素
+					rankjson.add(i-1, soj);//重新添加
+				} else {					
+					rankjson.add(i,so);//添加元素
+					map.put(so.getYname(), i);//保存元素名,以及存储位置
+				}
+			}			
+			Collections.sort(rankjson,new Comparator<SellObject>() {
+				public int compare(SellObject o1, SellObject o2) {
+					return o1.getSums()-o2.getSums();
+				}
+			});
+			System.out.println(map);
+			String jsonlist = om.writeValueAsString(rankjson);//绑定json对象		
+			res.getWriter().println(jsonlist);//发送json对象给web端
+*/		
 		
 		
 		
