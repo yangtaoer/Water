@@ -64,7 +64,6 @@ public class Daos {
 			while(rs.next()){
 				sum=rs.getInt(1);
 			}
-			System.out.println("鎬绘暟  锛�"+sum);
 			return sum;
 		}catch (SQLException e) {
 			e.printStackTrace();
@@ -106,9 +105,7 @@ public class Daos {
 				f.setSearch(search);
 				list.add(f);
 			}
-			for(Cui c1:list){
-				System.out.println(c1);
-			}
+
 			return list;
 		}catch (SQLException e) {
 			e.printStackTrace();
@@ -189,7 +186,6 @@ public class Daos {
 			String noStr=String.valueOf(no);
 			String sql="";
 			if(noStr.startsWith("1")){
-				System.out.println("淇敼浠モ��1鈥欏紑澶寸殑琛�");
 				sql="update yd_mwgd set yname=?,price=?,num=?,update_time=?,path=?,search=? where no="+no;
 			}
 			if(noStr.startsWith("2")){

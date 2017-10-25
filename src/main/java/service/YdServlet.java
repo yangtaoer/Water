@@ -41,8 +41,6 @@ public class YdServlet extends HttpServlet{
 		if("/find".equals(action)){
 			int pageCurrent=Integer.valueOf(request.getParameter("pageCurrent"));
 			String str=request.getParameter("abc");
-			System.out.println("pageCurrent : " +pageCurrent);
-			System.out.println("str : "  +str);
 			List<Cui>  list=Daos.findPageCui(str, pageCurrent);
 			int rowCount=Daos.sum(str);
 			int pageSize=6;
@@ -60,13 +58,9 @@ public class YdServlet extends HttpServlet{
 			response.getWriter().println(jsstr);
 		}else if("/xg".equals(action)){
 			String xg_name=request.getParameter("xg_name");
-			System.out.println("xg_name : "+xg_name);
 			String xg_val=request.getParameter("xg_val");
-			System.out.println("xg_val : "+xg_val);
 			String xg_vals=request.getParameter("xg_id");
-			System.out.println("xg_vals : "+xg_vals);
 			String[] ids=xg_vals.split(",");
-			System.out.println(ids);
 			List<Cui> list= new ArrayList<Cui>();
 			if("price".equals(xg_name)){
 				Daos.update(xg_vals, xg_name, xg_val);
@@ -76,12 +70,10 @@ public class YdServlet extends HttpServlet{
 			}
 			for(String s:ids){
 				Integer no=Integer.valueOf(s);
-				System.out.println(no);
 				Cui f=Daos.fingByNo(no);
 				Daos.update2(f);
 				list.add(f);
 			}
-			System.out.println("list");
 			ObjectMapper om=new ObjectMapper();
 			String jsstr=om.writeValueAsString(list);
 			response.getWriter().println(jsstr);
@@ -94,7 +86,6 @@ public class YdServlet extends HttpServlet{
 		}else if("/manager_id".equals(action)){
 			try{
 				int id = Integer.parseInt(request.getParameter("username"));
-				System.out.println("id:"+id);
 				request.setAttribute("id",id);
 				RequestDispatcher rd = request.getRequestDispatcher("cuisine.jsp");
 				rd.forward(request, response);

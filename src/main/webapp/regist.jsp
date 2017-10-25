@@ -85,10 +85,10 @@ body {
 <body>
 <div id="all">
 	<div id="logo"></div>
-	<div id="ydlogodhimg" class="s"><a href="sell.jsp">销量查询</a></div>
-	<div id="ydlogodhimg" class="s"><a href="cuisine.jsp">菜品查询</a></div>
-	<div id="ydlogodhimg" class="s"><a href="indent.jsp">订单查询</a></div>
-	<div id="ydlogodhimg" class="s"><a href="regist.jsp">注册会员</a></div>
+	<div class="s"><a href="sell.jsp">销量查询</a></div>
+	<div class="s"><a href="cuisine.jsp">菜品查询</a></div>
+	<div class="s"><a href="indent.jsp">订单查询</a></div>
+	<div class="s"><a href="regist.jsp">注册会员</a></div>
 	<div class="user"><br>
 		<div id="userimg"></div>
 		你好，

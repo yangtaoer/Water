@@ -11,5 +11,7 @@ function goVip(){
 	}
 }
 function goWe(){
-	window.location.replace("http://www.7k7k.com");
+	if(confirm("是否前往世外桃源?")){
+		window.location.replace("http://www.7k7k.com");
+	}	
 }

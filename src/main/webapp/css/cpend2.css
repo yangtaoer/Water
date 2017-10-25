@@ -1,7 +1,7 @@
 #mid{
 /* 	border:1px solid blue;
- */	position: fixed;
-	top:150px;
+ */	position: relative;
+	top:130px;
 	width:1920px;
 	height:600px;
 	
@@ -40,17 +40,22 @@
 	height:420px;
 }
 #tb{
-	height:360px;
+	height:400px;
 }
 #tb tr{
 	line-height: 50px;
+}
+#info{
+	position:relative;
 }
 #data{
 /* 	border:1px solid red; */
 	width:1260px;
 	height:430px;
 	text-align:center;
-	position:relative;
+/* 	position:relative; */
+	overflow :auto;
+	background-color: #fff; 
 }
 #mune{
 	/*border:1px solid red;*/
@@ -82,8 +87,8 @@ select{
 #hd{
 	position: absolute;
 	width:700px;
-	top:0;
-	left:0;
+	top:140px;
+	left:330px;
 	border:1px solid red;
 	background-color: rgb(167,204,235);
 }

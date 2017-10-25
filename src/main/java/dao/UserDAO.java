@@ -12,29 +12,23 @@ public class UserDAO {
 		User user = null;
 		Connection conn = null;
 		try {
-			System.out.println("carddao:"+card);
+
 			conn = YdDBUtil.getConnection();
 			String sql = "SELECT * FROM t_vip_ymj WHERE id=?";
 			PreparedStatement ps = 
 				conn.prepareStatement(sql);
 			ps.setInt(1, card);
-			ResultSet rs = ps.executeQuery();
-			System.out.println("rslength:"+rs.getRow());
+			ResultSet rs = ps.executeQuery();	
 			if(rs.next()){
 				user = new User();
 				int id = rs.getInt("id");
-				user.setId(id);
-				System.out.println("id:"+id);
+				user.setId(id);			
 				String username = rs.getString("username");
-				user.setUsername(username);
-				System.out.println("username:"+username);
+				user.setUsername(username);			
 				String pwd = rs.getString("password");
-				user.setPassword(pwd);
-				System.out.println("pwd:"+pwd);
+				user.setPassword(pwd);			
 				int money = rs.getInt("money");
 				user.setMoney((double)(money));	
-				System.out.println("money:"+money);
-				System.out.println("user:"+user);
 				return user;
 			}
 		} catch (SQLException e) {
@@ -93,7 +87,7 @@ public class UserDAO {
 		return null;
 	}
 	
-	public int updateMoney(Double money,int card){//¸üÐÂÓà¶î
+	public int updateMoney(Double money,int card){//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		Connection conn = null;
 		try {
 			conn = YdDBUtil.getConnection();
@@ -112,7 +106,7 @@ public class UserDAO {
 		}
 	}	
 	
-	public int insertIndent(int deskNo,Double money){	//±£´æ¶©µ¥ÐÅÏ¢
+	public int insertIndent(int deskNo,Double money){	//ï¿½ï¿½ï¿½æ¶©ï¿½ï¿½ï¿½ï¿½Ï¢
 		Connection conn = null;
 		try {
 			conn = YdDBUtil.getConnection();

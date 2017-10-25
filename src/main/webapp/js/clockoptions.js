@@ -1,4 +1,5 @@
-  clockd1_={
+/*动态时钟参数设置*/
+clockd1_={
 			  "indicate": true,
 			  "indicate_color": "#fff",
 			  "dial1_color": "#fff",

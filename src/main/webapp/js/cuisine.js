@@ -46,6 +46,12 @@
 	$(document).ready(function(){
 		ny();
 	})
+	function f1(qx){
+		var list=document.getElementsByName("test");
+		for(var i=0;i<list.length;i++){
+			list[i].checked=qx.checked;
+		}
+}
 	function ss(){
 		params={};
 		var pageCurrent=$("#pageId").data("pageCurrent");
@@ -187,8 +193,7 @@
 			"type":"get",
 			"dataType":"json",
 			"data":params,
-			"success":function(result){
-				console.log(result);
+			"success":function(result){	
                  if(result.state==1){
                 	 setTableBodyRows(result.data.list);
  		        	setPagination(result.data.pageObject); 

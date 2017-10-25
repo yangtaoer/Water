@@ -15,12 +15,13 @@ import util.DBUtil;
 public class CuisineDao {
 	private Cuisine createCuisine(ResultSet rs) throws SQLException {
 		Cuisine c = new Cuisine();
-		c.setId(rs.getInt("id"));
+		c.setNo(rs.getInt("no"));
 		c.setYname(rs.getString("yname"));
 		c.setPrice(rs.getDouble("price"));
-		c.setSums(rs.getInt("sums"));
-		c.setMoney(rs.getDouble("money"));
+		c.setS(rs.getInt("s"));
+		c.setM(rs.getDouble("m"));
 		return c;
+		
 	}
 	private Indent createIndent(ResultSet rs) throws SQLException {
 		Indent c = new Indent();
@@ -61,7 +62,7 @@ public class CuisineDao {
 			return list;
 		} catch (SQLException e) {
 			e.printStackTrace();
-			throw new RuntimeException("��ѯ����Աʧ��",e);
+			throw new RuntimeException("查询失败!",e);
 		} finally{
 			DBUtil.close(conn);
 		}
@@ -76,7 +77,7 @@ public class CuisineDao {
 			return rows;
 		} catch (SQLException e) {
 			e.printStackTrace();
-			throw new RuntimeException("��ѯ����Աʧ��",e);
+			throw new RuntimeException("查询失败!",e);
 		} finally{
 			DBUtil.close(conn);
 		}
@@ -97,7 +98,7 @@ public class CuisineDao {
 			return name;
 		} catch (SQLException e) {
 			e.printStackTrace();
-			throw new RuntimeException("��ѯ����Աʧ��",e);
+			throw new RuntimeException("查询失败!",e);
 		} finally{
 			DBUtil.close(conn);
 		}
@@ -118,7 +119,7 @@ public class CuisineDao {
 			ps.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
-			throw new RuntimeException("������Ʒʧ��",e);
+			throw new RuntimeException("查询失败!",e);
 		} finally{
 			DBUtil.close(conn);
 		}
@@ -135,7 +136,7 @@ public class CuisineDao {
 			ps.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
-			throw new RuntimeException("ɾ����Ʒʧ��",e);
+			throw new RuntimeException("查询失败!",e);
 		} finally{
 			DBUtil.close(conn);
 		}
@@ -571,15 +572,13 @@ public class CuisineDao {
 		Connection conn = null;
 		try {
 			conn = DBUtil.getConnection();
-			String sql = "SELECT id,yname,price,sums,money FROM ("
-					+ "SELECT ROWNUM RN,T.* FROM ("
-					+ "SELECT * FROM ("
-					+ "SELECT * FROM YD_SELL WHERE (NO LIKE '2%' OR NO LIKE '3%' OR "
-					+ "NO LIKE '4%' OR NO LIKE '5%' OR NO LIKE '6%' OR NO LIKE '7%' "
-					+ "OR NO LIKE '8%') AND TO_CHAR(DAY,'dd')=TO_CHAR(SYSDATE,'dd'))"
-					+ "ORDER BY id ) T)"
+			String sql = "SELECT * FROM (SELECT ROWNUM RN,T.* FROM (SELECT * FROM ( "
+					+ "SELECT NO,YNAME,PRICE,SUM(SUMS) S,SUM(MONEY) M FROM YD_SELL WHERE "
+					+ "(no like '2%' or no like '3%' or no like '4%' or no like '5%' or "
+					+ "no like '6%' or no like '7%' or no like '8%') AND "
+					+ "TO_CHAR(YD_SELL.DAY,'dd')=TO_CHAR(SYSDATE,'dd') "
+					+ "GROUP BY YNAME,PRICE,NO ORDER BY S DESC ) ) T)"
 					+ "WHERE RN BETWEEN ? AND ?";
-					
 			PreparedStatement ps = conn.prepareStatement(sql);
 			ps.setInt(1, startIndex);
 			ps.setInt(2, endIndex);
@@ -603,7 +602,11 @@ public class CuisineDao {
 		int a=0;
 		try {
 			conn = DBUtil.getConnection();
-			String sqlPage = "select count(*) from (SELECT * FROM YD_SELL WHERE (NO LIKE '2%' OR NO LIKE '3%' OR NO LIKE '4%' OR NO LIKE '5%' OR NO LIKE '6%' OR NO LIKE '7%' OR NO LIKE '8%') AND TO_CHAR(DAY,'dd')=TO_CHAR(SYSDATE,'dd'))";
+			String sqlPage = "select count(*) from (select no,yname,price,sum(sums) s,"
+					+ "sum(money) m from yd_sell where (no like '2%' or no like '3%' or "
+					+ "no like '4%' or no like '5%' or no like '6%' or no like '7%' or no like '8%') "
+					+ "and TO_CHAR(yd_sell.day,'dd')=TO_CHAR(SYSDATE,'dd') group by yname,price,no "
+					+ "order by s desc)";
 			PreparedStatement ps1 = conn.prepareStatement(sqlPage);
 			ResultSet rs1 = ps1.executeQuery();
 			if(rs1.next()) a=rs1.getInt(1);
@@ -619,11 +622,10 @@ public class CuisineDao {
 		Connection conn = null;
 		try {
 			conn = DBUtil.getConnection();
-			String sql = "SELECT id,yname,price,sums,money FROM ("
-					+ "SELECT ROWNUM RN,T.* FROM ("
-					+ "SELECT * FROM ("
-					+ "SELECT * FROM YD_SELL WHERE NO LIKE '9%' AND TO_CHAR(DAY,'dd')=TO_CHAR(SYSDATE,'dd'))"
-					+ "ORDER BY id ) T)"
+			String sql = "SELECT * FROM (SELECT ROWNUM RN,T.* FROM ("
+					+ "SELECT * FROM ( SELECT NO,YNAME,PRICE,SUM(SUMS) S,SUM(MONEY) M "
+					+ "FROM YD_SELL WHERE NO LIKE '9%' AND TO_CHAR(YD_SELL.DAY,'dd')=TO_CHAR(SYSDATE,'dd') "
+					+ "GROUP BY YNAME,PRICE,NO ORDER BY S DESC ) ) T)"
 					+ "WHERE RN BETWEEN ? AND ?";
 					
 			PreparedStatement ps = conn.prepareStatement(sql);
@@ -649,7 +651,10 @@ public class CuisineDao {
 		int a=0;
 		try {
 			conn = DBUtil.getConnection();
-			String sqlPage = "select count(*) from (SELECT * FROM YD_SELL WHERE NO LIKE '9%' AND TO_CHAR(DAY,'dd')=TO_CHAR(SYSDATE,'dd'))";
+			String sqlPage = "select count(*) from (select no,yname,price,sum(sums) s,"
+					+ "sum(money) m from yd_sell where no like '9%' "
+					+ "and TO_CHAR(yd_sell.day,'dd')=TO_CHAR(SYSDATE,'dd') group by yname,price,no "
+					+ "order by s desc)";
 			PreparedStatement ps1 = conn.prepareStatement(sqlPage);
 			ResultSet rs1 = ps1.executeQuery();
 			if(rs1.next()) a=rs1.getInt(1);
@@ -665,11 +670,10 @@ public class CuisineDao {
 		Connection conn = null;
 		try {
 			conn = DBUtil.getConnection();
-			String sql = "SELECT id,yname,price,sums,money FROM ("
-					+ "SELECT ROWNUM RN,T.* FROM ("
-					+ "SELECT * FROM ("
-					+ "SELECT * FROM YD_SELL WHERE NO LIKE '1%' AND TO_CHAR(DAY,'dd')=TO_CHAR(SYSDATE,'dd'))"
-					+ "ORDER BY id ) T)"
+			String sql = "SELECT * FROM (SELECT ROWNUM RN,T.* FROM ("
+					+ "SELECT * FROM ( SELECT NO,YNAME,PRICE,SUM(SUMS) S,SUM(MONEY) M "
+					+ "FROM YD_SELL WHERE NO LIKE '1%' AND TO_CHAR(YD_SELL.DAY,'dd')=TO_CHAR(SYSDATE,'dd') "
+					+ "GROUP BY YNAME,PRICE,NO ORDER BY S DESC ) ) T)"
 					+ "WHERE RN BETWEEN ? AND ?";
 					
 			PreparedStatement ps = conn.prepareStatement(sql);
@@ -695,7 +699,10 @@ public class CuisineDao {
 		int a=0;
 		try {
 			conn = DBUtil.getConnection();
-			String sqlPage = "select count(*) from (SELECT * FROM YD_SELL WHERE NO LIKE '1%' AND TO_CHAR(DAY,'dd')=TO_CHAR(SYSDATE,'dd'))";
+			String sqlPage = "select count(*) from (select no,yname,price,sum(sums) s,"
+					+ "sum(money) m from yd_sell where no like '1%' "
+					+ "and TO_CHAR(yd_sell.day,'dd')=TO_CHAR(SYSDATE,'dd') group by yname,price,no "
+					+ "order by s desc)";
 			PreparedStatement ps1 = conn.prepareStatement(sqlPage);
 			ResultSet rs1 = ps1.executeQuery();
 			if(rs1.next()) a=rs1.getInt(1);
@@ -711,13 +718,12 @@ public class CuisineDao {
 		Connection conn = null;
 		try {
 			conn = DBUtil.getConnection();
-			String sql = "SELECT id,yname,price,sums,money FROM ("
-					+ "SELECT ROWNUM RN,T.* FROM ("
-					+ "SELECT * FROM ("
-					+ "SELECT * FROM YD_SELL WHERE (NO LIKE '2%' OR NO LIKE '3%' OR "
-					+ "NO LIKE '4%' OR NO LIKE '5%' OR NO LIKE '6%' OR NO LIKE '7%' "
-					+ "OR NO LIKE '8%') AND TO_CHAR(DAY,'iw')=TO_CHAR(SYSDATE,'iw'))"
-					+ "ORDER BY id ) T)"
+			String sql = "SELECT * FROM (SELECT ROWNUM RN,T.* FROM (SELECT * FROM ( "
+					+ "SELECT NO,YNAME,PRICE,SUM(SUMS) S,SUM(MONEY) M FROM YD_SELL WHERE "
+					+ "(no like '2%' or no like '3%' or no like '4%' or no like '5%' or "
+					+ "no like '6%' or no like '7%' or no like '8%') AND "
+					+ "TO_CHAR(YD_SELL.DAY,'iw')=TO_CHAR(SYSDATE,'iw') "
+					+ "GROUP BY YNAME,PRICE,NO ORDER BY S DESC ) ) T)"
 					+ "WHERE RN BETWEEN ? AND ?";
 					
 			PreparedStatement ps = conn.prepareStatement(sql);
@@ -743,7 +749,11 @@ public class CuisineDao {
 		int a=0;
 		try {
 			conn = DBUtil.getConnection();
-			String sqlPage = "select count(*) from (SELECT * FROM YD_SELL WHERE (NO LIKE '2%' OR NO LIKE '3%' OR NO LIKE '4%' OR NO LIKE '5%' OR NO LIKE '6%' OR NO LIKE '7%' OR NO LIKE '8%') AND TO_CHAR(DAY,'iw')=TO_CHAR(SYSDATE,'iw'))";
+			String sqlPage = "select count(*) from (select no,yname,price,sum(sums) s,"
+					+ "sum(money) m from yd_sell where (no like '2%' or no like '3%' or "
+					+ "no like '4%' or no like '5%' or no like '6%' or no like '7%' or no like '8%') "
+					+ "and TO_CHAR(yd_sell.day,'iw')=TO_CHAR(SYSDATE,'iw') group by yname,price,no "
+					+ "order by s desc)";
 			PreparedStatement ps1 = conn.prepareStatement(sqlPage);
 			ResultSet rs1 = ps1.executeQuery();
 			if(rs1.next()) a=rs1.getInt(1);
@@ -759,11 +769,10 @@ public class CuisineDao {
 		Connection conn = null;
 		try {
 			conn = DBUtil.getConnection();
-			String sql = "SELECT id,yname,price,sums,money FROM ("
-					+ "SELECT ROWNUM RN,T.* FROM ("
-					+ "SELECT * FROM ("
-					+ "SELECT * FROM YD_SELL WHERE NO LIKE '9%' AND TO_CHAR(DAY,'iw')=TO_CHAR(SYSDATE,'iw'))"
-					+ "ORDER BY id ) T)"
+			String sql = "SELECT * FROM (SELECT ROWNUM RN,T.* FROM ("
+					+ "SELECT * FROM ( SELECT NO,YNAME,PRICE,SUM(SUMS) S,SUM(MONEY) M "
+					+ "FROM YD_SELL WHERE NO LIKE '9%' AND TO_CHAR(YD_SELL.DAY,'iw')=TO_CHAR(SYSDATE,'iw') "
+					+ "GROUP BY YNAME,PRICE,NO ORDER BY S DESC ) ) T)"
 					+ "WHERE RN BETWEEN ? AND ?";
 					
 			PreparedStatement ps = conn.prepareStatement(sql);
@@ -789,7 +798,10 @@ public class CuisineDao {
 		int a=0;
 		try {
 			conn = DBUtil.getConnection();
-			String sqlPage = "select count(*) from (SELECT * FROM YD_SELL WHERE NO LIKE '9%' AND TO_CHAR(DAY,'iw')=TO_CHAR(SYSDATE,'iw'))";
+			String sqlPage = "select count(*) from (select no,yname,price,sum(sums) s,"
+					+ "sum(money) m from yd_sell where no like '9%' "
+					+ "and TO_CHAR(yd_sell.day,'iw')=TO_CHAR(SYSDATE,'iw') group by yname,price,no "
+					+ "order by s desc)";
 			PreparedStatement ps1 = conn.prepareStatement(sqlPage);
 			ResultSet rs1 = ps1.executeQuery();
 			if(rs1.next()) a=rs1.getInt(1);
@@ -805,13 +817,11 @@ public class CuisineDao {
 		Connection conn = null;
 		try {
 			conn = DBUtil.getConnection();
-			String sql = "SELECT id,yname,price,sums,money FROM ("
-					+ "SELECT ROWNUM RN,T.* FROM ("
-					+ "SELECT * FROM ("
-					+ "SELECT * FROM YD_SELL WHERE NO LIKE '1%' AND TO_CHAR(DAY,'iw')=TO_CHAR(SYSDATE,'iw'))"
-					+ "ORDER BY id ) T)"
-					+ "WHERE RN BETWEEN ? AND ?";
-					
+			String sql = "SELECT * FROM (SELECT ROWNUM RN,T.* FROM ("
+					+ "SELECT * FROM ( SELECT NO,YNAME,PRICE,SUM(SUMS) S,SUM(MONEY) M "
+					+ "FROM YD_SELL WHERE NO LIKE '1%' AND TO_CHAR(YD_SELL.DAY,'iw')=TO_CHAR(SYSDATE,'iw') "
+					+ "GROUP BY YNAME,PRICE,NO ORDER BY S DESC ) ) T)"
+					+ "WHERE RN BETWEEN ? AND ?";	
 			PreparedStatement ps = conn.prepareStatement(sql);
 			ps.setInt(1, startIndex);
 			ps.setInt(2, endIndex);
@@ -835,7 +845,10 @@ public class CuisineDao {
 		int a=0;
 		try {
 			conn = DBUtil.getConnection();
-			String sqlPage = "select count(*) from (SELECT * FROM YD_SELL WHERE NO LIKE '1%' AND TO_CHAR(DAY,'iw')=TO_CHAR(SYSDATE,'iw'))";
+			String sqlPage = "select count(*) from (select no,yname,price,sum(sums) s,"
+					+ "sum(money) m from yd_sell where no like '1%' "
+					+ "and TO_CHAR(yd_sell.day,'iw')=TO_CHAR(SYSDATE,'iw') group by yname,price,no "
+					+ "order by s desc)";
 			PreparedStatement ps1 = conn.prepareStatement(sqlPage);
 			ResultSet rs1 = ps1.executeQuery();
 			if(rs1.next()) a=rs1.getInt(1);
@@ -851,13 +864,12 @@ public class CuisineDao {
 		Connection conn = null;
 		try {
 			conn = DBUtil.getConnection();
-			String sql = "SELECT id,yname,price,sums,money FROM ("
-					+ "SELECT ROWNUM RN,T.* FROM ("
-					+ "SELECT * FROM ("
-					+ "SELECT * FROM YD_SELL WHERE (NO LIKE '2%' OR NO LIKE '3%' OR "
-					+ "NO LIKE '4%' OR NO LIKE '5%' OR NO LIKE '6%' OR NO LIKE '7%' "
-					+ "OR NO LIKE '8%') AND TO_CHAR(DAY,'mm')=TO_CHAR(SYSDATE,'mm'))"
-					+ "ORDER BY id ) T)"
+			String sql = "SELECT * FROM (SELECT ROWNUM RN,T.* FROM (SELECT * FROM ( "
+					+ "SELECT NO,YNAME,PRICE,SUM(SUMS) S,SUM(MONEY) M FROM YD_SELL WHERE "
+					+ "(no like '2%' or no like '3%' or no like '4%' or no like '5%' or "
+					+ "no like '6%' or no like '7%' or no like '8%') AND "
+					+ "TO_CHAR(YD_SELL.DAY,'mm')=TO_CHAR(SYSDATE,'mm') "
+					+ "GROUP BY YNAME,PRICE,NO ORDER BY S DESC ) ) T)"
 					+ "WHERE RN BETWEEN ? AND ?";
 					
 			PreparedStatement ps = conn.prepareStatement(sql);
@@ -883,7 +895,11 @@ public class CuisineDao {
 		int a=0;
 		try {
 			conn = DBUtil.getConnection();
-			String sqlPage = "select count(*) from (SELECT * FROM YD_SELL WHERE (NO LIKE '2%' OR NO LIKE '3%' OR NO LIKE '4%' OR NO LIKE '5%' OR NO LIKE '6%' OR NO LIKE '7%' OR NO LIKE '8%') AND TO_CHAR(DAY,'mm')=TO_CHAR(SYSDATE,'mm'))";
+			String sqlPage = "select count(*) from (select no,yname,price,sum(sums) s,"
+					+ "sum(money) m from yd_sell where (no like '2%' or no like '3%' or "
+					+ "no like '4%' or no like '5%' or no like '6%' or no like '7%' or no like '8%') "
+					+ "and TO_CHAR(yd_sell.day,'mm')=TO_CHAR(SYSDATE,'mm') group by yname,price,no "
+					+ "order by s desc)";
 			PreparedStatement ps1 = conn.prepareStatement(sqlPage);
 			ResultSet rs1 = ps1.executeQuery();
 			if(rs1.next()) a=rs1.getInt(1);
@@ -899,11 +915,10 @@ public class CuisineDao {
 		Connection conn = null;
 		try {
 			conn = DBUtil.getConnection();
-			String sql = "SELECT id,yname,price,sums,money FROM ("
-					+ "SELECT ROWNUM RN,T.* FROM ("
-					+ "SELECT * FROM ("
-					+ "SELECT * FROM YD_SELL WHERE NO LIKE '9%' AND TO_CHAR(DAY,'mm')=TO_CHAR(SYSDATE,'mm'))"
-					+ "ORDER BY id ) T)"
+			String sql = "SELECT * FROM (SELECT ROWNUM RN,T.* FROM ("
+					+ "SELECT * FROM ( SELECT NO,YNAME,PRICE,SUM(SUMS) S,SUM(MONEY) M "
+					+ "FROM YD_SELL WHERE NO LIKE '9%' AND TO_CHAR(YD_SELL.DAY,'mm')=TO_CHAR(SYSDATE,'mm') "
+					+ "GROUP BY YNAME,PRICE,NO ORDER BY S DESC ) ) T)"
 					+ "WHERE RN BETWEEN ? AND ?";
 					
 			PreparedStatement ps = conn.prepareStatement(sql);
@@ -929,7 +944,10 @@ public class CuisineDao {
 		int a=0;
 		try {
 			conn = DBUtil.getConnection();
-			String sqlPage = "select count(*) from (SELECT * FROM YD_SELL WHERE NO LIKE '9%' AND TO_CHAR(DAY,'mm')=TO_CHAR(SYSDATE,'mm'))";
+			String sqlPage = "select count(*) from (select no,yname,price,sum(sums) s,"
+					+ "sum(money) m from yd_sell where no like '9%' "
+					+ "and TO_CHAR(yd_sell.day,'mm')=TO_CHAR(SYSDATE,'mm') group by yname,price,no "
+					+ "order by s desc)";
 			PreparedStatement ps1 = conn.prepareStatement(sqlPage);
 			ResultSet rs1 = ps1.executeQuery();
 			if(rs1.next()) a=rs1.getInt(1);
@@ -945,11 +963,10 @@ public class CuisineDao {
 		Connection conn = null;
 		try {
 			conn = DBUtil.getConnection();
-			String sql = "SELECT id,yname,price,sums,money FROM ("
-					+ "SELECT ROWNUM RN,T.* FROM ("
-					+ "SELECT * FROM ("
-					+ "SELECT * FROM YD_SELL WHERE NO LIKE '1%' AND TO_CHAR(DAY,'mm')=TO_CHAR(SYSDATE,'mm'))"
-					+ "ORDER BY id ) T)"
+			String sql = "SELECT * FROM (SELECT ROWNUM RN,T.* FROM ("
+					+ "SELECT * FROM ( SELECT NO,YNAME,PRICE,SUM(SUMS) S,SUM(MONEY) M "
+					+ "FROM YD_SELL WHERE NO LIKE '1%' AND TO_CHAR(YD_SELL.DAY,'mm')=TO_CHAR(SYSDATE,'mm') "
+					+ "GROUP BY YNAME,PRICE,NO ORDER BY S DESC ) ) T)"
 					+ "WHERE RN BETWEEN ? AND ?";
 					
 			PreparedStatement ps = conn.prepareStatement(sql);
@@ -975,7 +992,10 @@ public class CuisineDao {
 		int a=0;
 		try {
 			conn = DBUtil.getConnection();
-			String sqlPage = "select count(*) from (SELECT * FROM YD_SELL WHERE NO LIKE '1%' AND TO_CHAR(DAY,'mm')=TO_CHAR(SYSDATE,'mm'))";
+			String sqlPage = "select count(*) from (select no,yname,price,sum(sums) s,"
+					+ "sum(money) m from yd_sell where no like '1%' "
+					+ "and TO_CHAR(yd_sell.day,'mm')=TO_CHAR(SYSDATE,'mm') group by yname,price,no "
+					+ "order by s desc)";
 			PreparedStatement ps1 = conn.prepareStatement(sqlPage);
 			ResultSet rs1 = ps1.executeQuery();
 			if(rs1.next()) a=rs1.getInt(1);
@@ -1157,10 +1177,10 @@ public class CuisineDao {
 		Connection conn = null;
 		try {
 			conn = DBUtil.getConnection();
-			String sql = "SELECT * FROM ("
-					+ "SELECT ROWNUM RN,T.* FROM (SELECT * FROM ("
-					+ "select * from yd_sell where yname like ?)"
-					+ "ORDER BY SUMS DESC,NO ) T)"
+			String sql = "SELECT * FROM (SELECT ROWNUM RN,T.* FROM ("
+					+ "SELECT * FROM ( SELECT NO,YNAME,PRICE,SUM(SUMS) "
+					+ "S,SUM(MONEY) M FROM YD_SELL WHERE YNAME LIKE ? "
+					+ "GROUP BY YNAME,NO,PRICE ORDER BY S DESC) ) T)"
 					+ "WHERE RN BETWEEN ? AND ?";
 			PreparedStatement ps = conn.prepareStatement(sql);
 			ps.setString(1, "%"+name+"%");

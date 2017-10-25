@@ -5,14 +5,11 @@ $(document).ready(function(){	//点餐页面加载执行数据的读取工作
 function load(){//页面加载执行,用于订单页面返回点餐页面
 	var url = "load.do";
 	$.getJSON(url,function(data){
-		console.log("load---"+data);
-		if(data=="first"){
-			console.log("---first---");
+		if(data=="first"){		
 			return;
 		}
 		for(var i=0;i<data.length;i++){//恢复购物车
 			var f = data[i];
-			console.log("f-----"+f);
 			var num = (f.prices)/(f.price);
 			var tr = $('<tr id="foods_tr">'+
 					'<td id="food_name">'+f.name+'</td>'+
@@ -38,12 +35,10 @@ function load(){//页面加载执行,用于订单页面返回点餐页面
 }
 /*读取购物车商品数量,显示在购物车导航上*/
 function readtr(){
-	console.log("readtr");
 	var trs = $("#foodsbody").children();
 	var count=0;
 	for(var i=0;i<trs.length;i++){
 		var num = $(trs[i]).children().eq(2).children().eq(1).val();
-		console.log(num);
 		count += parseInt(num, 0);
 	}
 	$("#gwc_span").html(count);

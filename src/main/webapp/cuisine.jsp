@@ -62,7 +62,7 @@
 		</div>
 		<table border="1" cellpadding="0" cellspacing="0">
 			<thead>
-				<tr><td><input type="checkbox"></td><td>名称</td><td>价格</td><td>库存</td><td>更新日期</td><td>路径</td><td>编号</td><td>简写</td></tr>
+				<tr><td><input type="checkbox" onclick="f1(this);"></td><td>名称</td><td>价格</td><td>库存</td><td>更新日期</td><td>路径</td><td>编号</td><td>简写</td></tr>
 			</thead>
 			<tbody id="tb">
 				

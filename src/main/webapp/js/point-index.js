@@ -3,7 +3,6 @@ $(document).ready(function(){
 	$.getJSON(url,function(data){
 		if(data!=null) {
 			var name = data+"号桌";
-			console.log(name);
 			$("#userName").html(name);
 			$("#exit").html("退出");
 			$("#logo_a").attr("href","#");

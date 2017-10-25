@@ -104,7 +104,6 @@ public class YdServlet extends HttpServlet{
 			readJson = om.writeValueAsString(list);
 			out.println(readJson);
 			session.setAttribute("msg", readJson);//绑定json数据再保存session上	
-			System.out.println("msg:-----"+readJson);
 			session.setAttribute("moneys",moneys);//绑定总金额在session上
 			return;
 		}
@@ -124,7 +123,6 @@ public class YdServlet extends HttpServlet{
 		
 		if("load".equals(action)) {  //点餐页面加载请求购物车信息,先验证是否是订单提交页面back回来	
 			if(session.getAttribute("msg")==null){
-				System.out.println("-----first----");
 				readJson = om.writeValueAsString("first");
 				out.println(readJson);
 				return;
@@ -148,7 +146,10 @@ public class YdServlet extends HttpServlet{
 			String name = req.getParameter("username");
 			String pwd = req.getParameter("password");			
 			Dao dao = new Dao();
-			YdUse user = dao.FindUser(name);
+			YdUse user = null;
+			if(name.matches("\\d")) {
+				 user = dao.FindUser(name);
+			}			
 			YdManager manager = dao.FindManager(name);						
 			if(name==""||pwd==""){
 				return;
@@ -187,7 +188,6 @@ public class YdServlet extends HttpServlet{
 		if("getLoginMsg".equals(action)) {//每个页面的用户session验证
 				if(session.getAttribute("user")!=null) {				
 					YdUse user = (YdUse)session.getAttribute("user");
-					System.out.println("user"+user);
 					int id = user.getD_num();					
 					String message = om.writeValueAsString(id);				
 					out.println(message);
@@ -204,14 +204,11 @@ public class YdServlet extends HttpServlet{
 			return;
 		}
 		if("checkvip".equals(action)) {        //检查vip卡号
-			System.out.println("开始检查卡号----");
 			String username = req.getParameter("user");	
 			int card = Integer.parseInt(username);
-			System.out.println("card--------:"+card);
 			session.setAttribute("card",card);
 			try{
 				User user = userdao.findByUsername(card);
-				System.out.println("user:"+user);
 				if(user==null){
 					String json = om.writeValueAsString("notfoundcard");
 					out.println(json);
@@ -228,13 +225,10 @@ public class YdServlet extends HttpServlet{
 			}
 		}
 		if("checkpwd".equals(action)) {        //检查密码
-			System.out.println("开始检查密码----");
 			int card = (Integer) session.getAttribute("card");
 			String pwd = req.getParameter("pwd");						
-			System.out.println("pwd:"+pwd);
 			try{
 				String password = userdao.findPasswordByUsername(card);
-				System.out.println("查询的密码:"+password);
 				if(!pwd.equals(password)) {
 					String json = om.writeValueAsString("pwderror");
 					out.println(json);
@@ -251,9 +245,7 @@ public class YdServlet extends HttpServlet{
 			}
 		}
 		if("checkmoney".equals(action)) {       //检查余额,支付,保存订单信息,保存销量信息
-			System.out.println("开始检查余额----");
 			String desk = req.getParameter("deskId");
-			System.out.println("deskno:"+desk);
 			int deskNo = Integer.parseInt(desk.substring(0,1));
 			String monet = req.getParameter("money");
 			if(monet==null){
@@ -264,8 +256,6 @@ public class YdServlet extends HttpServlet{
 			String money = monet.substring(0, monet.length()-1);
 			Double prices = Double.parseDouble(money);	
 			int card = Integer.parseInt(req.getParameter("card"));
-			System.out.println("cardmongey:---"+card);
-			System.out.println("prices:"+prices);
 			try{
 				Double balance = userdao.findMoneyByOrder(card);
 				if(balance==null){
@@ -275,7 +265,6 @@ public class YdServlet extends HttpServlet{
 						int count = 0;
 						int rows = userdao.insertIndent(deskNo, prices);//保存订单信息
 						List<BuyEmp> lis = (List<BuyEmp>)session.getAttribute("list");
-						System.out.println("lis----"+lis);
 						for(BuyEmp b : lis){							//保存菜品信息
 							String yname = b.getName();
 							double price = b.getPrice();
@@ -288,14 +277,12 @@ public class YdServlet extends HttpServlet{
 							String path = b.getPath();
 							SellObject so = new SellObject(1, yname, price, sums, moneys, day, month, no, path);
 							count += yd.saveObjects(so);
-							System.out.println("sooooo----"+so);
 						}
 						if(rows>0 && count==lis.size()){//保存结束后结算金额
 							int row = userdao.updateMoney(balance-prices, card);//改变余额
 							if(row>0){						
 								String json = om.writeValueAsString("支付成功!当前余额:"+(balance-prices));
 								out.println(json);
-								System.out.println("json-----"+json);
 								session.removeAttribute("msg");//移除信息
 								return;
 							}else{
@@ -337,7 +324,6 @@ public class YdServlet extends HttpServlet{
 			String pwd = req.getParameter("pwd");
 			Double money = Double.parseDouble(req.getParameter("money"));
 			User user = new User(id, name, pwd, money);
-			System.out.println(user);
 			int row = userdao.insertUser(user);
 			if(row==1){
 				String json = om.writeValueAsString("yes");

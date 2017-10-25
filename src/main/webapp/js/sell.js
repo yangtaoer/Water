@@ -46,7 +46,6 @@ $(function(){
 	function ss(){
     	params={};
 		var pageCurrent=$("#pageId").data("pageCurrent");
-		console.log(pageCurrent);
 		//在pageId上绑定页面信息，以便分页执行
 		$("#pageId").data("pageMessage","ss");
 		if(!pageCurrent)pageCurrent=1;
@@ -70,7 +69,6 @@ $(function(){
 	function dc(){
 		params={};
 		var pageCurrent=$("#pageId").data("pageCurrent");
-		console.log(pageCurrent);
 		//在pageId上绑定页面信息，以便分页执行
 		$("#pageId").data("pageMessage","dc");
 		if(!pageCurrent)pageCurrent=1;
@@ -94,13 +92,12 @@ $(function(){
 		$('#tb').empty(); //追加之前先清空
 		for(var i=0;i<data.length;i++){
 			var s = data[i];
-			$('#tb').append('<tr><td>'+s.id+'</td><td>'+s.yname+'</td><td>'+s.price+'</td><td>'+s.sums+'</td><td>'+s.money+'</td></tr>');
+			$('#tb').append('<tr><td>'+s.no+'</td><td>'+s.yname+'</td><td>'+s.price+'</td><td>'+s.s+'</td><td>'+s.m+'</td></tr>');
 		}
 	}
 	function dd(){
 		params={};
 		var pageCurrent=$("#pageId").data("pageCurrent");
-		console.log(pageCurrent);
 		//在pageId上绑定页面信息，以便分页执行
 		$("#pageId").data("pageMessage","dd");
 		if(!pageCurrent)pageCurrent=1;
@@ -123,7 +120,6 @@ $(function(){
 	function dp(){
 		params={};
 		var pageCurrent=$("#pageId").data("pageCurrent");
-		console.log(pageCurrent);
 		//在pageId上绑定页面信息，以便分页执行
 		$("#pageId").data("pageMessage","dp");
 		if(!pageCurrent)pageCurrent=1;
@@ -146,7 +142,6 @@ $(function(){
 	function wc(){
 		params={};
 		var pageCurrent=$("#pageId").data("pageCurrent");
-		console.log(pageCurrent);
 		//在pageId上绑定页面信息，以便分页执行
 		$("#pageId").data("pageMessage","wc");
 		if(!pageCurrent)pageCurrent=1;
@@ -169,7 +164,6 @@ $(function(){
 	function wd(){
 		params={};
 		var pageCurrent=$("#pageId").data("pageCurrent");
-		console.log(pageCurrent);
 		//在pageId上绑定页面信息，以便分页执行
 		$("#pageId").data("pageMessage","wd");
 		if(!pageCurrent)pageCurrent=1;
@@ -192,7 +186,6 @@ $(function(){
 	function wp(){
 		params={};
 		var pageCurrent=$("#pageId").data("pageCurrent");
-		console.log(pageCurrent);
 		//在pageId上绑定页面信息，以便分页执行
 		$("#pageId").data("pageMessage","wp");
 		if(!pageCurrent)pageCurrent=1;
@@ -215,7 +208,6 @@ $(function(){
 	function mc(){
 		params={};
 		var pageCurrent=$("#pageId").data("pageCurrent");
-		console.log(pageCurrent);
 		//在pageId上绑定页面信息，以便分页执行
 		$("#pageId").data("pageMessage","mc");
 		if(!pageCurrent)pageCurrent=1;
@@ -238,7 +230,6 @@ $(function(){
 	function md(){
 		params={};
 		var pageCurrent=$("#pageId").data("pageCurrent");
-		console.log(pageCurrent);
 		//在pageId上绑定页面信息，以便分页执行
 		$("#pageId").data("pageMessage","md");
 		if(!pageCurrent)pageCurrent=1;

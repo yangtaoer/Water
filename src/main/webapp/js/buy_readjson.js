@@ -10,7 +10,6 @@ function readJson(){
 		var money = 0;
 		for(var i=0;i<data.length;i++){
 			var f = data[i];
-			console.log("f:"+f);
 			var ul = parseInt((Math.floor(f.no/100)));
 			if(ul!="1" & ul!="9") {
 				ul = "2";

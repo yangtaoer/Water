@@ -1,4 +1,5 @@
 /*
+ * 动态电子时钟库函数,勿动
 * Name: canvas_clock.js
 * Author: Michael Kruger
 * Brief:

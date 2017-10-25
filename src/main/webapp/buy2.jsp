@@ -2,6 +2,8 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ page import="dao.*" %>
+<%@page import="web.*"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,24 +11,108 @@
 <title>修改页</title>
 <link rel="stylesheet" href="css/buy2.css"/>
 <style></style>
-<!-- <script type="text/javascript" src="js/jquery-1.8.3.min.js"></script> -->
-<!-- <script type="text/javascript" src="js/zzsc.js"></script> -->
 <script type="text/javascript" src="js/jquery-1.11.1.js"></script>
 <script type="text/javascript" src="js/cp2.js"></script>
-<script type="text/javascript" src="js/page.js"></script>
+<script type="text/javascript" src="js/page2.js"></script>
 
 <link rel="stylesheet" type="text/css"  href="css/cpend2.css"/>
 <style type="text/css">
+body {
+	background-image:url(images/dcxtbg.png);
+	background-size:100% 100%;
+	width: 100%;
+	height: 970px;
+	margin: 0 auto;
+}
+#all {
+	width: 100%;
+	background-image:url(images/logo_bg.png);
+	height: 150px;	
+}
+#logo {
+	float: left;
+	/*border: 1px solid red;*/
+	background-image:url(images/ydlogo.png);
+	background-size:100% 100%;
+	font-size: 32px;
+	color: #fff;
+	width: 300px;
+	height: 150px;
+	line-height: 100px;
+	text-align: center;
+	position: relative ;
+	left:300px;
+}
+.s {
+	float: left;
+	width:140px;
+	height:61px;
+	background-image:url(images/logodh.png);
+	margin-top:80px;
+	margin-left:4%;
+	border-radius: 12px;
+	text-align: center; /* 文字水平居中 */
+	line-height: 60px; /* 行高 */
+	position: relative ;
+	left:300px;
+}
+.s>a {
+	color: #fff;
+	text-decoration: none; /* 文字下划线 */
+}
+.user {
+	float: right;
+	right:50px;
+	width: 380px;
+	height: 150px;
+	color: #fff;
+	text-align: center; /* 文字水平居中 */
+	line-height: 80px; /* 行高 */
+}
+#userimg {
+	border:1px solid #d5d1ce;
+	width:50px;
+	height:50px;
+	background:url(images/user.png) no-repeat;
+	background-size:50px 50px;
+	position: absolute;
+	top:90px;
+	right:300px;
+}
+.user>a{
+	color: #fff;
+	text-decoration: none; /* 文字下划线 */
+}
 tr{
 height: 49px;
 }
 </style>
-
 </head>
 <body>
-	<img alt="bg" src="images/dcxtbg.png" id="dcbg"/>
+<div id="all">
+	<div id="logo"></div>
+	<div  class="s"><a href="sell.jsp">销量查询</a></div>
+	<div  class="s"><a href="cuisine.jsp">菜品查询</a></div>
+	<div  class="s"><a href="indent.jsp">订单查询</a></div>
+	<div  class="s"><a href="regist.jsp">注册会员</a></div>
+	<div class="user"><br>
+		<div id="userimg"></div>
+		你好，
+		<%	
+			//int id = (int)request.getAttribute("id");
+			CuisineDao dao = new CuisineDao();
+			String name = dao.findName(1);
+			PageObject po = (PageObject)request.getAttribute("po");
+		%>
+		<input type='hidden' value="<%= po %>" id="po" >  
+		<%=name %>
+		&nbsp;&nbsp;<a href="login.jsp">退出</a>
+	</div>
+</div>
+	<!-- 
+	
 	<div id="logo">
-		<img alt="logo" src="images/ydlogo.png" id="ydlogo">
+		
 		<span id="ydlogodh">					
 			<a id="ydlogodhimg">销量查询</a>
 			<a id="ydlogodhimg">菜品查询</a>
@@ -39,6 +125,8 @@ height: 49px;
 			<span>登陆</span>
 		</a>
 	</div>	
+	 -->
+	 
 	<div id="mid">
 		<div id="content">
 			<div id="t_head"></div>
@@ -117,7 +205,7 @@ height: 49px;
 <!-- 					<input type="text" name="discount" id="fs_xy"/> -->
 					<input type="button" value="修改" onclick="xg();"/>
 <!-- 					<input type="submit" value="提交"/> -->
-					<input type="button" value="返回"/>
+					<input type="button" value="返回" onclick="window.history.back(-1);"/>
 				</div>
 			</form>
 		</div>

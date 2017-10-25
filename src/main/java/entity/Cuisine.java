@@ -1,17 +1,12 @@
 package entity;
 
 public class Cuisine {
-	private Integer id;
+	private Integer no;
 	private String yname;
 	private Double price;
-	private Integer sums;
-	private Double money;
-	public Integer getId() {
-		return id;
-	}
-	public void setId(Integer id) {
-		this.id = id;
-	}
+	private Integer s;
+	private Double m;
+	
 	public String getYname() {
 		return yname;
 	}
@@ -24,16 +19,28 @@ public class Cuisine {
 	public void setPrice(Double price) {
 		this.price = price;
 	}
-	public Integer getSums() {
-		return sums;
+	public Integer getNo() {
+		return no;
 	}
-	public void setSums(Integer sums) {
-		this.sums = sums;
+	public void setNo(Integer no) {
+		this.no = no;
 	}
-	public Double getMoney() {
-		return money;
+	public Integer getS() {
+		return s;
 	}
-	public void setMoney(Double money) {
-		this.money = money;
+	public void setS(Integer s) {
+		this.s = s;
 	}
+	public Double getM() {
+		return m;
+	}
+	public void setM(Double m) {
+		this.m = m;
+	}
+	@Override
+	public String toString() {
+		return "Cuisine [no=" + no + ", yname=" + yname + ", price=" + price + ", s=" + s + ", m=" + m + "]";
+	}
+	
+	
 }

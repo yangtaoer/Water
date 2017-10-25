@@ -13,7 +13,6 @@ $(function(){
 		url = "login.do";
 		params = {"username":$("#username").val(),
 				  "password":$("#password").val()};
-		console.log($("#username").val()+""+$("#password").val());
 		$.post(url,params,function(result){
 			check(result);
 		})
@@ -23,7 +22,6 @@ $(function(){
 	
 })
 function check(result){
-	console.log(1);
 	if(-1!=result.indexOf("没有")){
 		alert("用户名或桌号不存在")
 		return false;

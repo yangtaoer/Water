@@ -22,7 +22,6 @@ $(function(){
 	function ss(){
     	params={};
 		var pageCurrent=$("#pageId").data("pageCurrent");
-		console.log(pageCurrent);
 		//在pageId上绑定页面信息，以便分页执行
 		$("#pageId").data("pageMessage","ss");
 		if(!pageCurrent)pageCurrent=1;
@@ -46,7 +45,6 @@ $(function(){
 	function di(){
 		params={};
 		var pageCurrent=$("#pageId").data("pageCurrent");
-		console.log(pageCurrent);
 		//在pageId上绑定页面信息，以便分页执行
 		$("#pageId").data("pageMessage","di");
 		if(!pageCurrent)pageCurrent=1;
@@ -70,7 +68,6 @@ $(function(){
 	function wi(){
 		params={};
 		var pageCurrent=$("#pageId").data("pageCurrent");
-		console.log(pageCurrent);
 		//在pageId上绑定页面信息，以便分页执行
 		$("#pageId").data("pageMessage","wi");
 		if(!pageCurrent)pageCurrent=1;
@@ -93,7 +90,6 @@ $(function(){
 	function mi(){
 		params={};
 		var pageCurrent=$("#pageId").data("pageCurrent");
-		console.log(pageCurrent);
 		//在pageId上绑定页面信息，以便分页执行
 		$("#pageId").data("pageMessage","mi");
 		if(!pageCurrent)pageCurrent=1;

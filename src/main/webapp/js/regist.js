@@ -21,15 +21,14 @@ function checkId(){
 function registUser() {
 	var id = $("#user").val();
 	var name = $("#name").val();
-	console.log("name---"+name);
 	var pwd = $("#pwd").val();
 	var money = $("#money").val();
 	var params = {"id":id,"name":name,"pwd":pwd,"money":money};
-	console.log(params);
 	var url = "registUser.go";
 	$.getJSON(url,params,function(data){
 		if(data=="yes"){
 			alert("注册成功!");
+			gohead();
 		}else{
 			alert("注册失败!");
 		}
@@ -43,3 +42,7 @@ function checkNumber(theObj) {
     }  
     return false;  
 }  
+
+function gohead(){
+	window.location.href="sell.jsp";
+}

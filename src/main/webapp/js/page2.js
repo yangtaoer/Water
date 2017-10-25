@@ -48,28 +48,7 @@ function jumpToPage(){
 	$('#pageId').data("pageCurrent",pageCurrent);
 	//重新执行查询操作(根据pageCurrent的值)
 	var pageMessage = $("#pageId").data("pageMessage");
-	if(pageMessage=="jg")jg();
-	if(pageMessage=="gd")gd();
-	if(pageMessage=="hx")hx();
-	if(pageMessage=="jd")jd();
-	if(pageMessage=="dm")dm();
-	if(pageMessage=="sc")sc();
-	if(pageMessage=="wz")wz();
-	if(pageMessage=="ny")ny();
-	if(pageMessage=="js")js();
-	if(pageMessage=="dc")dc();
-	if(pageMessage=="dd")dd();
-	if(pageMessage=="dp")dp();
-	if(pageMessage=="wc")wc();
-	if(pageMessage=="wd")wd();
-	if(pageMessage=="wp")wp();
-	if(pageMessage=="mc")mc();
-	if(pageMessage=="md")md();
-	if(pageMessage=="mp")mp();
-	if(pageMessage=="ss")ss();
-	if(pageMessage=="di")di();
-	if(pageMessage=="wi")wi();
-	if(pageMessage=="mi")mi();
+	find();
 }
 
 

@@ -1,5 +1,5 @@
 $(document).ready(function(){	
-	$("#mwgd").trigger("click");  //页面加载就执行
+	$("#yd_sell").trigger("click");  //页面加载就执行
 });
 
 function change(a) { 			//左侧导航区使用ajax实现局部刷新
@@ -83,7 +83,6 @@ function searchn(){       //搜索功能的实现
 					$('#table_body').children().eq(i).append(td);  //添加td
 					continue;
 				}
-				console.log("count:"+count);
 				var food = data[count-1]; //获取对象
 				var td = $('<td id="body_td" onclick="fonclick(this)">'+		//新建一个td
 							'<img id="body_td_img" src='+food.path+'>'+

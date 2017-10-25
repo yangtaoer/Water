@@ -74,7 +74,6 @@ public class YdDAO {
 										);				
 				list.add(ye);				
 			}
-			System.out.println(list);
 			return list;
 		} catch (SQLException e) {
 			

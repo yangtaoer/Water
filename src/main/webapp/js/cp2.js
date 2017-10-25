@@ -27,10 +27,7 @@ function ConvertJSONDateToJSDate(jsondate) {
 /*将搜索出的菜品添加到修改区域*/
 function bt(bt){
 	var len=$("#tb").children();
-	if(len.length>8){
-		alert("duo");
-		return false;
-	}
+/**/
 	$("#tb").append('<tr>'
 			+'	<td >'+$(bt).parent().parent().children().eq(0).text()+'</td>'
 			+'	<td>'+$(bt).parent().parent().children().eq(1).text()+'</td>'
@@ -71,7 +68,6 @@ function find(){
 function setHdTbRows(data){
 	for(var i=0;i<data.length;i++){
 		var s=data[i];
-		console.log(s);
 		$("#hd_tb").append('<tr>'
 			+'	<td>'+s.id+'</td>'
 			+'	<td>'+s.yname+'</td>'
@@ -92,9 +88,7 @@ function fs(){
 	$("#newValue").next().text("");
 /* 	var select=document.getElementById("select"); */
 	var zl=$("#select").val();
-console.log(zl);
 	document.getElementById("selrelation").value=zl;
-console.log(document.getElementById("select").value);
 	document.getElementById("newValue").className="new";
 	if(document.getElementById("selrelation").value==-1){
 		document.getElementById("newValue").className="old";
@@ -119,7 +113,6 @@ function xg(){
 		var id=trs[i].innerHTML;
 		ss=id+","+ss;
 	}
-	console.log(ss);
  	$.ajax({
 		"url":"xg.go",
 		"type":"get",
@@ -130,8 +123,6 @@ function xg(){
 				"xg_id":ss},
 		"success":function(data){
  					$("#tb").text(""); 
- 					console.log("替换");
- 					console.log(data);
  					for(var i=0;i<data.length;i++){
 						var s=data[i];
 						$("#tb").append('<tr>'

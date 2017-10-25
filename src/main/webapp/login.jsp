@@ -12,7 +12,6 @@
 <link rel="stylesheet" type="text/css" href="css/login.css">
 <link rel="stylesheet" type="text/css" href="css/background.css">
 <!-- Javascript -->
-<script src="js/confirm.js"></script>
 <script src="js/canvas_clock.js"></script>
 <script src="js/onmouse.js"></script>
 <script src="js/jquery-1.11.1.js"></script>

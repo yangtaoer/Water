@@ -14,14 +14,11 @@ function doPostData() {//订单提交时发生,将数据发送到后台加工并
 		var no = $(trs[i]).data("no");
 		var path = $(trs[i]).data("path");
 		var data = {"name":name,"price":price,"prices":prices,"no":no,"path":path};
-		console.log(data);
 		jsons.push(data);
 	}
 	var jsonArr = JSON.stringify(jsons);/*将json数组转换为json*/
-	console.log(jsonArr);
 	var url = "buy.do";
 	$.getJSON(url,{"json":jsonArr},function(result){
-		console.log(result);
 		if(result!=null)
 			window.location.href="buy.jsp";					
 	});

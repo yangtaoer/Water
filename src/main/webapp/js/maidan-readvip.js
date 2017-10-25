@@ -31,8 +31,7 @@ function checkvip(){
 		if(data=="notfoundcard"){		
 			alert("卡号不存在!");
 		}
-		if(data=="foundcard"){
-			console.log("卡号正确");
+		if(data=="foundcard"){		
 			checkpwd();
 		}			
 	});
@@ -40,7 +39,6 @@ function checkvip(){
 }
 
 function checkpwd(){
-	console.log("开始检查密码");
 	 var password= $('#pwd').val();
 	 if(password==null|password==""){
 			alert("请输入密码");
@@ -49,22 +47,16 @@ function checkpwd(){
 		var url = "checkpwd.do";
 		var params = {"pwd":password};
 		$.getJSON(url,params,function(data){//post和getjson区别
-			console.log("检查密码回调函数:"+data);
-			console.log(data==="pwderror");
-			console.log(data==="pwdright");
 			if(data=="pwderror"){
-				console.log("密码错误");
 				alert("密码错误!");
 			}
-			if(data=="pwdright"){
-				console.log("密码正确");
+			if(data=="pwdright"){		
 				checkmoney();
 			}
 		});
 }
 
 function checkmoney(){
-	console.log("开始检查余额");
 		var money= $('#zongjine').html();
 		var deskId = $("#userName").html();
 		var card= $('#user').val();
@@ -75,7 +67,6 @@ function checkmoney(){
 				alert("余额不足!当前余额:"+data);
 				return;
 			}else{
-				console.log("支付成功!");
 				alert(data);
 				buysuccess();
 			}
@@ -86,7 +77,10 @@ function gobuy2(){
 	buysuccess();
 }
 function buysuccess(){	
-	window.location.replace("http://www.baidu.com");
+	window.location.href="index.jsp";
+}
+function buyfail(){	
+	window.location.href="maidan.jsp";
 }
 
 
