@@ -376,6 +376,14 @@ body {
   animation: 2s counterclockwise infinite;
 }
 /*菜品展示区样式*/
+
+#body_td_i {
+	float: left;
+    position: relative;
+    top: -40px;
+    left: 30px;
+    z-index: 900;
+}
 #body_td:HOVER {  /*菜品所在td样式*/
 	background-color: #abcdef;
 }
@@ -421,6 +429,11 @@ body {
 }
 #body_td_img {
 	margin-top: 25px;
+}
+#body_td_img_i {
+	margin-top: 25px;
+	position: relative;
+    left: -57px;
 }
 
 /*动画*/

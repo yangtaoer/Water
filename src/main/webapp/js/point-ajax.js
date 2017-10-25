@@ -124,10 +124,19 @@ function rank(){//排行榜的实现
 					return;
 				}
 				var food = data[count-1]; //获取对象
-				var td = $('<td id="body_td" onclick="fonclick(this)">'+		//新建一个td
+				if(i==0){
+					var td = $('<td id="body_td" onclick="fonclick(this)">'+		//前三名新建一个不一样的td
+							'<img id="body_td_i" src="images/sell_'+(j+1)+'.png">'+
+							'<img id="body_td_img_i" src='+food.path+'>'+
+							'<span id="body_td_name">'+food.yname+' '+food.price+' 元/份</span>	'+										
+							'</td>');
+				}else{
+					var td = $('<td id="body_td" onclick="fonclick(this)">'+		//新建一个td
 							'<img id="body_td_img" src='+food.path+'>'+
 							'<span id="body_td_name">'+food.yname+' '+food.price+' 元/份</span>	'+										
 							'</td>');
+				}
+				
 				$(td).data("no",food.no);//绑定no数据到td上
 				$(td).data("path",food.path);//绑定地址
 				$('#table_body').children().eq(i).append(td);  //添加td
