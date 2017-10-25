@@ -111,7 +111,7 @@ public class YdDAO {
 		return 0;
 	}
 	
-	public List<SellObject> rank() {
+	/*public List<SellObject> rank() {
 		Connection conn = null;
 		List<SellObject> list = new LinkedList<SellObject>();
 		try {
@@ -134,6 +134,36 @@ public class YdDAO {
 				list.add(so);				
 			}
 			System.out.println(list);
+			return list;
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+			return null;
+		} finally {
+			YdDBUtil.close(conn);
+		}
+	}*/
+	
+	public List<SellObject> rank() {
+		Connection conn = null;
+		List<SellObject> list = new LinkedList<SellObject>();
+		try {
+			conn = YdDBUtil.getConnection();
+			String sql ="select * from yd_sell where trunc(day)=trunc(sysdate-1) ";//查询前一天的数据			
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ResultSet rs = ps.executeQuery();			
+			while(rs.next()) {
+				SellObject so = new SellObject(0,
+												rs.getString("yname"),
+												rs.getDouble("price"),
+												rs.getInt("sums"),
+												rs.getDouble("money"),
+												new Date(System.currentTimeMillis()),
+												Calendar.getInstance().get(Calendar.MONTH),
+												rs.getInt("no"),
+												rs.getString("path"));				
+				list.add(so);				
+			}			
 			return list;
 		} catch (SQLException e) {
 			

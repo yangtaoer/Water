@@ -10,9 +10,11 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -347,15 +349,51 @@ public class YdServlet extends HttpServlet{
 				return;
 			}
 		}
-		if("rank".equals(action)) {//排行榜			
-			List<SellObject> ranklist = yd.rank();
+		if("rank".equals(action)) {//排行榜	
+			List<SellObject> ranklist = yd.rank();//查询到的菜品销售信息
+			HashMap<String,SellObject> map = new HashMap<String,SellObject>();
+			Iterator<SellObject> it = ranklist.iterator();
+			while(it.hasNext()) {
+			  SellObject so = it.next();
+			   if(map.containsKey(so.getYname())){
+				   // System.out.println("重复!");
+				    SellObject soj = map.get(so.getYname());
+				    soj.setSums(soj.getSums()+so.getSums());
+				    soj.setMoney(soj.getMoney()+so.getMoney());
+				    map.put(soj.getYname(),soj);
+			   }else{
+				  // System.out.println("---不重复---");
+				   	map.put(so.getYname(), so);
+			   }
+			}
+			ranklist.clear();
+			Iterator<Map.Entry<String, SellObject>> itmap = map.entrySet().iterator();
+			  while (itmap.hasNext()) {
+			   Entry<String, SellObject> entry = itmap.next();
+			   ranklist.add(entry.getValue());
+			  }
+			 Collections.sort(ranklist,new Comparator<SellObject>() {
+					public int compare(SellObject o1, SellObject o2) {
+						return o2.getSums()-o1.getSums();
+					}
+			});		
+			String jsonlist = om.writeValueAsString(ranklist);//绑定json对象		
+			res.getWriter().println(jsonlist);//发送json对象给web端
+			
+/*			 for(SellObject s : ranklist){
+				 System.out.println(s.getYname()+"\t\t"+s.getSums()+"\t\t"+s.getMoney());
+			 }
+	 */
+	
+			
+			/*List<SellObject> ranklist = yd.rank();
 			System.out.println(ranklist);
 			String jsonlist = om.writeValueAsString(ranklist);//绑定json对象		
 			res.getWriter().println(jsonlist);//发送json对象给web端
-		}
+*/		}
 			
 			/*List<SellObject> ranklist = yd.rank();//查询到的菜品销售信息
-			List<SellObject> rankjson = new ArrayList<SellObject>();//保存发送的数据
+			List<SellObject> rankjson = new List<SellObject>();//保存发送的数据
 			HashMap<String,Integer> map = new HashMap<String, Integer>();//存放菜品名称,保证重复
 			for(int i=0;i<ranklist.size();i++){
 				SellObject so = ranklist.get(i);
