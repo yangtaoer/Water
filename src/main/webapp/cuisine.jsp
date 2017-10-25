@@ -29,7 +29,7 @@
 		%>
 		<input type='hidden' value="<%= po %>" id="po" >  
 		<%=name %>
-		&nbsp;&nbsp;<a href="">退出</a>
+		&nbsp;&nbsp;<a href="login.jsp">退出</a>
 	</div>
 </div>
 <div id="content">

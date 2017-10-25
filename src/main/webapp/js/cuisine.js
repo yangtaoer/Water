@@ -1,5 +1,8 @@
 	$(function(){
-		$('#ss').click(ss);
+		$('#ss').click(function(){
+			$("#pageId").data("pageCurrent",1);
+			ss();
+		});
 		$('#ny').click(function(){
 			$("#pageId").data("pageCurrent",1);
 			ny();
@@ -26,7 +29,7 @@
 		});
 		$('#sc').click(function(){
 			$("#pageId").data("pageCurrent",1);
-			sc();
+			xxsc();
 		});
 		$('#gd').click(function(){
 			$("#pageId").data("pageCurrent",1);
@@ -275,15 +278,15 @@
 			}
 		});
 	}
-	function sc(){
+	function xxsc(){
 		var params={};
 		var pageCurrent = $("#pageId").data("pageCurrent");
 		//在pageId上绑定页面信息，以便分页执行
-		$("#pageId").data("pageMessage","sc");
+		$("#pageId").data("pageMessage","xxsc");
 		if(pageCurrent)pageCurrent=1;
 		params.pageCurrent=pageCurrent;
 		$.ajax({
-			"url":"sc.go",
+			"url":"xxsc.go",
 			"type":"get",
 			"dataType":"json",
 			"data":params,

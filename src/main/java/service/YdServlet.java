@@ -20,10 +20,16 @@ import dao.Daos;
 import dao.UserDAO;
 import emp.User;
 import entity.Cui;
+import service.CuiService;
 import web.JsonResult;
 import web.PageObject;
 
 public class YdServlet extends HttpServlet{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	public void service(HttpServletRequest request,HttpServletResponse response) throws ServletException,IOException{
 		request.setCharacterEncoding("utf-8");
 		response.setContentType("text/html;charset=utf-8");
@@ -43,14 +49,12 @@ public class YdServlet extends HttpServlet{
 			int startIndex=(Integer.valueOf(pageCurrent)-1)*pageSize;
 			Map<String,Object> map=new HashMap<String,Object>();
 			PageObject pageObject=new PageObject();
-			//鍒嗛〉灞烇拷?锟借锟�?
 			pageObject.setPageSize(pageSize);
 			pageObject.setStartIndex(startIndex);
 			pageObject.setRowCount(rowCount);
 			pageObject.setPageCurrent(Integer.valueOf(pageCurrent));
 			map.put("list", list);
 			map.put("pageObject", pageObject);
-			//杈撳嚭json瀛楃锟�?
 			ObjectMapper om=new ObjectMapper();
 			String jsstr=om.writeValueAsString(map);
 			response.getWriter().println(jsstr);
@@ -65,31 +69,25 @@ public class YdServlet extends HttpServlet{
 			System.out.println(ids);
 			List<Cui> list= new ArrayList<Cui>();
 			if("price".equals(xg_name)){
-				
 				Daos.update(xg_vals, xg_name, xg_val);
-				
 			}
 			if("num".equals(xg_name)){
-				
 				Daos.update(xg_vals, xg_name, xg_val);
 			}
 			for(String s:ids){
 				Integer no=Integer.valueOf(s);
 				System.out.println(no);
 				Cui f=Daos.fingByNo(no);
-				Daos.update2(f);//淇敼瀛愯〃
+				Daos.update2(f);
 				list.add(f);
 			}
 			System.out.println("list");
 			ObjectMapper om=new ObjectMapper();
 			String jsstr=om.writeValueAsString(list);
 			response.getWriter().println(jsstr);
-			
 		}else if("/newcp".equals(action)){
 			String nos = request.getParameter("nos");
-			System.out.println("nos:"+nos);
 			List<Cui> ls=Daos.findinit(nos);
-			System.out.println("ls"+ls);
 			request.setAttribute("ls", ls);
 			RequestDispatcher rd=request.getRequestDispatcher("buy2.jsp");
 			rd.forward(request, response);
@@ -128,13 +126,10 @@ public class YdServlet extends HttpServlet{
 		}else if("/updateCuisine".equals(action)){
 			try{
 				String nos = request.getParameter("nos");
-				System.out.println(nos);
 				PageObject po = new PageObject();
-				System.out.println("page:"+request.getParameter("pageCurrent"));
 				po.setPageCurrent(Integer.parseInt(request.getParameter("pageCurrent")));
 				Map<String,Object> map = cuiService.findPageObjects_update(nos,po);
 				List<Cui> list = dao.update(nos, po.getStartIndex(), po.getPageSize()*po.getPageCurrent());
-				System.out.println("list:"+list);
 				request.setAttribute("page", po.getPageCurrent());
 				request.setAttribute("ls", map.get(list));
 				RequestDispatcher rd=request.getRequestDispatcher("buy2.jsp");
@@ -148,13 +143,10 @@ public class YdServlet extends HttpServlet{
 				Cui cui = new Cui();
 				String c = request.getParameter("nos");
 				String[] cs = c.split(",");
-				System.out.println(c);
 				for(String a : cs){
 					int cno = Integer.parseInt(a);
-					System.out.println(cno);
 					cui.setNo(cno);
 					dao.deleteCuisine(cui);
-					System.out.println("cui"+cui);
 				}
 			}catch(Exception e){
 				e.printStackTrace();
@@ -163,13 +155,10 @@ public class YdServlet extends HttpServlet{
 		}else if("/di".equals(action)){
 			try{
 				PageObject po = new PageObject();
-				System.out.println("page:"+request.getParameter("pageCurrent"));
 				po.setPageCurrent(Integer.parseInt(request.getParameter("pageCurrent")));////
 				Map<String,Object> map = cuiService.findPageObjects_di(po);
-				System.out.println("map:"+map);
 				ObjectMapper om = new ObjectMapper();
 				String jsonStr = om.writeValueAsString(new JsonResult(map));
-				System.out.println("jsonStr:"+jsonStr);
 				pw.println(jsonStr);
 			}catch(Exception e){
 				e.printStackTrace();
@@ -178,13 +167,10 @@ public class YdServlet extends HttpServlet{
 		}else if("/wi".equals(action)){
 			try{
 				PageObject po = new PageObject();
-				System.out.println("page:"+request.getParameter("pageCurrent"));
 				po.setPageCurrent(Integer.parseInt(request.getParameter("pageCurrent")));////
 				Map<String,Object> map = cuiService.findPageObjects_wi(po);
-				System.out.println("map:"+map);
 				ObjectMapper om = new ObjectMapper();
 				String jsonStr = om.writeValueAsString(new JsonResult(map));
-				System.out.println("jsonStr:"+jsonStr);
 				pw.println(jsonStr);
 			}catch(Exception e){
 				e.printStackTrace();
@@ -193,13 +179,10 @@ public class YdServlet extends HttpServlet{
 		}else if("/mi".equals(action)){
 			try{
 				PageObject po = new PageObject();
-				System.out.println("page:"+request.getParameter("pageCurrent"));
 				po.setPageCurrent(Integer.parseInt(request.getParameter("pageCurrent")));////
 				Map<String,Object> map = cuiService.findPageObjects_mi(po);
-				System.out.println("map:"+map);
 				ObjectMapper om = new ObjectMapper();
 				String jsonStr = om.writeValueAsString(new JsonResult(map));
-				System.out.println("jsonStr:"+jsonStr);
 				pw.println(jsonStr);
 			}catch(Exception e){
 				e.printStackTrace();
@@ -208,13 +191,10 @@ public class YdServlet extends HttpServlet{
 		}else if("/day_cuisine".equals(action)){
 			try{
 				PageObject po = new PageObject();
-				System.out.println("page:"+request.getParameter("pageCurrent"));
 				po.setPageCurrent(Integer.parseInt(request.getParameter("pageCurrent")));////
 				Map<String,Object> map = cuiService.findPageObjects_dc(po);
-				System.out.println("map:"+map);
 				ObjectMapper om = new ObjectMapper();
 				String jsonStr = om.writeValueAsString(new JsonResult(map));
-				System.out.println("jsonStr:"+jsonStr);
 				pw.println(jsonStr);
 			}catch(Exception e){
 				e.printStackTrace();
@@ -223,13 +203,10 @@ public class YdServlet extends HttpServlet{
 		}else if("/day_drinks".equals(action)){
 			try{
 				PageObject po = new PageObject();
-				System.out.println("page:"+request.getParameter("pageCurrent"));
 				po.setPageCurrent(Integer.parseInt(request.getParameter("pageCurrent")));////
 				Map<String,Object> map = cuiService.findPageObjects_dd(po);
-				System.out.println("map:"+map);
 				ObjectMapper om = new ObjectMapper();
 				String jsonStr = om.writeValueAsString(new JsonResult(map));
-				System.out.println("jsonStr:"+jsonStr);
 				pw.println(jsonStr);
 			}catch(Exception e){
 				e.printStackTrace();
@@ -238,13 +215,10 @@ public class YdServlet extends HttpServlet{
 		}else if("/day_pot".equals(action)){
 			try{
 				PageObject po = new PageObject();
-				System.out.println("page:"+request.getParameter("pageCurrent"));
 				po.setPageCurrent(Integer.parseInt(request.getParameter("pageCurrent")));////
 				Map<String,Object> map = cuiService.findPageObjects_dp(po);
-				System.out.println("map:"+map);
 				ObjectMapper om = new ObjectMapper();
 				String jsonStr = om.writeValueAsString(new JsonResult(map));
-				System.out.println("jsonStr:"+jsonStr);
 				pw.println(jsonStr);
 			}catch(Exception e){
 				e.printStackTrace();
@@ -253,13 +227,10 @@ public class YdServlet extends HttpServlet{
 		}else if("/week_cuisine".equals(action)){
 			try{
 				PageObject po = new PageObject();
-				System.out.println("page:"+request.getParameter("pageCurrent"));
 				po.setPageCurrent(Integer.parseInt(request.getParameter("pageCurrent")));////
 				Map<String,Object> map = cuiService.findPageObjects_wc(po);
-				System.out.println("map:"+map);
 				ObjectMapper om = new ObjectMapper();
 				String jsonStr = om.writeValueAsString(new JsonResult(map));
-				System.out.println("jsonStr:"+jsonStr);
 				pw.println(jsonStr);
 			}catch(Exception e){
 				e.printStackTrace();
@@ -268,13 +239,10 @@ public class YdServlet extends HttpServlet{
 		}else if("/week_drinks".equals(action)){
 			try{
 				PageObject po = new PageObject();
-				System.out.println("page:"+request.getParameter("pageCurrent"));
 				po.setPageCurrent(Integer.parseInt(request.getParameter("pageCurrent")));////
 				Map<String,Object> map = cuiService.findPageObjects_wd(po);
-				System.out.println("map:"+map);
 				ObjectMapper om = new ObjectMapper();
 				String jsonStr = om.writeValueAsString(new JsonResult(map));
-				System.out.println("jsonStr:"+jsonStr);
 				pw.println(jsonStr);
 			}catch(Exception e){
 				e.printStackTrace();
@@ -283,13 +251,10 @@ public class YdServlet extends HttpServlet{
 		}else if("/week_pot".equals(action)){
 			try{
 				PageObject po = new PageObject();
-				System.out.println("page:"+request.getParameter("pageCurrent"));
 				po.setPageCurrent(Integer.parseInt(request.getParameter("pageCurrent")));////
 				Map<String,Object> map = cuiService.findPageObjects_wp(po);
-				System.out.println("map:"+map);
 				ObjectMapper om = new ObjectMapper();
 				String jsonStr = om.writeValueAsString(new JsonResult(map));
-				System.out.println("jsonStr:"+jsonStr);
 				pw.println(jsonStr);
 			}catch(Exception e){
 				e.printStackTrace();
@@ -298,13 +263,10 @@ public class YdServlet extends HttpServlet{
 		}else if("/month_cuisine".equals(action)){
 			try{
 				PageObject po = new PageObject();
-				System.out.println("page:"+request.getParameter("pageCurrent"));
 				po.setPageCurrent(Integer.parseInt(request.getParameter("pageCurrent")));////
 				Map<String,Object> map = cuiService.findPageObjects_mc(po);
-				System.out.println("map:"+map);
 				ObjectMapper om = new ObjectMapper();
 				String jsonStr = om.writeValueAsString(new JsonResult(map));
-				System.out.println("jsonStr:"+jsonStr);
 				pw.println(jsonStr);
 			}catch(Exception e){
 				e.printStackTrace();
@@ -313,13 +275,10 @@ public class YdServlet extends HttpServlet{
 		}else if("/month_drinks".equals(action)){
 			try{
 				PageObject po = new PageObject();
-				System.out.println("page:"+request.getParameter("pageCurrent"));
 				po.setPageCurrent(Integer.parseInt(request.getParameter("pageCurrent")));////
 				Map<String,Object> map = cuiService.findPageObjects_md(po);
-				System.out.println("map:"+map);
 				ObjectMapper om = new ObjectMapper();
 				String jsonStr = om.writeValueAsString(new JsonResult(map));
-				System.out.println("jsonStr:"+jsonStr);
 				pw.println(jsonStr);
 			}catch(Exception e){
 				e.printStackTrace();
@@ -328,13 +287,10 @@ public class YdServlet extends HttpServlet{
 		}else if("/month_pot".equals(action)){
 			try{
 				PageObject po = new PageObject();
-				System.out.println("page:"+request.getParameter("pageCurrent"));
 				po.setPageCurrent(Integer.parseInt(request.getParameter("pageCurrent")));////
 				Map<String,Object> map = cuiService.findPageObjects_mp(po);
-				System.out.println("map:"+map);
 				ObjectMapper om = new ObjectMapper();
 				String jsonStr = om.writeValueAsString(new JsonResult(map));
-				System.out.println("jsonStr:"+jsonStr);
 				pw.println(jsonStr);
 			}catch(Exception e){
 				e.printStackTrace();
@@ -344,13 +300,10 @@ public class YdServlet extends HttpServlet{
 			try{
 				PageObject po = new PageObject();
 				String name = request.getParameter("sname");
-				System.out.println("page:"+request.getParameter("pageCurrent"));
 				po.setPageCurrent(Integer.parseInt(request.getParameter("pageCurrent")));////
 				Map<String,Object> map = cuiService.findPageObjects_ss(name,po);
-				System.out.println("map:"+map);
 				ObjectMapper om = new ObjectMapper();
 				String jsonStr = om.writeValueAsString(new JsonResult(map));
-				System.out.println("jsonStr:"+jsonStr);
 				pw.println(jsonStr);
 			}catch(Exception e){
 				e.printStackTrace();
@@ -360,13 +313,10 @@ public class YdServlet extends HttpServlet{
 			try{
 				PageObject po = new PageObject();
 				String name = request.getParameter("sname");
-				System.out.println("page:"+request.getParameter("pageCurrent"));
 				po.setPageCurrent(Integer.parseInt(request.getParameter("pageCurrent")));////
 				Map<String,Object> map = cuiService.findPageObjects_sc(name,po);
-				System.out.println("map:"+map);
 				ObjectMapper om = new ObjectMapper();
 				String jsonStr = om.writeValueAsString(new JsonResult(map));
-				System.out.println("jsonStr:"+jsonStr);
 				pw.println(jsonStr);
 			}catch(Exception e){
 				e.printStackTrace();
@@ -376,14 +326,10 @@ public class YdServlet extends HttpServlet{
 			try{
 				PageObject po = new PageObject();
 				Integer no = Integer.parseInt(request.getParameter("no"));
-				System.out.println("no:"+no);
-				System.out.println("page:"+request.getParameter("pageCurrent"));
 				po.setPageCurrent(Integer.parseInt(request.getParameter("pageCurrent")));////
 				Map<String,Object> map = cuiService.findPageObjects_si(no,po);
-				System.out.println("map:"+map);
 				ObjectMapper om = new ObjectMapper();
 				String jsonStr = om.writeValueAsString(new JsonResult(map));
-				System.out.println("jsonStr:"+jsonStr);
 				pw.println(jsonStr);
 			}catch(Exception e){
 				e.printStackTrace();
@@ -393,12 +339,10 @@ public class YdServlet extends HttpServlet{
 			try{
 	
 				PageObject po = new PageObject();
-				System.out.println("page:"+request.getParameter("pageCurrent"));
 				po.setPageCurrent(Integer.parseInt(request.getParameter("pageCurrent")));////
 				Map<String,Object> map = cuiService.findPageObjects_jpny(po);
 				ObjectMapper om = new ObjectMapper();
 				String jsonStr = om.writeValueAsString(new JsonResult(map));
-				System.out.println(jsonStr);
 				pw.println(jsonStr);
 			}catch(Exception e){
 				e.printStackTrace();
@@ -411,7 +355,6 @@ public class YdServlet extends HttpServlet{
 				Map<String,Object> map = cuiService.findPageObjects(po);
 				ObjectMapper om = new ObjectMapper();
 				String jsonStr = om.writeValueAsString(new JsonResult(map));
-				System.out.println("jsonStr:"+jsonStr);
 				pw.println(jsonStr);
 			}catch(Exception e){
 				e.printStackTrace();
@@ -424,7 +367,6 @@ public class YdServlet extends HttpServlet{
 				Map<String,Object> map = cuiService.findPageObjects_dmzp(po);
 				ObjectMapper om = new ObjectMapper();
 				String jsonStr = om.writeValueAsString(new JsonResult(map));
-				System.out.println(jsonStr);
 				pw.println(jsonStr);
 			}catch(Exception e){
 				e.printStackTrace();
@@ -437,7 +379,6 @@ public class YdServlet extends HttpServlet{
 				Map<String,Object> map = cuiService.findPageObjects_hxhy(po);
 				ObjectMapper om = new ObjectMapper();
 				String jsonStr = om.writeValueAsString(new JsonResult(map));
-				System.out.println(jsonStr);
 				pw.println(jsonStr);
 			}catch(Exception e){
 				e.printStackTrace();
@@ -450,7 +391,6 @@ public class YdServlet extends HttpServlet{
 				Map<String,Object> map = cuiService.findPageObjects_jdcp(po);
 				ObjectMapper om = new ObjectMapper();
 				String jsonStr = om.writeValueAsString(new JsonResult(map));
-				System.out.println(jsonStr);
 				pw.println(jsonStr);
 			}catch(Exception e){
 				e.printStackTrace();
@@ -463,42 +403,32 @@ public class YdServlet extends HttpServlet{
 				Map<String,Object> map = cuiService.findPageObjects_shwz(po);
 				ObjectMapper om = new ObjectMapper();
 				String jsonStr = om.writeValueAsString(new JsonResult(map));
-				System.out.println(jsonStr);
 				pw.println(jsonStr);
 			}catch(Exception e){
 				e.printStackTrace();
 				pw.println("系统繁忙,请稍后再试...");
 			}
-		}else if("/sc".equals(action)){
+		}else if("/xxsc".equals(action)){
 			try{
 				PageObject po = new PageObject();
 				po.setPageCurrent(Integer.parseInt(request.getParameter("pageCurrent")));
 				Map<String,Object> map = cuiService.findPageObjects_xxsc(po);
 				ObjectMapper om = new ObjectMapper();
 				String jsonStr = om.writeValueAsString(new JsonResult(map));
-				System.out.println(jsonStr);
 				pw.println(jsonStr);
 			}catch(Exception e){
 				e.printStackTrace();
 				pw.println("系统繁忙,请稍后再试...");
 			}
-			
-		}/**锟斤拷味锟斤拷锟斤拷*/
+		}
 		else if("/gd".equals(action)){
 			try{
-				
 				PageObject po = new PageObject();
 				po.setPageCurrent(Integer.parseInt(request.getParameter("pageCurrent")));
 			    Map<String,Object> map = cuiService.findPageObjects_mwgd(po);
 				ObjectMapper om = new ObjectMapper();
 				String jsonStr = om.writeValueAsString(new JsonResult(map));
-				System.out.println(jsonStr);
 				pw.println(jsonStr);
-				//PageObject po1 = new PageObject();
-				//po1.setPageCurrent(1);
-				//request.setAttribute("po",po1);
-				//RequestDispatcher rd1 = request.getRequestDispatcher("cuisine.jsp");
-				//rd1.forward(request, response);
 			}catch(Exception e){
 				e.printStackTrace();
 				pw.println("系统繁忙,请稍后再试...");
@@ -511,7 +441,6 @@ public class YdServlet extends HttpServlet{
 				Map<String,Object> map = cuiService.findPageObjects_mjky(po);
 				ObjectMapper om = new ObjectMapper();
 				String jsonStr = om.writeValueAsString(new JsonResult(map));
-				System.out.println(jsonStr);
 				pw.println(jsonStr);
 			}catch(Exception e){
 				e.printStackTrace();
@@ -540,7 +469,6 @@ public class YdServlet extends HttpServlet{
 			String pwd = request.getParameter("pwd");
 			Double money = Double.parseDouble(request.getParameter("money"));
 			User user = new User(id, name, pwd, money);
-			System.out.println(user);
 			int row = userdao.insertUser(user);
 			if(row==1){
 				String json = om.writeValueAsString("yes");

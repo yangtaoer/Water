@@ -1,8 +1,20 @@
 $(function(){
-		$('#ss').click(ss);
-		$('#di').click(di);
-		$('#wi').click(wi);
-		$('#mi').click(mi);
+		$('#ss').click(function(){
+			$("#pageId").data("pageCurrent",1);
+			ss();
+		});
+		$('#di').click(function(){
+			$("#pageId").data("pageCurrent",1);
+			di();
+		});
+		$('#wi').click(function(){
+			$("#pageId").data("pageCurrent",1);
+			wi();
+		});
+		$('#mi').click(function(){
+			$("#pageId").data("pageCurrent",1);
+			mi();
+		});
 	});
     $(document).ready(function(){
 	    di();

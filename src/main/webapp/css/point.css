@@ -67,6 +67,7 @@ body {
 	position:fixed;
 	margin-left: 72%;
 	background: url("../images/gwcbg.png") no-repeat;
+	z-index: 910;
 }
 #main_mid_right:HOVER { /*购物车鼠标悬浮样式*/
 	border: 0px solid red;
@@ -430,10 +431,26 @@ body {
 #body_td_img {
 	margin-top: 25px;
 }
-#body_td_img_i {
-	margin-top: 25px;
-	position: relative;
-    left: -57px;
+#body_td_i_1 {
+	float: left;
+    position: absolute;
+    top: 0px;
+    left: 500px;
+    z-index: 900;
+}
+#body_td_i_2 {
+	float: left;
+    position: absolute;
+    top: 0px;
+    left: 900px;
+    z-index: 900;
+}
+#body_td_i_3 {
+	float: left;
+    position: absolute;
+    top: 0px;
+    left: 1300px;
+    z-index: 900;
 }
 
 /*动画*/

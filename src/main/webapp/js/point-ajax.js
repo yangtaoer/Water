@@ -125,10 +125,10 @@ function rank(){//排行榜的实现
 				}
 				var food = data[count-1]; //获取对象
 				if(i==0){
-					var td = $('<td id="body_td" onclick="fonclick(this)">'+		//前三名新建一个不一样的td
-							'<img id="body_td_i" src="images/sell_'+(j+1)+'.png">'+
-							'<img id="body_td_img_i" src='+food.path+'>'+
-							'<span id="body_td_name">'+food.yname+' '+food.price+' 元/份</span>	'+										
+					var td = $('<td id="body_td" onclick="fonclick(this)">'+		//前三名新建一个不一样的td							
+							'<img id="body_td_img" src='+food.path+'>'+
+							'<span id="body_td_name">'+food.yname+' '+food.price+' 元/份</span>	'+	
+							'<img id="body_td_i_'+(j+1)+'" src="images/sell_'+(j+1)+'.png">'+
 							'</td>');
 				}else{
 					var td = $('<td id="body_td" onclick="fonclick(this)">'+		//新建一个td

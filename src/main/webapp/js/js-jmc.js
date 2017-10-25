@@ -63,6 +63,7 @@ function readtr(){
 		var foodname = arr[0];
 		var trs = $("#foodsbody").children();//获取购物车中tr
 		for(var i=0;i<trs.length;i++){
+			var tds = trs.eq(i).children();
 			var name = trs.eq(i).children().eq(0).html();
 			if(foodname==name){				//名字相同就直接数量加一。
 				jia(trs.eq(i).children().eq(2).children().eq(2));

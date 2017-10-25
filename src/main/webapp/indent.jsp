@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>菜品查询</title>
+<title>订单查询</title>
 <link rel="stylesheet" type="text/css" href="css/style1.css" />
 <script type="text/javascript" src="js/jquery-1.11.1.js"></script>
 <script type="text/javascript" src="js/indent.js"></script>
@@ -45,7 +45,7 @@
 		<div id="table_head">
 			<div id="seek">
 				<form>
-					<input id="sname" name="sname" type="text" placeholder="请输入菜品名称"> <input id="ss" type="button" value="搜索">
+					<input id="sname" name="sname" type="text" placeholder="请输入桌号"> <input id="ss" type="button" value="搜索">
 				</form>
 			</div>
 		</div>

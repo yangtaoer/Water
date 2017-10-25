@@ -1,14 +1,44 @@
 $(function(){
-		$('#ss').click(ss);
-		$('#dc').click(dc);
-		$('#dd').click(dd);
-		$('#dp').click(dp);
-		$('#wc').click(wc);
-		$('#wd').click(wd);
-		$('#wp').click(wp);
-		$('#mc').click(mc);
-		$('#md').click(md);
-		$('#mp').click(mp);
+		$('#ss').click(function(){
+			$("#pageId").data("pageCurrent",1);
+			ss();
+		});
+		$('#dc').click(function(){
+			$("#pageId").data("pageCurrent",1);
+			dc();
+		});
+		$('#dd').click(function(){
+			$("#pageId").data("pageCurrent",1);
+			dd();
+		});
+		$('#dp').click(function(){
+			$("#pageId").data("pageCurrent",1);
+			dp();
+		});
+		$('#wc').click(function(){
+			$("#pageId").data("pageCurrent",1);
+			wc();
+		});
+		$('#wd').click(function(){
+			$("#pageId").data("pageCurrent",1);
+			wd();
+		});
+		$('#wp').click(function(){
+			$("#pageId").data("pageCurrent",1);
+			wp();
+		});
+		$('#mc').click(function(){
+			$("#pageId").data("pageCurrent",1);
+			mc();
+		});
+		$('#md').click(function(){
+			$("#pageId").data("pageCurrent",1);
+			md();
+		});
+		$('#mp').click(function(){
+			$("#pageId").data("pageCurrent",1);
+			mp();
+		});
 	});
     $(document).ready(function(){
 	    dc();
